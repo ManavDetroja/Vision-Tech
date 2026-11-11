@@ -1,0 +1,42 @@
+/* Motion is opt-in: content stays visible without JavaScript. */
+.js-motion [data-reveal] {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.65s ease, transform 0.65s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.js-motion [data-reveal].is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.js-motion .service-card:nth-child(2),
+.js-motion .category-card:nth-child(2) {
+  transition-delay: 0.06s;
+}
+
+.js-motion .service-card:nth-child(3),
+.js-motion .category-card:nth-child(3) {
+  transition-delay: 0.12s;
+}
+
+.js-motion .service-card:nth-child(4),
+.js-motion .category-card:nth-child(4) {
+  transition-delay: 0.18s;
+}
+
+.js-motion .category-card:nth-child(5) {
+  transition-delay: 0.24s;
+}
+
+.js-motion .category-card:nth-child(6) {
+  transition-delay: 0.3s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js-motion [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

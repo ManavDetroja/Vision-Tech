@@ -1,0 +1,182 @@
+/* Responsive adaptations shared by public and admin pages. */
+@media (max-width: 980px) {
+  .hero-grid {
+    grid-template-columns: 1fr 0.72fr;
+    gap: 32px;
+  }
+
+  .hero-visual {
+    min-height: 360px;
+  }
+
+  .service-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .benefits-layout,
+  .about-layout {
+    gap: 55px;
+  }
+}
+
+@media (max-width: 720px) {
+  .container {
+    width: min(calc(100% - 32px), var(--container));
+  }
+
+  .nav {
+    min-height: 72px;
+  }
+
+  .nav-toggle {
+    display: inline-flex;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: calc(100% + 1px);
+    right: 16px;
+    left: 16px;
+    display: none;
+    padding: 10px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
+  }
+
+  .nav-links.is-open {
+    display: grid;
+  }
+
+  .nav-links a {
+    padding: 11px;
+  }
+
+  .brand-logo {
+    width: 56px;
+    height: 43px;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 30px 20px;
+  }
+
+  .footer-brand {
+    grid-column: 1 / -1;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    margin-top: 30px;
+  }
+
+  .page-placeholder {
+    min-height: 56vh;
+    padding: 72px 0;
+  }
+
+  .section {
+    padding: 70px 0;
+  }
+
+  .hero {
+    padding: 74px 0 68px;
+  }
+
+  .hero-grid,
+  .benefits-layout,
+  .about-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .hero h1 {
+    max-width: 11ch;
+  }
+
+  .hero-visual {
+    width: min(100%, 440px);
+    min-height: 0;
+    aspect-ratio: 1;
+    margin: 4px auto 0;
+  }
+
+  .section-split {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .text-link {
+    margin: 0;
+  }
+
+  .category-grid {
+    grid-template-columns: repeat(2, 1fr);
+    margin-top: 34px;
+  }
+
+  .benefits-visual {
+    width: min(100%, 380px);
+    margin: 0 auto;
+  }
+
+  .about-logo-wrap {
+    width: min(100%, 480px);
+  }
+
+  .final-cta {
+    padding-top: 58px;
+  }
+}
+
+@media (max-width: 470px) {
+  .brand-logo {
+    width: 48px;
+    height: 37px;
+  }
+
+  .brand-name {
+    font-size: 0.92rem;
+  }
+
+  .hero-actions .button {
+    width: 100%;
+  }
+
+  .service-grid,
+  .category-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .service-card,
+  .category-card {
+    min-height: 0;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.75rem, 14vw, 4rem);
+  }
+
+  .hero-visual-label {
+    bottom: 19px;
+    font-size: 0.48rem;
+  }
+
+  .cta-panel {
+    padding: 38px 22px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

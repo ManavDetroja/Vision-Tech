@@ -1,0 +1,44 @@
+/* Intentionally minimal static admin shell. */
+.admin-shell {
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+  padding: 32px;
+  background: radial-gradient(circle at 70% 20%, var(--color-light-blue), transparent 32%), var(--color-page);
+}
+
+.admin-panel {
+  width: min(100%, 760px);
+  padding: clamp(28px, 6vw, 60px);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.admin-panel h1 {
+  margin: 0;
+  color: var(--color-navy);
+  font-size: clamp(2rem, 5vw, 3.75rem);
+  letter-spacing: -0.04em;
+}
+
+.admin-panel p:not(.eyebrow) {
+  color: var(--color-muted);
+}
+
+.admin-header {
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 32px;
+  color: var(--color-muted);
+  background: rgba(255, 255, 255, 0.92);
+  border-bottom: 1px solid var(--color-border);
+  backdrop-filter: blur(14px);
+}
