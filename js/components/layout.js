@@ -120,10 +120,11 @@ export function renderFooter(target, { root = '.' } = {}) {
 
       <nav aria-label="Footer services">
         <h2>Services</h2>
-        <a href="${createSitePath(root, 'services.html')}">CCTV Camera Sales</a>
-        <a href="${createSitePath(root, 'services.html')}">Professional Installation</a>
-        <a href="${createSitePath(root, 'services.html')}">CCTV Servicing</a>
-        <a href="${createSitePath(root, 'services.html')}">Maintenance &amp; Support</a>
+        <a href="${createSitePath(root, 'services.html')}#cctv-installation">CCTV Camera Installation</a>
+        <a href="${createSitePath(root, 'services.html')}#cctv-repair">Repair &amp; Troubleshooting</a>
+        <a href="${createSitePath(root, 'services.html')}#cctv-maintenance">CCTV Maintenance</a>
+        <a href="${createSitePath(root, 'services.html')}#cctv-upgrades">System Upgrades</a>
+        <a href="${createSitePath(root, 'services.html')}#security-consultation">Security Consultation</a>
       </nav>
     </div>
 

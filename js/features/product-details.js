@@ -1,6 +1,5 @@
 import { categories } from '../data/categories.js';
 import { products } from '../data/products.js';
-import { openProductEnquiry } from './product-enquiry.js';
 
 const target = document.querySelector('#product-detail');
 const requestedModel = new URLSearchParams(window.location.search).get('model');
@@ -94,10 +93,10 @@ function renderProduct(item) {
           <p class="detail-model"><span>Model number</span><strong>${escapeHtml(item.model)}</strong></p>
           <span class="verification-badge">${isVerified ? 'Product details verified' : 'Product details not yet verified'}</span>
           <p class="detail-description">${escapeHtml(description)}</p>
-          <button class="button button-primary detail-enquiry-button" type="button" data-enquire-product>
+          <a class="button button-primary detail-enquiry-button" href="contact.html?type=product&amp;model=${encodeURIComponent(item.model)}">
             Enquire About This Product
-          </button>
-          <p class="detail-enquiry-note">Product pricing is provided on request. This form is a demonstration and does not send a message.</p>
+          </a>
+          <p class="detail-enquiry-note">Use the contact form to prepare a product enquiry. Live submission is not configured yet.</p>
         </div>
       </section>
 
@@ -153,13 +152,10 @@ function renderProduct(item) {
 
       <div class="detail-bottom-actions">
         <a class="button button-secondary" href="products.html?category=${encodeURIComponent(item.categoryId)}">Back to ${escapeHtml(category.name)}</a>
-        <button class="button button-primary" type="button" data-enquire-product>Enquire About This Product</button>
+        <a class="button button-primary" href="contact.html?type=product&amp;model=${encodeURIComponent(item.model)}">Enquire About This Product</a>
       </div>
     </article>`;
 
-  target.querySelectorAll('[data-enquire-product]').forEach((button) => {
-    button.addEventListener('click', () => openProductEnquiry(item.model));
-  });
 }
 
 if (!product) renderNotFound();

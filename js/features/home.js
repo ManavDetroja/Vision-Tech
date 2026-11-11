@@ -50,8 +50,8 @@ const benefits = [
     description: 'Practical installation support for homes, businesses and commercial spaces.'
   },
   {
-    title: '18 months of free servicing',
-    description: 'Included after installation, subject to applicable service terms.'
+    title: 'Servicing and maintenance',
+    description: 'Discuss support options for your CCTV system and site requirements.'
   },
   {
     title: 'Ongoing customer support',

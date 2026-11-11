@@ -1,7 +1,40 @@
 # Codex Progress
 
-**Checkpoint:** Prompt 05 product details experience implemented; interactive browser verification remains blocked
+**Checkpoint:** Prompt 08 Contact page implemented; static and simulated flow checks passed, no backend configured
 **Date:** 2026-11-12 (Asia/Kolkata)
+
+## Prompt 08 — Contact and customer enquiry experience
+
+- Replaced the Contact placeholder with an accessible form, consent/privacy notice, configurable contact publication section, and product/service prefill.
+- Routed product detail enquiry links to `contact.html?type=product&model=...`; service cards and installation CTA now carry allowlisted service intent.
+- Added client validation and a JSON submission interface. The endpoint is empty, public contact switches default to false, and no submission is represented as sent.
+- Added `docs/CONTACT_FORM.md` covering the API contract, environment configuration, deployment security, privacy and retention responsibilities.
+- All 23 JavaScript modules passed syntax checks. A simulated DOM/form harness passed checks for validation errors, phone formats, exact product/service prefills, unknown query values, no-backend honesty and field preservation, mocked endpoint acceptance, and mocked endpoint failure preservation. Static checks confirmed all contact publication switches are false, values and endpoint are blank, service/product routes are present, and the catalogue still has 22 records.
+- The mocked API is not a deployed backend test. No live enquiry endpoint is configured. Browser visual, keyboard, responsive viewport, and console checks remain unavailable in this environment.
+
+**Checkpoint:** Prompt 07 About and brand identity page implemented; static checks complete, browser verification unavailable
+**Date:** 2026-11-12 (Asia/Kolkata)
+
+## Prompt 07 — About and professional brand identity
+
+- Replaced the About placeholder with a data-driven responsive page in the confirmed `C:\Vision Tech` vanilla site.
+- Added business areas, approach steps, mission, vision, core values, factual reasons-to-consider content, and catalogue/contact calls to action.
+- Reused the existing transparent logo, shared navbar/footer and visual tokens. Owner names and private details remain unpublished.
+- Static and module checks are recorded in the completion report. Browser visual/console verification remains unavailable in this environment.
+- Contact page remains a placeholder pending approved contact content or a submission service.
+
+**Checkpoint:** Prompt 06 services experience implemented; interactive browser verification remains blocked
+**Date:** 2026-11-12 (Asia/Kolkata)
+
+## Prompt 06 — CCTV services experience
+
+- Inspected the existing project structure and required docs, the services placeholder, shared layout/navigation, homepage, category data, product records, listing, and product details before editing.
+- Replaced the services placeholder with a responsive page covering installation, repair/troubleshooting, maintenance, system upgrades, and security consultation.
+- Added reusable service cards and detail sections, category and exact-model links into the existing catalogue, the five-step installation approach, a service/process section, FAQs, and contact-page CTAs.
+- Service scope and availability are described as subject to location and site confirmation. No customer reviews, awards, response-time promises, coverage areas, owner details, or installation guarantees were added.
+- Replaced the unapproved 18-month free servicing claim on the public homepage with neutral servicing-and-maintenance copy. Product data and imagery were not modified or retrieved.
+- Static/runtime checks passed for JavaScript syntax, five service sections, five process steps, five FAQ entries, six product categories, service-specific product links, contact links, and local HTML references.
+- Browser visual, keyboard/FAQ interaction, responsive viewport, and console verification could not be performed because local browser use is disabled in Work settings. These checks are not claimed as completed.
 
 ## Prompt 05 — Product details experience
 
@@ -98,3 +131,22 @@ The workspace is a clean static site with a completed commercial homepage. `inde
 ## Resume point
 
 Await approval before the next milestone. For a final manual verification, open `index.html` in standalone VS Code, choose Go Live, and test desktop/mobile navigation, favicon loading, and browser console output.
+## Prompt 09 — Admin and secure enquiry management checkpoint (2026-11-12)
+
+Implemented in source:
+
+- Role-aware vanilla-JS admin screens for dashboard, enquiries/details, products, services, staff, notification inbox, activity and site publication settings.
+- Supabase SQL migration with RLS, unique IDs, server-side validation and 15-minute hashed-IP rate limit, idempotent saves, NEW initial status, internal notes, assignment, activity log, notifications, and durable email outbox.
+- Built-in Node API for individual Supabase Auth sessions, role validation, authorized workflows and server-side Resend integration. The browser receives no service-role/email secrets.
+- Existing 22 products and services have a guarded database seed script. No fake users or customer enquiries were created.
+- Setup, security, schema, admin and workflow documentation added. Existing static frontend remains independent and uses relative paths for Live Server.
+
+Verification performed in this workspace:
+
+- `node --check` passed for all 27 JavaScript and MJS modules; the API validator accepted a valid sample and rejected malformed input, and API health correctly returned 503 while unconfigured.
+- Static local HTML reference check passed; product JSON remains 22 records with 22 unique models; browser source contains no backend service-role or email key identifiers.
+- No Supabase URL/keys, Resend credentials, verified sender, or deployment are configured. The SQL migration has not been executed; live login, role, database, email and real-enquiry tests are not possible here.
+- A local HTTP preview attempt was blocked by the sandbox's loopback socket policy; VS Code Live Server/browser visual checks are not claimed. A configured preview and browser session are required to verify page rendering, console errors, responsive behavior, and end-to-end workflows.
+
+Resume point: configure a dedicated staging Supabase project, review/apply the migration, bootstrap the first super admin, seed existing catalogue/service records, deploy behind HTTPS, and then run the staging test plan in `docs/TASKS.md` before enabling public submissions.
+

@@ -1,5 +1,38 @@
 # Changelog
 
+## 2026-11-12 — Prompt 09 admin and enquiry management foundation
+
+- Added vanilla-JS private dashboard for enquiry workflows, dashboard totals, staff accounts, notifications, products, services and approved public contact settings.
+- Added built-in Node API using Supabase Auth, server-side role checks, encrypted HttpOnly sessions and strict-origin writes.
+- Added SQL migration defining RLS-protected schema and functions for validated/idempotent enquiry persistence, rate limiting, IDs, notes, statuses, assignment, audit and durable email outbox.
+- Added server-only Resend notification handling and delivery failure/retry state; no provider key or business contact detail is present.
+- Added a seed script for current products/services only and deployment, security, schema, workflow and admin docs.
+- Static syntax/data checks pass. Supabase and email credentials are absent, so migration execution, auth, database, email, authorization and real enquiry tests remain pending.
+
+## 2026-11-12 — Prompt 08 Contact and customer enquiry experience
+
+- Replaced the Contact placeholder with a responsive, accessible enquiry form, client-side validation, inline feedback, service/product prefill and consent/privacy copy.
+- Routed product detail enquiries to the Contact page with the exact catalogue model; service detail enquiries now preselect the matching enquiry type and requirement.
+- Added configurable contact publication flags, all disabled by default, with no private details or dummy contact information.
+- Added an optional backend endpoint interface that remains unset. The page explains that submissions are not sent and retains entered values when submission is unavailable or fails.
+- Documented the JSON API contract, backend security/deployment requirements and enquiry data lifecycle. No backend or live delivery is configured.
+
+## 2026-11-12 — Prompt 07 About and professional brand identity
+
+- Replaced the About page placeholder with a complete business introduction, business areas, customer approach, mission, vision, values, reasons-to-consider section and product/contact call to action.
+- Added data-driven About content and reusable escaped card/step renderers while retaining the shared navbar, footer and reveal behavior.
+- Used the existing transparent logo and established white-and-blue styling; kept owner and private contact information unpublished.
+- Added responsive About page styling and documented the implementation and verification limits.
+
+## 2026-11-12 — Prompt 06 CCTV services
+
+- Replaced the services placeholder with a responsive services experience covering installation, repair/troubleshooting, maintenance, upgrades, and security consultation.
+- Added an installation process, customer FAQ, service approach, category-linked product browsing, and contact-page enquiry CTAs.
+- Kept service coverage and scope subject to confirmation; added no testimonials, awards, response-time promises, contact details, or installation guarantees.
+- Replaced the unapproved 18-month free servicing statement on the public homepage with neutral servicing-and-maintenance copy.
+- Used CSS illustration only; no product photos were searched, downloaded, or changed.
+- Static and module checks were run. Browser layout, console and full navigation testing remain blocked by unavailable browser access.
+
 ## 2026-11-12 — Prompt 05 product details
 
 - Expanded the existing model-query detail route with reusable product summary, breadcrumbs, feature/specification/application sections, related products, and category navigation.

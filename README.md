@@ -16,6 +16,10 @@ No frontend install, build step, package manager, or framework is required. The 
 
 See [docs/CPPLUS_IMPORTER.md](docs/CPPLUS_IMPORTER.md) for setup. The importer requires a separate local Node process for official-source lookups and approved catalogue writes. Approval requires an environment token; product image permission remains pending until commercial use is documented. The root `index.html` works independently through Live Server.
 
+## Private admin and customer enquiries
+
+The admin UI and Supabase-backed Node API are an optional deployment foundation; Live Server alone does not provide persistence, sign-in, authorization, or email. Review [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md), [docs/SECURITY.md](docs/SECURITY.md), [docs/DATABASE_SCHEMA.md](docs/DATABASE_SCHEMA.md), and [docs/ADMIN_GUIDE.md](docs/ADMIN_GUIDE.md). Configure credentials only in the server secret store. Until configured, public enquiries are not transmitted or saved and the admin dashboard is unavailable.
+
 ## Structure
 
 ```text

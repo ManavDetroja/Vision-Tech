@@ -1,5 +1,37 @@
 # Tasks
 
+## Prompt 08 — Contact page and customer enquiry system
+
+- [x] Inspect existing contact, product enquiry, service enquiry, shared layout, product data and project documentation.
+- [x] Replace the Contact placeholder with a responsive, accessible customer enquiry experience and privacy/consent notice.
+- [x] Add client-side required, email, international phone, service requirement, message length and consent validation with inline errors.
+- [x] Add allowlisted product-model and service query prefill; route product and service enquiry actions to the Contact page.
+- [x] Keep contact publication switches false and public contact values blank; leave backend URL unset and report that no data was transmitted.
+- [x] Document the API contract, deployment prerequisites, backend environment configuration, privacy and retention considerations.
+- [x] Check JavaScript syntax, validation rules, query mappings, public contact defaults, product/service links, and failure-preservation logic.
+- [ ] Verify actual form interactions, network/backend delivery, browser rendering, keyboard use, responsive breakpoints, and console in a browser; browser access is disabled in this environment and no backend is configured.
+
+## Prompt 07 — About and professional brand identity
+
+- [x] Inspect the existing project pages, shared design system, reusable layout, catalogue, services, and project documentation.
+- [x] Replace the About placeholder with a responsive, semantic business introduction and premium white-and-blue page composition.
+- [x] Add data-driven business areas, customer approach steps, mission, vision, core values, and factual reasons to consider VisionTech.
+- [x] Use the approved transparent logo and existing shared navigation/footer; link to current product, service and contact pages.
+- [x] Keep owner information, private contact details and unsupported business claims unpublished.
+- [x] Check JavaScript syntax, content rendering, internal target pages/anchors, logo asset, metadata and responsive CSS rules.
+- [ ] Verify browser rendering, keyboard interaction, desktop/tablet/mobile layouts, console, and existing page interactions; browser access is disabled in the current environment.
+
+## Prompt 06 — CCTV services experience
+
+- [x] Inspect the existing site structure, required project docs, services shell, shared navigation/footer, homepage, categories, and product data.
+- [x] Build the services hero, availability notice, service overview cards, and detailed sections for all five requested service areas.
+- [x] Add the five-step installation approach, confidence/process section, accessible FAQ disclosures, related catalogue categories, and contact-page CTAs.
+- [x] Link service details to existing filtered product categories without modifying the 22 product records.
+- [x] Keep the white-and-blue styling, logo, shared navigation, and Live Server paths.
+- [x] Replace the unapproved 18-month free servicing claim on the public homepage with a neutral servicing-and-maintenance benefit.
+- [x] Check JavaScript syntax, services data, generated internal links, shared assets and presence of required sections.
+- [ ] Verify browser rendering, keyboard interaction, desktop/tablet/mobile layouts, console, and existing catalogue behavior; browser access is disabled in the current environment.
+
 ## Prompt 05 — Product details experience
 
 - [x] Inspect the existing 22-record JSON catalogue, reusable model route, listing filters, and project documentation.
@@ -56,3 +88,17 @@
 
 - [ ] Run the final browser/VS Code Live Server visual check. The current environment blocks localhost preview connections and exposes the Codex host rather than a standalone VS Code window. This was not marked complete.
 - [ ] Re-run importer endpoint, approval-write, and public catalogue refresh checks in an environment that permits local sockets and outbound HTTPS.
+
+## Prompt 09 — admin and enquiry backend
+
+- [x] Add role-based admin page shells and responsive vanilla JS dashboard views.
+- [x] Add Supabase schema, RLS policies, enquiry persistence/idempotency/rate limiting, notes, statuses, assignments, notification outbox and audit events.
+- [x] Add server-only Node API and secret-based email delivery/retry handling.
+- [x] Add existing 22-product and service seed script; no fabricated customer records.
+- [x] Document API, migration, security, admin usage and deployment prerequisites.
+- [ ] Configure an approved Supabase project and apply/review the migration.
+- [ ] Bootstrap the first super admin and seed the supplied catalogue in the intended database.
+- [ ] Configure the private Node service, HTTPS reverse proxy, approved origin, auth settings and secret manager.
+- [ ] Configure an approved business sender/recipient and verify email delivery and failure recovery.
+- [ ] Set the public API URLs and test an authorized enquiry end to end in staging.
+- [ ] Test row isolation, disabled-account denial, staff assignment rules, mobile layout and browser console in deployed preview.

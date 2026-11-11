@@ -3,20 +3,34 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Admin | VisionTech Solutions™</title>
+    <meta name="robots" content="noindex, nofollow">
+    <title>Admin Sign In | VisionTech Solutions™</title>
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/components.css">
     <link rel="stylesheet" href="../css/admin.css">
     <link rel="stylesheet" href="../css/responsive.css">
     <script type="module" src="../js/admin/app.js"></script>
   </head>
-  <body data-admin-page="sign-in">
-    <main class="admin-shell">
-      <section class="admin-panel" aria-labelledby="admin-title">
-        <p class="eyebrow">VisionTech Solutions™</p>
-        <h1 id="admin-title">Administration</h1>
-        <p>Administrative authentication and workflows are not implemented in this static foundation.</p>
-        <a class="button button-secondary" href="../index.html">Return to website</a>
+  <body data-admin-page="login">
+    <a class="skip-link" href="#admin-login">Skip to sign in</a>
+    <main id="admin-login" class="admin-login-shell">
+      <section class="admin-login-card" aria-labelledby="admin-login-title">
+        <a class="wordmark admin-login-brand" href="../index.html">
+          <img class="brand-logo" src="../assets/images/logo/visiontech-vt-logo.png" alt="" width="61" height="48">
+          <span class="brand-name">VisionTech <small>Solutions™</small></span>
+        </a>
+        <p class="eyebrow">Private administration</p>
+        <h1 id="admin-login-title">Sign in to the admin dashboard.</h1>
+        <p>Use your individual authorized staff account. Access is checked by the private API and database policies.</p>
+        <form id="admin-login-form" class="admin-form">
+          <label for="admin-email">Work email</label>
+          <input id="admin-email" name="email" type="email" autocomplete="username" maxlength="254" required>
+          <label for="admin-password">Password</label>
+          <input id="admin-password" name="password" type="password" autocomplete="current-password" required>
+          <p id="admin-login-status" class="admin-status" role="status" aria-live="polite"></p>
+          <button class="button button-primary" type="submit">Sign in</button>
+        </form>
+        <a class="admin-return-link" href="../index.html">Return to VisionTech website</a>
       </section>
     </main>
   </body>
