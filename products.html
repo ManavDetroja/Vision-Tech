@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="VisionTech Solutions product catalogue.">
+    <meta name="description" content="Browse CCTV cameras, NVR systems, solar products and PoE switches from VisionTech Solutions™.">
     <title>Products | VisionTech Solutions™</title>
     <link rel="icon" type="image/png" sizes="32x32" href="assets/images/logo/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="assets/images/logo/favicon-16x16.png">
@@ -11,18 +11,26 @@
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/catalogue.css">
     <script type="module" src="js/app.js"></script>
+    <script type="module" src="js/features/catalogue.js"></script>
   </head>
   <body data-page="products" data-root=".">
     <a class="skip-link" href="#main-content">Skip to content</a>
     <header id="site-header"></header>
 
     <main id="main-content" class="site-main" tabindex="-1">
-      <section class="page-placeholder" aria-labelledby="products-title">
+      <section class="catalogue-section" aria-labelledby="products-title">
         <div class="container">
-          <p class="eyebrow">Product catalogue</p>
-          <h1 id="products-title">Products</h1>
-          <p>Approved product catalogue information will be added in a later milestone.</p>
+          <div class="catalogue-heading">
+            <p class="eyebrow">Product catalogue</p>
+            <h1 id="products-title">Explore Our CCTV &amp; Security Products</h1>
+            <p>Discover security cameras, recording systems and networking products designed for different surveillance requirements.</p>
+            <p class="catalogue-total"><strong id="total-products">22</strong> listed models</p>
+          </div>
+          <div id="catalogue-controls"></div>
+          <p id="result-count" class="result-count" aria-live="polite"></p>
+          <div id="product-grid" class="product-grid" aria-live="polite"></div>
         </div>
       </section>
     </main>

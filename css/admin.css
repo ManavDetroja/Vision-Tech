@@ -42,3 +42,164 @@
   border-bottom: 1px solid var(--color-border);
   backdrop-filter: blur(14px);
 }
+
+.import-shell {
+  min-height: 100vh;
+  padding: 112px 24px 72px;
+  background: var(--color-page);
+}
+
+.import-container {
+  width: min(100%, 1160px);
+  margin: 0 auto;
+}
+
+.import-container > h1 {
+  margin: 0;
+  color: var(--color-navy);
+  font-size: clamp(2rem, 5vw, 3.4rem);
+}
+
+.import-container > p:not(.eyebrow) {
+  color: var(--color-muted);
+}
+
+.import-toolbar,
+.import-card {
+  margin-top: 24px;
+  padding: 22px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.import-toolbar > label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--color-navy);
+  font-weight: 750;
+}
+
+.import-actions,
+.import-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.import-actions input {
+  min-width: min(100%, 280px);
+  flex: 1;
+  padding: 11px 13px;
+  border: 1px solid var(--color-border);
+  border-radius: 9px;
+}
+
+.admin-token-label {
+  display: block;
+  margin: 18px 0 7px;
+  color: var(--color-navy);
+  font-weight: 750;
+}
+
+#admin-token {
+  width: min(100%, 420px);
+  padding: 11px 13px;
+  border: 1px solid var(--color-border);
+  border-radius: 9px;
+}
+
+.permission-note {
+  color: var(--color-muted);
+  font-size: 0.88rem;
+}
+
+.import-results {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 18px;
+  margin-top: 18px;
+}
+
+.import-card {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.import-card-content {
+  padding: 20px;
+}
+
+.import-card h2,
+.import-card h3 {
+  color: var(--color-navy);
+}
+
+.import-card p,
+.import-card li {
+  color: var(--color-muted);
+  overflow-wrap: anywhere;
+}
+
+.import-product-image,
+.import-image-placeholder {
+  display: grid;
+  width: 100%;
+  min-height: 210px;
+  max-height: 300px;
+  place-items: center;
+  object-fit: contain;
+  color: var(--color-muted);
+  background: var(--color-light-blue);
+}
+
+.import-image-placeholder {
+  padding: 30px;
+  text-align: center;
+}
+
+.import-card dl div {
+  display: grid;
+  grid-template-columns: minmax(130px, 0.8fr) 1fr;
+  gap: 12px;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.import-card dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.import-card-actions {
+  margin-top: 18px;
+}
+
+.import-card-actions button:disabled {
+  cursor: not-allowed;
+  opacity: 0.58;
+}
+
+#import-status {
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+#batch-progress p {
+  margin: 4px 0;
+  color: var(--color-muted);
+  font-size: 0.88rem;
+}
+
+@media (max-width: 760px) {
+  .import-results {
+    grid-template-columns: 1fr;
+  }
+
+  .import-actions > button {
+    width: 100%;
+  }
+}

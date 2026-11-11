@@ -2,7 +2,7 @@
 
 Static website foundation for **VisionTech Solutions™** — *SMART SECURITY. TRUSTED SOLUTIONS.*
 
-The premium commercial homepage is complete. It uses the current approved transparent logo in `assets/images/logo/visiontech-vt-logo.png`; the supplied source remains untouched at the project root.
+The premium commercial website uses the approved transparent logo in `assets/images/logo/visiontech-vt-logo.png`; the supplied source remains untouched at the project root. Public pages use a shared static JSON catalogue that can be updated through the local CP PLUS importer after an administrator reviews and approves a matching result.
 
 ## Run locally
 
@@ -10,7 +10,11 @@ The premium commercial homepage is complete. It uses the current approved transp
 2. Install/use the VS Code **Live Server** extension if it is not already available.
 3. Open `index.html` and select **Go Live**.
 
-No install, build step, package manager, backend, or framework is required.
+No frontend install, build step, package manager, or framework is required. The optional product importer uses Node's built-in modules only.
+
+## Optional CP PLUS importer
+
+See [docs/CPPLUS_IMPORTER.md](docs/CPPLUS_IMPORTER.md) for setup. The importer requires a separate local Node process for official-source lookups and approved catalogue writes. Approval requires an environment token; product image permission remains pending until commercial use is documented. The root `index.html` works independently through Live Server.
 
 ## Structure
 
@@ -24,8 +28,8 @@ contact.html               Public contact shell
 admin/                     Static admin shells
 assets/                    Approved images and icons
 css/                       Shared, homepage, responsive, animation, and admin styles
-css/home.css               Homepage-specific visual system
 js/                        ES modules, components, data, features, utilities
+services/                  Optional local CP PLUS importer utility
 docs/                      Project records and checkpoint notes
 ```
 

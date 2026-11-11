@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Product Import | VisionTech Solutions™</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <script type="module" src="../js/admin/product-import.js"></script>
+  </head>
+  <body data-admin-page="product-import">
+    <header class="admin-header">
+      <a class="wordmark" href="../index.html">
+        <img class="brand-logo" src="../assets/images/logo/visiontech-vt-logo.png" alt="" width="61" height="48">
+        <span class="brand-name">VisionTech <small>Solutions™</small></span>
+      </a>
+      <a href="../products.html">View catalogue</a>
+    </header>
+
+    <main class="import-shell">
+      <div class="import-container">
+        <p class="eyebrow">Admin tools</p>
+        <h1>CP PLUS Product Importer</h1>
+        <p>Search exact models on the official CP PLUS website. An approved record updates the shared catalogue JSON. Product images remain unpublished until commercial reuse permission is confirmed.</p>
+        <div class="import-toolbar">
+          <label for="model-input">Product model number</label>
+          <div class="import-actions">
+            <input id="model-input" autocomplete="off" placeholder="Example: CP-UNC-DA21L3C-Q">
+            <button class="button button-primary" id="fetch-one" type="button">Fetch Product Information</button>
+            <button class="button button-secondary" id="fetch-all" type="button">Fetch All 22 Products</button>
+            <button class="button button-secondary" id="pause-batch" type="button" disabled>Pause batch</button>
+          </div>
+          <label class="admin-token-label" for="admin-token">Local admin token (required only to import)</label>
+          <input id="admin-token" type="password" autocomplete="off" spellcheck="false" placeholder="Enter CPPLUS_ADMIN_TOKEN from the service environment">
+          <p class="permission-note">The token is sent only to the loopback importer service and is not saved in the catalogue or public JavaScript.</p>
+        </div>
+        <p id="import-status" role="status" aria-live="polite">Start the local importer service to begin.</p>
+        <section id="batch-progress" aria-label="Batch progress"></section>
+        <section id="import-results" class="import-results" aria-label="Lookup results"></section>
+      </div>
+    </main>
+  </body>
+</html>
