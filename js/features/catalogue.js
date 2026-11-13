@@ -1,5 +1,6 @@
 import { categories } from '../data/categories.js';
 import { products } from '../data/products.js';
+import { bindProductImageFallbacks, productImageMarkup } from '../components/product-image.js';
 
 const controls = document.querySelector('#catalogue-controls');
 const grid = document.querySelector('#product-grid');
@@ -119,7 +120,6 @@ function filterProducts() {
 function productCard(product) {
   const category = categoryFor(product);
   const detailUrl = `product-details.html?model=${encodeURIComponent(product.model)}`;
-  const imagePath = typeof product.image === 'string' ? product.image : product.image?.localPath;
   const suppliedInfo = product.resolutionMp
     ? `<span>${product.resolutionMp} MP</span>`
     : product.specifications.channels
@@ -131,7 +131,7 @@ function productCard(product) {
   return `
     <article class="product-card">
       <a class="product-art" href="${detailUrl}" aria-label="View details for ${escapeHtml(product.model)}">
-        ${imagePath ? `<img class="catalogue-product-image" src="${escapeHtml(imagePath)}" alt="${escapeHtml(product.name || product.model)}" loading="lazy">` : `<span class="product-placeholder" aria-hidden="true">${escapeHtml(category?.name || 'Security product')} · image pending</span>`}
+        ${productImageMarkup(product, { className: 'catalogue-product-image-frame', fallback: `${category?.name || 'Security product'} · image pending` })}
       </a>
       <div class="product-card-body">
         <p class="product-category">${escapeHtml(category?.name || '')}${product.subcategory ? ` / ${escapeHtml(product.subcategory)}` : ''}</p>
@@ -149,6 +149,7 @@ function renderProducts() {
   grid.innerHTML = results.length
     ? results.map(productCard).join('')
     : '<div class="empty-state"><h2>No matching products</h2><p>Try another model number or clear some filters.</p></div>';
+  bindProductImageFallbacks(grid);
 }
 
 renderControls();

@@ -10,13 +10,14 @@ const config = {
   rateSecret: process.env.RATE_LIMIT_HASH_SECRET || '',
   resendKey: process.env.RESEND_API_KEY || '',
   emailFrom: process.env.ENQUIRY_FROM_EMAIL || '',
+  enquiryNotificationEmail: (process.env.ENQUIRY_NOTIFICATION_EMAIL || '').trim().toLowerCase(),
   adminUrl: process.env.ADMIN_DASHBOARD_URL || '',
   trustedProxy: process.env.TRUST_PROXY === 'true',
   port: Number(process.env.ADMIN_API_PORT || 4175),
   production: process.env.NODE_ENV === 'production'
 };
 const roles = ['SUPER_ADMIN', 'ADMIN', 'STAFF'];
-const statuses = ['NEW', 'CONTACTED', 'IN_PROGRESS', 'RESOLVED'];
+const statuses = ['NEW', 'CONTACTED', 'IN_PROGRESS', 'CONVERTED', 'CLOSED'];
 const enquiryTypes = new Map([
   ['product', 'PRODUCT_INFORMATION'], ['installation', 'CCTV_INSTALLATION'], ['repair', 'CCTV_REPAIR'],
   ['maintenance', 'CCTV_MAINTENANCE'], ['upgrade', 'CCTV_UPGRADE'], ['general', 'GENERAL_ENQUIRY']
@@ -41,7 +42,7 @@ function applyCors(req, res) {
   if (origin && origin === config.appOrigin) {
     res.setHeader('Access-Control-Allow-Origin', origin);
     res.setHeader('Access-Control-Allow-Credentials', 'true');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Idempotency-Key');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Idempotency-Key, Authorization');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE, OPTIONS');
     res.setHeader('Vary', 'Origin');
   }
@@ -144,14 +145,13 @@ async function sendOutbox(id) {
   const rows = await sb(`/rest/v1/email_outbox?id=eq.${encodeURIComponent(id)}&select=id,enquiry_id,recipient_ids,status`, { service: true });
   const outbox = rows?.[0]; if (!outbox) throw new Error('Notification record not found.');
   if (outbox.status === 'SENT') return { accepted: true, alreadySent: true };
-  if (!config.resendKey || !config.emailFrom || !config.adminUrl) {
+  if (!config.resendKey || !config.emailFrom || !config.enquiryNotificationEmail || !config.adminUrl) {
     await setEmailStatus(id, 'FAILED', null, 'Email provider or notification settings are not configured.');
     return { accepted: false };
   }
   const ids = outbox.recipient_ids || [];
   const profiles = ids.length ? await sb(`/rest/v1/profiles?id=in.(${ids.join(',')})&select=notification_email`, { service: true }) : [];
-  const recipients = [...new Set(profiles.map((row) => String(row.notification_email || '').trim()).filter(Boolean))];
-  if (!recipients.length) { await setEmailStatus(id, 'FAILED', null, 'No active administrator email is configured.'); return { accepted: false }; }
+  const recipients = [...new Set(profiles.map((row) => String(row.notification_email || '').trim().toLowerCase()).filter((email) => email && email !== config.enquiryNotificationEmail))];
   const rowsForEnquiry = await sb(`/rest/v1/enquiries?id=eq.${encodeURIComponent(outbox.enquiry_id)}&select=enquiry_code,customer_name,enquiry_type,product_model,customer_message,created_at`, { service: true });
   const enquiry = rowsForEnquiry?.[0];
   if (!enquiry) { await setEmailStatus(id, 'FAILED', null, 'Enquiry record is unavailable.'); return { accepted: false }; }
@@ -160,7 +160,7 @@ async function sendOutbox(id) {
     emailResponse = await fetch('https://api.resend.com/emails', {
     method: 'POST', headers: { Authorization: `Bearer ${config.resendKey}`, 'Content-Type': 'application/json', 'Idempotency-Key': `visiontech-enquiry-${outbox.id}` },
     body: JSON.stringify({
-      from: config.emailFrom, to: [config.emailFrom], bcc: recipients, subject: `New enquiry ${enquiry.enquiry_code}`,
+      from: config.emailFrom, to: [config.enquiryNotificationEmail], ...(recipients.length ? { bcc: recipients } : {}), subject: `New enquiry ${enquiry.enquiry_code}`,
       html: `<h1>New customer enquiry</h1><p><strong>ID:</strong> ${html(enquiry.enquiry_code)}</p><p><strong>Name:</strong> ${html(enquiry.customer_name)}</p><p><strong>Category:</strong> ${html(enquiry.enquiry_type)}</p><p><strong>Product:</strong> ${html(enquiry.product_model || 'Not supplied')}</p><p><strong>Message preview:</strong> ${html(enquiry.customer_message.slice(0, 240))}</p><p><strong>Submitted:</strong> ${html(enquiry.created_at)}</p><p><a href="${html(config.adminUrl)}">Open private dashboard</a></p>`
     }), redirect: 'error'
     });
@@ -174,16 +174,46 @@ async function sendOutbox(id) {
   return { accepted: true };
 }
 async function handle(req, res) {
-  const origin = req.headers.origin;
-  if (origin && origin === config.appOrigin) {
-    res.setHeader('Access-Control-Allow-Origin', origin); res.setHeader('Access-Control-Allow-Credentials', 'true');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Idempotency-Key');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE, OPTIONS'); res.setHeader('Vary', 'Origin');
-  }
+  applyCors(req, res);
   if (req.method === 'OPTIONS') { res.writeHead(204); return res.end(); }
   const url = new URL(req.url, 'http://api.local'); const path = url.pathname;
-  if (path === '/api/health' && req.method === 'GET') { const missing = missingConfig(); return reply(res, missing.length ? 503 : 200, { ready: !missing.length, missing }); }
+  if (path === '/api/health' && req.method === 'GET') {
+    const missing = missingConfig();
+    const emailConfigured = Boolean(config.resendKey && config.emailFrom && config.enquiryNotificationEmail && config.adminUrl);
+    return reply(res, missing.length ? 503 : 200, { ready: !missing.length, missing, emailConfigured });
+  }
   if (missingConfig().length) return reply(res, 503, { error: 'Admin API is not configured.' });
+
+  if (path === '/api/auth/password-reset' && req.method === 'POST') {
+    if (!sameOrigin(req)) return reply(res, 403, { error: 'Request origin is not allowed.' });
+    const body = await readJson(req, 4096);
+    const email = String(body.email || '').trim().toLowerCase();
+    if (email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return reply(res, 400, { error: 'Enter a valid email address.' });
+    const redirectTo = new URL('/admin/reset-password.html', config.appOrigin).href;
+    const response = await fetch(`${config.supabaseUrl}/auth/v1/recover?redirect_to=${encodeURIComponent(redirectTo)}`, {
+      method: 'POST', headers: { apikey: config.anonKey, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email }), redirect: 'error'
+    }).catch(() => null);
+    if (!response) return reply(res, 502, { error: 'Password reset could not be requested. Try again later.' });
+    if (response.status === 429) return reply(res, 429, { error: 'Too many reset requests. Please wait and try again.' });
+    if (!response.ok) return reply(res, 502, { error: 'Password reset could not be requested. Try again later.' });
+    return reply(res, 200, { accepted: true, message: 'If an active account matches that email, reset instructions will be sent.' });
+  }
+  if (path === '/api/auth/password-update' && req.method === 'POST') {
+    if (!sameOrigin(req)) return reply(res, 403, { error: 'Request origin is not allowed.' });
+    const body = await readJson(req, 8192);
+    const accessToken = String(body.accessToken || '');
+    const password = String(body.password || '');
+    if (accessToken.length < 32 || accessToken.length > 8192 || password.length < 12 || password.length > 256) {
+      return reply(res, 422, { error: 'Use the reset link and choose a password between 12 and 256 characters.' });
+    }
+    const response = await fetch(`${config.supabaseUrl}/auth/v1/user`, {
+      method: 'PUT', headers: { apikey: config.anonKey, Authorization: `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password }), redirect: 'error'
+    }).catch(() => null);
+    if (!response?.ok) return reply(res, 422, { error: 'The reset link is invalid or expired. Request a new reset email.' });
+    return reply(res, 200, { updated: true });
+  }
 
   if (path === '/api/auth/login' && req.method === 'POST') {
     if (!sameOrigin(req)) return reply(res, 403, { error: 'Request origin is not allowed.' });
@@ -219,7 +249,11 @@ async function handle(req, res) {
     try {
       const result = await sb('/rest/v1/rpc/submit_public_enquiry', { method: 'POST', service: true, body: { p_payload: validation, p_idempotency_key: key, p_rate_hash: ipHash } });
       if (!result?.accepted) return reply(res, 502, { error: 'The database did not confirm that the enquiry was saved.' });
-      if (!result.duplicate && result.emailOutboxId) await sendOutbox(result.emailOutboxId).catch(() => null);
+      if (!result.duplicate && result.emailOutboxId) {
+        await sendOutbox(result.emailOutboxId).catch(async () => {
+          await setEmailStatus(result.emailOutboxId, 'FAILED', null, 'Notification processing failed after the enquiry was saved.').catch(() => null);
+        });
+      }
       return reply(res, 201, { accepted: true, enquiryId: result.enquiryCode, savedAt: result.createdAt });
     } catch (error) {
       const tooMany = /too many submissions/i.test(error.message);
@@ -241,21 +275,22 @@ async function handle(req, res) {
   }
 
   const staffRoute = path.startsWith('/api/admin/staff');
-  const actor = await actorFor(req, res, staffRoute ? ['SUPER_ADMIN'] : roles); if (!actor) return;
+  const actor = await actorFor(req, res, staffRoute ? ['SUPER_ADMIN', 'ADMIN'] : roles); if (!actor) return;
   const userRequest = (route, options = {}) => sb(route, { token: actor.session.accessToken, ...options });
   const adminRequest = (route, options = {}) => sb(route, { service: true, ...options });
 
   if (path === '/api/admin/overview' && req.method === 'GET') {
-    const [stats, recent, notifications, activity] = await Promise.all([
+    const [stats, recent, dueFollowUps, notifications, activity] = await Promise.all([
       userRequest('/rest/v1/rpc/admin_dashboard_stats', { method: 'POST', body: {} }),
-      userRequest('/rest/v1/enquiries?select=id,enquiry_code,customer_name,enquiry_type,status,created_at,assigned_to&order=created_at.desc&limit=8'),
+      userRequest('/rest/v1/enquiries?select=id,enquiry_code,customer_name,enquiry_type,status,created_at,assigned_to,follow_up_at&order=created_at.desc&limit=8'),
+      userRequest(`/rest/v1/enquiries?select=id,enquiry_code,customer_name,enquiry_type,status,follow_up_at&follow_up_at=lte.${encodeURIComponent(new Date().toISOString())}&status=not.in.(CONVERTED,CLOSED)&order=follow_up_at.asc&limit=8`),
       userRequest('/rest/v1/admin_notifications?select=id,title,kind,enquiry_id,created_at,read_at&read_at=is.null&order=created_at.desc&limit=8'),
       userRequest('/rest/v1/admin_activity?select=id,action,entity_type,entity_id,created_at,actor_id&order=created_at.desc&limit=8')
     ]);
-    return reply(res, 200, { stats, recent, notifications, activity });
+    return reply(res, 200, { stats, recent, dueFollowUps, notifications, activity });
   }
   if (path === '/api/admin/enquiries' && req.method === 'GET') {
-    const params = new URLSearchParams({ select: 'id,enquiry_code,customer_name,customer_email,customer_phone,enquiry_type,status,product_model,service_requirement,created_at,assigned_to,resolved_at', order: 'created_at.desc', limit: '250' });
+    const params = new URLSearchParams({ select: 'id,enquiry_code,customer_name,customer_email,customer_phone,enquiry_type,status,product_model,service_requirement,created_at,assigned_to,follow_up_at,converted_at,closed_at', order: 'created_at.desc', limit: '250' });
     if (statuses.includes(url.searchParams.get('status'))) params.set('status', `eq.${url.searchParams.get('status')}`);
     const type = url.searchParams.get('type'); if (type && enquiryTypes.has(type)) params.set('enquiry_type', `eq.${enquiryTypes.get(type)}`);
     const from = url.searchParams.get('from'); const to = url.searchParams.get('to');
@@ -277,19 +312,34 @@ async function handle(req, res) {
   const detail = path.match(/^\/api\/admin\/enquiries\/([0-9a-f-]{36})$/i);
   if (detail && req.method === 'GET') {
     const id = detail[1];
-    const [rows, notes, outbox] = await Promise.all([
+    const [rows, notes, activity, outbox] = await Promise.all([
       userRequest(`/rest/v1/enquiries?id=eq.${id}&select=*`),
       userRequest(`/rest/v1/enquiry_notes?enquiry_id=eq.${id}&select=id,author_id,note,created_at&order=created_at.desc`),
+      userRequest(`/rest/v1/admin_activity?entity_type=eq.ENQUIRY&entity_id=eq.${id}&select=id,actor_id,action,details,created_at&order=created_at.desc&limit=100`),
       ['SUPER_ADMIN', 'ADMIN'].includes(actor.profile.role) ? userRequest(`/rest/v1/email_outbox?enquiry_id=eq.${id}&select=id,status,attempts,last_error,updated_at,sent_at`) : Promise.resolve([])
     ]);
     if (!rows.length) return reply(res, 404, { error: 'Enquiry not found or access denied.' });
-    return reply(res, 200, { enquiry: rows[0], notes, email: outbox[0] || null });
+    return reply(res, 200, { enquiry: rows[0], notes, activity, email: outbox[0] || null });
   }
   const statusRoute = path.match(/^\/api\/admin\/enquiries\/([0-9a-f-]{36})\/status$/i);
   if (statusRoute && req.method === 'PATCH') {
     if (!sameOrigin(req)) return reply(res, 403, { error: 'Request origin is not allowed.' });
     const body = await readJson(req, 4096); if (!statuses.includes(body.status)) return reply(res, 422, { error: 'Choose a valid enquiry status.' });
     return reply(res, 200, { enquiry: await userRequest('/rest/v1/rpc/admin_update_enquiry_status', { method: 'POST', body: { p_enquiry_id: statusRoute[1], p_status: body.status } }) });
+  }
+  const followUpRoute = path.match(/^\/api\/admin\/enquiries\/([0-9a-f-]{36})\/follow-up$/i);
+  if (followUpRoute && req.method === 'PATCH') {
+    if (!sameOrigin(req)) return reply(res, 403, { error: 'Request origin is not allowed.' });
+    const body = await readJson(req, 4096);
+    let followUpAt = null;
+    if (body.followUpDate !== null && body.followUpDate !== '') {
+      if (typeof body.followUpDate !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(body.followUpDate)) return reply(res, 422, { error: 'Choose a valid follow-up date.' });
+      const parsed = new Date(`${body.followUpDate}T12:00:00.000Z`);
+      if (Number.isNaN(parsed.getTime()) || parsed.toISOString().slice(0, 10) !== body.followUpDate) return reply(res, 422, { error: 'Choose a valid follow-up date.' });
+      followUpAt = parsed.toISOString();
+    }
+    const enquiry = await userRequest('/rest/v1/rpc/admin_set_enquiry_follow_up', { method: 'POST', body: { p_enquiry_id: followUpRoute[1], p_follow_up_at: followUpAt } });
+    return reply(res, 200, { enquiry });
   }
   const assignRoute = path.match(/^\/api\/admin\/enquiries\/([0-9a-f-]{36})\/assign$/i);
   if (assignRoute && req.method === 'PATCH') {
@@ -329,7 +379,8 @@ async function handle(req, res) {
     return reply(res, 200, { notification: await sendOutbox(retryRoute[1]) });
   }
   if (path === '/api/admin/staff' && req.method === 'GET') {
-    const staff = await userRequest('/rest/v1/profiles?select=id,full_name,notification_email,role,account_state,created_at,last_login_at&order=created_at.asc');
+    const staffFilter = actor.profile.role === 'SUPER_ADMIN' ? '' : '&role=eq.STAFF';
+    const staff = await userRequest(`/rest/v1/profiles?select=id,full_name,notification_email,role,account_state,created_at,last_login_at&order=created_at.asc${staffFilter}`);
     return reply(res, 200, { staff });
   }
   if (path === '/api/admin/staff/invite' && req.method === 'POST') {
@@ -337,6 +388,7 @@ async function handle(req, res) {
     const body = await readJson(req, 4096); const email = String(body.email || '').trim().toLowerCase(); const name = String(body.fullName || '').trim();
     const role = ['ADMIN', 'STAFF'].includes(body.role) ? body.role : '';
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || name.length < 2 || name.length > 100 || !role) return reply(res, 422, { error: 'Enter a valid name, email and role.' });
+    if (role === 'ADMIN' && actor.profile.role !== 'SUPER_ADMIN') return reply(res, 403, { error: 'Only a super administrator may invite an administrator.' });
     const response = await fetch(`${config.supabaseUrl}/auth/v1/invite`, { method: 'POST', headers: { apikey: config.serviceKey, Authorization: `Bearer ${config.serviceKey}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ email, data: { full_name: name } }), redirect: 'error' });
     if (!response.ok) return reply(res, 400, { error: 'The staff invitation could not be created.' });
     const invited = await response.json();
@@ -346,11 +398,20 @@ async function handle(req, res) {
   if (path === '/api/admin/staff/update' && req.method === 'POST') {
     if (!sameOrigin(req)) return reply(res, 403, { error: 'Request origin is not allowed.' });
     const body = await readJson(req, 4096);
+    const email = String(body.email || '').trim().toLowerCase();
+    const fullName = String(body.fullName || '').trim();
+    if (!/^[0-9a-f-]{36}$/i.test(String(body.userId || '')) || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || fullName.length < 2 || fullName.length > 100 || !['ADMIN', 'STAFF'].includes(body.role) || !['ACTIVE', 'DISABLED'].includes(body.accountState)) {
+      return reply(res, 422, { error: 'Enter a valid name, email, role and account state.' });
+    }
+    if (body.role === 'ADMIN' && actor.profile.role !== 'SUPER_ADMIN') return reply(res, 403, { error: 'Only a super administrator may grant the administrator role.' });
     await adminRequest('/rest/v1/rpc/admin_set_staff', { method: 'POST', body: { p_actor: actor.user.id, p_target: body.userId, p_role: body.role, p_state: body.accountState, p_name: body.fullName, p_email: body.email } });
     return reply(res, 200, { updated: true });
   }
   if (path === '/api/admin/activity' && req.method === 'GET') {
-    const activity = await userRequest('/rest/v1/admin_activity?select=id,actor_id,action,entity_type,entity_id,details,created_at&order=created_at.desc&limit=100');
+    const params = new URLSearchParams({ select: 'id,actor_id,action,entity_type,entity_id,details,created_at', order: 'created_at.desc', limit: '100' });
+    const actorId = url.searchParams.get('actor');
+    if (actorId && /^[0-9a-f-]{36}$/i.test(actorId)) params.set('actor_id', `eq.${actorId}`);
+    const activity = await userRequest(`/rest/v1/admin_activity?${params}`);
     return reply(res, 200, { activity });
   }
   if (path === '/api/admin/products' && req.method === 'GET') {

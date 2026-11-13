@@ -40,3 +40,11 @@ docs/                      Project records and checkpoint notes
 ## Content policy
 
 Do not add product details, pricing, contact information, customer claims, awards, dealer status, or business statistics unless supplied or explicitly approved. See [docs/PROJECT_SPEC.md](docs/PROJECT_SPEC.md) and [docs/CODEX_PROGRESS.md](docs/CODEX_PROGRESS.md).
+
+## Product image milestone status
+
+The first recovered product gallery is for CP-UNC-DA21L3C-Q. Six unique official gallery images are stored locally and wired into its catalogue/detail views; commercial reuse permission remains unconfirmed. The remaining 21 models were audited: 18 exact official pages expose 42 image URL references, but CP PLUS robots.txt disallows the `/prodassets/` paths and three exact model pages remain unresolved. No other product images were downloaded. See [docs/PRODUCT_IMAGE_RECOVERY_REPORT.md](docs/PRODUCT_IMAGE_RECOVERY_REPORT.md) for the per-model results and browser verification limits. The guarded local importer is [services/product-image-importer.mjs](services/product-image-importer.mjs).
+
+## Product image display diagnostic
+
+The original all-product baseline is [docs/PRODUCT_IMAGE_DISPLAY_DIAGNOSTIC.md](docs/PRODUCT_IMAGE_DISPLAY_DIAGNOSTIC.md); its no-image findings predate the CP-UNC-DA21L3C-Q recovery. The current exact-model result is in [docs/PRODUCT_IMAGE_RECOVERY_REPORT.md](docs/PRODUCT_IMAGE_RECOVERY_REPORT.md). Do not treat the first image's owner-directed display marker as commercial reuse permission.

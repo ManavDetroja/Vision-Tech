@@ -30,6 +30,13 @@
           <p id="admin-login-status" class="admin-status" role="status" aria-live="polite"></p>
           <button class="button button-primary" type="submit">Sign in</button>
         </form>
+        <button class="admin-reset-toggle" id="show-password-reset" type="button" aria-expanded="false" aria-controls="password-reset-request">Forgot your password?</button>
+        <form id="password-reset-request" class="admin-form admin-reset-form" hidden>
+          <label for="reset-email">Work email for your account</label>
+          <input id="reset-email" name="email" type="email" autocomplete="email" maxlength="254" required>
+          <p id="password-reset-status" class="admin-status" role="status" aria-live="polite"></p>
+          <button class="button button-outline" type="submit">Request reset email</button>
+        </form>
         <a class="admin-return-link" href="../index.html">Return to VisionTech website</a>
       </section>
     </main>

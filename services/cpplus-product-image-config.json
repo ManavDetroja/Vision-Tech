@@ -1,0 +1,33 @@
+{
+  "rightsConfirmed": false,
+  "rightsEvidence": "",
+  "sourcePolicy": {
+    "officialHosts": ["cpplusworld.com", "www.cpplusworld.com"],
+    "requireRobotsAllowance": true,
+    "allowThirdPartyFallback": false
+  },
+  "products": [
+    { "model": "CP-UNC-DA21L3C-Q", "category": "IP_Cameras", "subcategory": "Dome", "detail": "2 MP" },
+    { "model": "CP-UNC-DA21L3B-LQ", "category": "IP_Cameras", "subcategory": "Dome", "detail": "2 MP" },
+    { "model": "CP-UNC-DA41L3C-Q2", "category": "IP_Cameras", "subcategory": "Dome", "detail": "4 MP" },
+    { "model": "CP-UNC-DA61L3C-LQ", "category": "IP_Cameras", "subcategory": "Dome", "detail": "6 MP" },
+    { "model": "CP-UNC-TA21L3C-Q", "category": "IP_Cameras", "subcategory": "Bullet", "detail": "2 MP" },
+    { "model": "CP-UNC-TA21L3B-LQ", "category": "IP_Cameras", "subcategory": "Bullet", "detail": "2 MP" },
+    { "model": "CP-UNC-TA41L3C-D-Q2", "category": "IP_Cameras", "subcategory": "Bullet", "detail": "4 MP" },
+    { "model": "CP-UNC-TA61L3C-LQ", "category": "IP_Cameras", "subcategory": "Bullet", "detail": "6 MP" },
+    { "model": "CP-E21Q", "category": "WiFi_Cameras", "subcategory": "PT", "detail": "2 MP" },
+    { "model": "CP-E31Q", "category": "WiFi_Cameras", "subcategory": "PT", "detail": "3 MP" },
+    { "model": "CP-Z42Q", "category": "WiFi_Cameras", "subcategory": "PT", "detail": "4 MP" },
+    { "model": "EZ-M32T", "category": "4G_Cameras", "subcategory": "Dome", "detail": "3 MP" },
+    { "model": "EZ-R33T", "category": "4G_Cameras", "subcategory": "Bullet", "detail": "3 MP" },
+    { "model": "EZ-S35T", "category": "4G_Cameras", "subcategory": "PT", "detail": "3 MP" },
+    { "model": "CP-SL06K", "category": "Solar_Products", "subcategory": null, "detail": "" },
+    { "model": "CP-UNR-104F1", "category": "NVR", "subcategory": null, "detail": "4 Channel" },
+    { "model": "CP-UNR-4K2081-V4", "category": "NVR", "subcategory": null, "detail": "8 Channel" },
+    { "model": "CP-UNR-4K2162-V3", "category": "NVR", "subcategory": null, "detail": "16 Channel" },
+    { "model": "CP-UNR-4K4322-V4", "category": "NVR", "subcategory": null, "detail": "32 Channel" },
+    { "model": "CP-ANW-HP4H2-N65", "category": "POE_Switches", "subcategory": null, "detail": "" },
+    { "model": "CP-DNW-HPU8G2-6-V3", "category": "POE_Switches", "subcategory": null, "detail": "" },
+    { "model": "CP-ANW-HPU8H2-N12", "category": "POE_Switches", "subcategory": null, "detail": "" }
+  ]
+}

@@ -1,5 +1,6 @@
 import { categories } from '../data/categories.js';
 import { products } from '../data/products.js';
+import { bindProductImageFallbacks, productImageMarkup, publicProductGalleryPaths, publicProductImagePath } from '../components/product-image.js';
 
 const target = document.querySelector('#product-detail');
 const requestedModel = new URLSearchParams(window.location.search).get('model');
@@ -36,6 +37,150 @@ function specificationRows(item) {
   return rows;
 }
 
+function productGalleryMarkup(item) {
+  const paths = publicProductGalleryPaths(item);
+  if (!paths.length) {
+    const category = categories.find((entry) => entry.id === item.categoryId);
+    return productImageMarkup(item, { fallback: `${category?.name || 'Security product'} · image pending` });
+  }
+
+  const model = escapeHtml(item.model);
+  const thumbnailMarkup = paths.length > 1
+    ? `<div class="product-gallery-thumbnails" role="group" aria-label="Product image choices">${paths.map((path, index) => `
+        <button class="product-gallery-thumbnail${index === 0 ? ' is-active' : ''}" type="button" data-gallery-thumbnail data-gallery-path="${escapeHtml(path)}" aria-label="Show product image ${index + 1} of ${paths.length}" aria-pressed="${index === 0}">
+          <img src="${escapeHtml(path)}" alt="" width="64" height="84" loading="lazy" decoding="async">
+        </button>`).join('')}
+      </div>`
+    : '';
+
+  return `<div class="product-gallery" data-product-gallery data-model="${model}">
+    <div class="product-gallery-stage">
+      <button class="product-gallery-open" type="button" data-gallery-open aria-label="Open larger product image for ${model}">
+        <img class="product-gallery-main-image" src="${escapeHtml(paths[0])}" alt="${model} product image 1 of ${paths.length}" width="400" height="520" decoding="async" fetchpriority="high" data-gallery-main>
+      </button>
+      <span class="product-gallery-fallback" data-gallery-fallback hidden>Product image unavailable</span>
+      ${paths.length > 1 ? `<button class="product-gallery-nav is-previous" type="button" data-gallery-previous aria-label="Previous product image">‹</button><button class="product-gallery-nav is-next" type="button" data-gallery-next aria-label="Next product image">›</button>` : ''}
+      <span class="product-gallery-zoom-hint" aria-hidden="true">Open larger image</span>
+    </div>
+    ${thumbnailMarkup}
+    <dialog class="product-gallery-dialog" data-gallery-dialog aria-label="Product image viewer for ${model}">
+      <div class="product-gallery-dialog-panel">
+        <button class="product-gallery-close" type="button" data-gallery-close aria-label="Close image viewer">×</button>
+        <div class="product-gallery-dialog-stage">
+          <button class="product-gallery-nav is-previous" type="button" data-dialog-previous aria-label="Previous product image">‹</button>
+          <img class="product-gallery-dialog-image" src="${escapeHtml(paths[0])}" alt="${model} product image 1 of ${paths.length}" width="400" height="520" data-gallery-dialog-image>
+          <button class="product-gallery-nav is-next" type="button" data-dialog-next aria-label="Next product image">›</button>
+        </div>
+        <p class="product-gallery-dialog-count" data-gallery-count>Image 1 of ${paths.length}</p>
+      </div>
+    </dialog>
+  </div>`;
+}
+
+function bindProductGallery(root) {
+  const gallery = root.querySelector('[data-product-gallery]');
+  if (!gallery) return;
+
+  const mainImage = gallery.querySelector('[data-gallery-main]');
+  const dialogImage = gallery.querySelector('[data-gallery-dialog-image]');
+  const openButton = gallery.querySelector('[data-gallery-open]');
+  const fallback = gallery.querySelector('[data-gallery-fallback]');
+  const dialog = gallery.querySelector('[data-gallery-dialog]');
+  const count = gallery.querySelector('[data-gallery-count]');
+  let items = [...gallery.querySelectorAll('[data-gallery-thumbnail]')].map((button) => ({
+    button,
+    path: button.dataset.galleryPath
+  }));
+
+  if (!items.length) {
+    items = [{ button: null, path: mainImage?.getAttribute('src') || '' }].filter((item) => item.path);
+  }
+
+  let currentIndex = 0;
+  let requestedPath = items[0]?.path || '';
+
+  function showCurrent(index) {
+    if (!items.length) return;
+    currentIndex = (index + items.length) % items.length;
+    requestedPath = items[currentIndex].path;
+    const alt = `${gallery.dataset.model} product image ${currentIndex + 1} of ${items.length}`;
+    mainImage.src = requestedPath;
+    mainImage.alt = alt;
+    mainImage.hidden = false;
+    fallback.hidden = true;
+    if (dialogImage) {
+      dialogImage.src = requestedPath;
+      dialogImage.alt = alt;
+    }
+    if (count) count.textContent = `Image ${currentIndex + 1} of ${items.length}`;
+    items.forEach((item, itemIndex) => {
+      if (!item.button) return;
+      item.button.classList.toggle('is-active', itemIndex === currentIndex);
+      item.button.setAttribute('aria-pressed', String(itemIndex === currentIndex));
+    });
+    gallery.querySelectorAll('[data-gallery-previous], [data-gallery-next], [data-dialog-previous], [data-dialog-next]').forEach((button) => {
+      button.hidden = items.length < 2;
+    });
+    gallery.querySelector('.product-gallery-thumbnails')?.toggleAttribute('hidden', items.length < 2);
+  }
+
+  function removeFailedImage(path) {
+    const failedIndex = items.findIndex((item) => item.path === path);
+    if (failedIndex < 0) return;
+    items[failedIndex].button?.remove();
+    items.splice(failedIndex, 1);
+    if (!items.length) {
+      mainImage.hidden = true;
+      fallback.hidden = false;
+      openButton.disabled = true;
+      gallery.querySelectorAll('[data-gallery-previous], [data-gallery-next], [data-dialog-previous], [data-dialog-next]').forEach((button) => { button.hidden = true; });
+      gallery.querySelector('.product-gallery-thumbnails')?.setAttribute('hidden', '');
+      return;
+    }
+    showCurrent(Math.min(failedIndex, items.length - 1));
+  }
+
+  mainImage.addEventListener('error', () => removeFailedImage(requestedPath));
+  dialogImage?.addEventListener('error', () => removeFailedImage(requestedPath));
+  gallery.querySelectorAll('[data-gallery-thumbnail] img').forEach((image) => {
+    const path = image.closest('[data-gallery-thumbnail]')?.dataset.galleryPath;
+    image.addEventListener('error', () => removeFailedImage(path), { once: true });
+  });
+  gallery.querySelectorAll('[data-gallery-thumbnail]').forEach((button) => {
+    button.addEventListener('click', () => showCurrent(items.findIndex((item) => item.button === button)));
+  });
+  gallery.querySelectorAll('[data-gallery-next], [data-dialog-next]').forEach((button) => {
+    button.addEventListener('click', () => showCurrent(currentIndex + 1));
+  });
+  gallery.querySelectorAll('[data-gallery-previous], [data-dialog-previous]').forEach((button) => {
+    button.addEventListener('click', () => showCurrent(currentIndex - 1));
+  });
+  openButton.addEventListener('click', () => {
+    if (typeof dialog.showModal === 'function') dialog.showModal();
+    else dialog.setAttribute('open', '');
+    gallery.querySelector('[data-gallery-close]')?.focus();
+  });
+  gallery.querySelector('[data-gallery-close]')?.addEventListener('click', () => {
+    if (typeof dialog.close === 'function') dialog.close();
+    else dialog.removeAttribute('open');
+    openButton.focus();
+  });
+  dialog.addEventListener('click', (event) => {
+    if (event.target === dialog) dialog.close();
+  });
+  dialog.addEventListener('keydown', (event) => {
+    if (event.key === 'ArrowRight') {
+      event.preventDefault();
+      showCurrent(currentIndex + 1);
+    }
+    if (event.key === 'ArrowLeft') {
+      event.preventDefault();
+      showCurrent(currentIndex - 1);
+    }
+  });
+  showCurrent(0);
+}
+
 function renderNotFound() {
   document.title = 'Product Not Found | VisionTech Solutions™';
   target.innerHTML = `
@@ -60,10 +205,8 @@ function renderProduct(item) {
   const isVerified = item.verification?.status === 'verified';
   const name = item.officialName || item.name || `Model ${item.model}`;
   const description = item.description?.trim() || 'A model-specific description is not yet verified for this product.';
-  const imagePath = item.imagePath || (typeof item.image === 'string' ? item.image : item.image?.localPath);
-  const imageMarkup = imagePath
-    ? `<img class="detail-product-image" src="${escapeHtml(imagePath)}" alt="${escapeHtml(name)}" loading="lazy">`
-    : `<span class="product-placeholder">${escapeHtml(category.name)} · image pending</span>`;
+  const canDisplayImage = productGalleryMarkup(item);
+  const imagePath = publicProductImagePath(item);
 
   document.title = `${name} | VisionTech Solutions™`;
   target.innerHTML = `
@@ -80,7 +223,7 @@ function renderProduct(item) {
     <article class="product-detail-page" aria-labelledby="detail-title">
       <section class="detail-layout">
         <div class="detail-media-column">
-          <div class="product-art detail-art" aria-label="Product image area">${imageMarkup}</div>
+          <div class="product-art detail-art" aria-label="Product image area">${canDisplayImage}</div>
           <p class="detail-image-note">${imagePath ? 'Product image' : 'Product image not yet available'}</p>
         </div>
 
@@ -142,6 +285,7 @@ function renderProduct(item) {
         ${relatedProducts.length
           ? `<div class="related-product-grid">${relatedProducts.map((entry) => `
               <a class="related-product-card" href="product-details.html?model=${encodeURIComponent(entry.model)}">
+                ${productImageMarkup(entry, { className: 'related-product-image-frame', fallback: 'Product image pending' })}
                 <span class="related-product-category">${escapeHtml(entry.subcategory || category.name)}</span>
                 <strong>${escapeHtml(entry.officialName || entry.name || entry.model)}</strong>
                 <span class="related-product-model">${escapeHtml(entry.model)}</span>
@@ -155,6 +299,8 @@ function renderProduct(item) {
         <a class="button button-primary" href="contact.html?type=product&amp;model=${encodeURIComponent(item.model)}">Enquire About This Product</a>
       </div>
     </article>`;
+  bindProductGallery(target);
+  bindProductImageFallbacks(target);
 
 }
 

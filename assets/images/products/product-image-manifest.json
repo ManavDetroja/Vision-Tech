@@ -1,0 +1,642 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-12T14:02:40.578892Z",
+  "automation": "Playwright Python",
+  "robotsDisallowRules": [
+    "/prodassets/"
+  ],
+  "backgroundRemoval": "rembg unavailable: ImportError: DLL load failed while importing _dispatcher: An Application Control policy has blocked this file.",
+  "totals": {
+    "totalProducts": 22,
+    "officialProductPagesFound": 19,
+    "finalPngImages": 0,
+    "transparentPngImages": 0,
+    "manualReviewModels": 22
+  },
+  "products": [
+    {
+      "model": "CP-UNC-DA21L3C-Q",
+      "category": "IP_Cameras",
+      "subcategory": "Dome",
+      "detail": "2 MP",
+      "folder": "assets/images/products/IP_Cameras/Dome/CP-UNC-DA21L3C-Q",
+      "productPageUrl": "https://cpplusworld.com/cp-unc-da21l3c-q",
+      "sourceType": "official",
+      "identityVerified": true,
+      "candidates": [],
+      "localPngPaths": [],
+      "transparencyVerified": false,
+      "status": "LOOKUP_FAILED",
+      "notes": [
+        "TypeError: 'coroutine' object is not subscriptable"
+      ],
+      "lastCheckedAt": "2026-11-12T14:02:24.334203Z"
+    },
+    {
+      "model": "CP-UNC-DA21L3B-LQ",
+      "category": "IP_Cameras",
+      "subcategory": "Dome",
+      "detail": "2 MP",
+      "folder": "assets/images/products/IP_Cameras/Dome/CP-UNC-DA21L3B-LQ",
+      "localPngPaths": [],
+      "sourceType": "official",
+      "productPageUrl": "https://cpplusworld.com/cp-unc-da21l3b-lq",
+      "candidates": [
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/06449c0a-7368-4a60-a42d-5244c21d6988.png",
+          "sourceType": "official",
+          "robotsAllowed": false
+        },
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/61da0baf-ea65-472b-9675-3b6ae7cdbea3.png",
+          "sourceType": "official",
+          "robotsAllowed": false
+        },
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/d41f801e-062e-43c7-93ea-4cb801350c6b.png",
+          "sourceType": "official",
+          "robotsAllowed": false
+        },
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/a4005d07-f216-44fe-aa5a-d22df4ba1012.png",
+          "sourceType": "official",
+          "robotsAllowed": false
+        },
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/13578f3d-bc5d-4aa3-8748-37b822dc552e.png",
+          "sourceType": "official",
+          "robotsAllowed": false
+        },
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/8c1eccfa-bb5c-413a-9c00-d94d56b10ade.png",
+          "sourceType": "official",
+          "robotsAllowed": false
+        },
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/041ede3f-1540-4940-8fc3-adbce27233a1.png",
+          "sourceType": "official",
+          "robotsAllowed": false
+        }
+      ],
+      "status": "MANUAL_REVIEW_REQUIRED",
+      "identityVerified": true,
+      "transparencyVerified": false,
+      "lastCheckedAt": "2026-11-12T13:30:17.457Z",
+      "notes": [
+        "Official product images are hosted on a robots-disallowed path; no image bytes were requested."
+      ]
+    },
+    {
+      "model": "CP-UNC-DA41L3C-Q2",
+      "category": "IP_Cameras",
+      "subcategory": "Dome",
+      "detail": "4 MP",
+      "folder": "assets/images/products/IP_Cameras/Dome/CP-UNC-DA41L3C-Q2",
+      "localPngPaths": [],
+      "sourceType": "official",
+      "productPageUrl": null,
+      "candidates": [],
+      "status": "NO_OFFICIAL_PRODUCT_PAGE",
+      "identityVerified": false,
+      "transparencyVerified": false,
+      "lastCheckedAt": "2026-11-12T13:30:18.802Z",
+      "notes": [
+        "Official search returned no exact product link."
+      ]
+    },
+    {
+      "model": "CP-UNC-DA61L3C-LQ",
+      "category": "IP_Cameras",
+      "subcategory": "Dome",
+      "detail": "6 MP",
+      "folder": "assets/images/products/IP_Cameras/Dome/CP-UNC-DA61L3C-LQ",
+      "localPngPaths": [],
+      "sourceType": "official",
+      "productPageUrl": "https://cpplusworld.com/cp-unc-da61l3c-lq",
+      "candidates": [
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/0a58697f-c390-4532-989e-65139a8d09a5.jpg",
+          "sourceType": "official",
+          "robotsAllowed": false
+        }
+      ],
+      "status": "MANUAL_REVIEW_REQUIRED",
+      "identityVerified": true,
+      "transparencyVerified": false,
+      "lastCheckedAt": "2026-11-12T13:30:19.079Z",
+      "notes": [
+        "Official product images are hosted on a robots-disallowed path; no image bytes were requested."
+      ]
+    },
+    {
+      "model": "CP-UNC-TA21L3C-Q",
+      "category": "IP_Cameras",
+      "subcategory": "Bullet",
+      "detail": "2 MP",
+      "folder": "assets/images/products/IP_Cameras/Bullet/CP-UNC-TA21L3C-Q",
+      "localPngPaths": [],
+      "sourceType": "official",
+      "productPageUrl": "https://cpplusworld.com/cp-unc-ta21l3c-q",
+      "candidates": [
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/f4202774-1666-40fb-8398-9599d257f92f.png",
+          "sourceType": "official",
+          "robotsAllowed": false
+        },
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/78f9e6c3-4253-4809-b7fd-6628f0992fdf.png",
+          "sourceType": "official",
+          "robotsAllowed": false
+        },
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/2d18844b-367d-4e47-a6ab-fe0156bd233b.png",
+          "sourceType": "official",
+          "robotsAllowed": false
+        },
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/d09c10d7-d010-4cbc-9fb4-3de69d1d0da3.png",
+          "sourceType": "official",
+          "robotsAllowed": false
+        },
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/9acb9201-fb5e-4a00-9f3b-66547918b185.png",
+          "sourceType": "official",
+          "robotsAllowed": false
+        },
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/76d50e55-c926-4388-9276-1f5fe25fe9fd.png",
+          "sourceType": "official",
+          "robotsAllowed": false
+        },
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/a8697d1c-644b-449b-9875-cfb419311332.png",
+          "sourceType": "official",
+          "robotsAllowed": false
+        }
+      ],
+      "status": "MANUAL_REVIEW_REQUIRED",
+      "identityVerified": true,
+      "transparencyVerified": false,
+      "lastCheckedAt": "2026-11-12T13:30:21.467Z",
+      "notes": [
+        "Official product images are hosted on a robots-disallowed path; no image bytes were requested."
+      ]
+    },
+    {
+      "model": "CP-UNC-TA21L3B-LQ",
+      "category": "IP_Cameras",
+      "subcategory": "Bullet",
+      "detail": "2 MP",
+      "folder": "assets/images/products/IP_Cameras/Bullet/CP-UNC-TA21L3B-LQ",
+      "localPngPaths": [],
+      "sourceType": "official",
+      "productPageUrl": "https://cpplusworld.com/cp-unc-ta21l3b-lq",
+      "candidates": [
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/e72148be-df52-4599-9523-883a05dee63d.png",
+          "sourceType": "official",
+          "robotsAllowed": false
+        },
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/6a28d74d-5fb1-40f2-bbdc-b8151403a434.png",
+          "sourceType": "official",
+          "robotsAllowed": false
+        },
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/ec722bdf-7541-40a6-ace1-660f1a658bbf.png",
+          "sourceType": "official",
+          "robotsAllowed": false
+        },
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/4c26a34f-1c48-48c8-a0ca-4128392269d7.png",
+          "sourceType": "official",
+          "robotsAllowed": false
+        },
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/5a865b7e-36bc-47ca-ba5a-14997bae136b.png",
+          "sourceType": "official",
+          "robotsAllowed": false
+        },
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/44e23295-bfab-4f85-a605-985a9eb57e33.png",
+          "sourceType": "official",
+          "robotsAllowed": false
+        },
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/367d6dc0-ceaf-482b-a262-2253317ef3c5.png",
+          "sourceType": "official",
+          "robotsAllowed": false
+        }
+      ],
+      "status": "MANUAL_REVIEW_REQUIRED",
+      "identityVerified": true,
+      "transparencyVerified": false,
+      "lastCheckedAt": "2026-11-12T13:30:22.932Z",
+      "notes": [
+        "Official product images are hosted on a robots-disallowed path; no image bytes were requested."
+      ]
+    },
+    {
+      "model": "CP-UNC-TA41L3C-D-Q2",
+      "category": "IP_Cameras",
+      "subcategory": "Bullet",
+      "detail": "4 MP",
+      "folder": "assets/images/products/IP_Cameras/Bullet/CP-UNC-TA41L3C-D-Q2",
+      "localPngPaths": [],
+      "sourceType": "official",
+      "productPageUrl": "https://cpplusworld.com/cp-unc-ta41l3c-d-q2",
+      "candidates": [
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/7303e8ee-3475-4a44-8ad1-40d2758ea95a.png",
+          "sourceType": "official",
+          "robotsAllowed": false
+        },
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/7d6d827a-88ea-4d4e-8a8f-b7d82831554e.png",
+          "sourceType": "official",
+          "robotsAllowed": false
+        },
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/9d56c578-ccba-495b-973f-580e817f04fa.png",
+          "sourceType": "official",
+          "robotsAllowed": false
+        },
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/061facf2-189c-4252-a790-4a9dacdcf4da.png",
+          "sourceType": "official",
+          "robotsAllowed": false
+        },
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/ce0de9d2-9285-41d2-8e38-677ae0ce40a9.png",
+          "sourceType": "official",
+          "robotsAllowed": false
+        },
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/23991d33-e481-4d66-a920-e40da83104e0.png",
+          "sourceType": "official",
+          "robotsAllowed": false
+        },
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/e9f9a972-2f83-4624-a156-2c8ab19f647c.png",
+          "sourceType": "official",
+          "robotsAllowed": false
+        }
+      ],
+      "status": "MANUAL_REVIEW_REQUIRED",
+      "identityVerified": true,
+      "transparencyVerified": false,
+      "lastCheckedAt": "2026-11-12T13:30:24.152Z",
+      "notes": [
+        "Official product images are hosted on a robots-disallowed path; no image bytes were requested."
+      ]
+    },
+    {
+      "model": "CP-UNC-TA61L3C-LQ",
+      "category": "IP_Cameras",
+      "subcategory": "Bullet",
+      "detail": "6 MP",
+      "folder": "assets/images/products/IP_Cameras/Bullet/CP-UNC-TA61L3C-LQ",
+      "localPngPaths": [],
+      "sourceType": "official",
+      "productPageUrl": "https://cpplusworld.com/cp-unc-ta61l3c-lq",
+      "candidates": [
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/082acf71-8aab-4587-86cb-6e7d5fea3ba0.png",
+          "sourceType": "official",
+          "robotsAllowed": false
+        }
+      ],
+      "status": "MANUAL_REVIEW_REQUIRED",
+      "identityVerified": true,
+      "transparencyVerified": false,
+      "lastCheckedAt": "2026-11-12T13:30:25.283Z",
+      "notes": [
+        "Official product images are hosted on a robots-disallowed path; no image bytes were requested."
+      ]
+    },
+    {
+      "model": "CP-E21Q",
+      "category": "WiFi_Cameras",
+      "subcategory": "PT",
+      "detail": "2 MP",
+      "folder": "assets/images/products/WiFi_Cameras/PT/CP-E21Q",
+      "localPngPaths": [],
+      "sourceType": "official",
+      "productPageUrl": "https://cpplusworld.com/cp-e21q",
+      "candidates": [
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/bdbd0485-60f3-41c7-949d-446eb2901607.png",
+          "sourceType": "official",
+          "robotsAllowed": false
+        }
+      ],
+      "status": "MANUAL_REVIEW_REQUIRED",
+      "identityVerified": true,
+      "transparencyVerified": false,
+      "lastCheckedAt": "2026-11-12T13:30:26.487Z",
+      "notes": [
+        "Official product images are hosted on a robots-disallowed path; no image bytes were requested."
+      ]
+    },
+    {
+      "model": "CP-E31Q",
+      "category": "WiFi_Cameras",
+      "subcategory": "PT",
+      "detail": "3 MP",
+      "folder": "assets/images/products/WiFi_Cameras/PT/CP-E31Q",
+      "localPngPaths": [],
+      "sourceType": "official",
+      "productPageUrl": "https://cpplusworld.com/cp-e31q",
+      "candidates": [
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/456a7766-f5f1-4402-ba2e-3a78e482f974.png",
+          "sourceType": "official",
+          "robotsAllowed": false
+        }
+      ],
+      "status": "MANUAL_REVIEW_REQUIRED",
+      "identityVerified": true,
+      "transparencyVerified": false,
+      "lastCheckedAt": "2026-11-12T13:30:27.746Z",
+      "notes": [
+        "Official product images are hosted on a robots-disallowed path; no image bytes were requested."
+      ]
+    },
+    {
+      "model": "CP-Z42Q",
+      "category": "WiFi_Cameras",
+      "subcategory": "PT",
+      "detail": "4 MP",
+      "folder": "assets/images/products/WiFi_Cameras/PT/CP-Z42Q",
+      "localPngPaths": [],
+      "sourceType": "official",
+      "productPageUrl": null,
+      "candidates": [],
+      "status": "NO_OFFICIAL_PRODUCT_PAGE",
+      "identityVerified": false,
+      "transparencyVerified": false,
+      "lastCheckedAt": "2026-11-12T13:30:28.965Z",
+      "notes": [
+        "Official search returned no exact product link."
+      ]
+    },
+    {
+      "model": "EZ-M32T",
+      "category": "4G_Cameras",
+      "subcategory": "Dome",
+      "detail": "3 MP",
+      "folder": "assets/images/products/4G_Cameras/Dome/EZ-M32T",
+      "localPngPaths": [],
+      "sourceType": "official",
+      "productPageUrl": "https://cpplusworld.com/ez-m32t",
+      "candidates": [
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/ca42f5fa-adc0-4e66-bae6-04f4c08968d8.png",
+          "sourceType": "official",
+          "robotsAllowed": false
+        }
+      ],
+      "status": "MANUAL_REVIEW_REQUIRED",
+      "identityVerified": true,
+      "transparencyVerified": false,
+      "lastCheckedAt": "2026-11-12T13:30:30.601Z",
+      "notes": [
+        "Official product images are hosted on a robots-disallowed path; no image bytes were requested."
+      ]
+    },
+    {
+      "model": "EZ-R33T",
+      "category": "4G_Cameras",
+      "subcategory": "Bullet",
+      "detail": "3 MP",
+      "folder": "assets/images/products/4G_Cameras/Bullet/EZ-R33T",
+      "localPngPaths": [],
+      "sourceType": "official",
+      "productPageUrl": "https://cpplusworld.com/ez-r33t",
+      "candidates": [
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/63a07953-9dae-4885-8ce2-361035538a20.jpg",
+          "sourceType": "official",
+          "robotsAllowed": false
+        }
+      ],
+      "status": "MANUAL_REVIEW_REQUIRED",
+      "identityVerified": true,
+      "transparencyVerified": false,
+      "lastCheckedAt": "2026-11-12T13:30:33.522Z",
+      "notes": [
+        "Official product images are hosted on a robots-disallowed path; no image bytes were requested."
+      ]
+    },
+    {
+      "model": "EZ-S35T",
+      "category": "4G_Cameras",
+      "subcategory": "PT",
+      "detail": "3 MP",
+      "folder": "assets/images/products/4G_Cameras/PT/EZ-S35T",
+      "localPngPaths": [],
+      "sourceType": "official",
+      "productPageUrl": "https://cpplusworld.com/ez-s35t",
+      "candidates": [
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/496d0a2c-09da-4600-bc9d-9f4a4d2b3901.png",
+          "sourceType": "official",
+          "robotsAllowed": false
+        }
+      ],
+      "status": "MANUAL_REVIEW_REQUIRED",
+      "identityVerified": true,
+      "transparencyVerified": false,
+      "lastCheckedAt": "2026-11-12T13:30:34.803Z",
+      "notes": [
+        "Official product images are hosted on a robots-disallowed path; no image bytes were requested."
+      ]
+    },
+    {
+      "model": "CP-SL06K",
+      "category": "Solar_Products",
+      "subcategory": null,
+      "detail": "",
+      "folder": "assets/images/products/Solar_Products/CP-SL06K",
+      "localPngPaths": [],
+      "sourceType": "official",
+      "productPageUrl": "https://cpplusworld.com/cp-sl06k",
+      "candidates": [
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/d37135f3-a2c2-4d60-8862-3b06d269bf0a.png",
+          "sourceType": "official",
+          "robotsAllowed": false
+        }
+      ],
+      "status": "MANUAL_REVIEW_REQUIRED",
+      "identityVerified": true,
+      "transparencyVerified": false,
+      "lastCheckedAt": "2026-11-12T13:30:36.918Z",
+      "notes": [
+        "Official product images are hosted on a robots-disallowed path; no image bytes were requested."
+      ]
+    },
+    {
+      "model": "CP-UNR-104F1",
+      "category": "NVR",
+      "subcategory": null,
+      "detail": "4 Channel",
+      "folder": "assets/images/products/NVR/CP-UNR-104F1",
+      "localPngPaths": [],
+      "sourceType": "official",
+      "productPageUrl": "https://cpplusworld.com/cp-unr-104f1",
+      "candidates": [
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/737554e5-e6e8-4dcc-ab29-2e4c8ba6c462.jpg",
+          "sourceType": "official",
+          "robotsAllowed": false
+        }
+      ],
+      "status": "MANUAL_REVIEW_REQUIRED",
+      "identityVerified": true,
+      "transparencyVerified": false,
+      "lastCheckedAt": "2026-11-12T13:30:38.116Z",
+      "notes": [
+        "Official product images are hosted on a robots-disallowed path; no image bytes were requested."
+      ]
+    },
+    {
+      "model": "CP-UNR-4K2081-V4",
+      "category": "NVR",
+      "subcategory": null,
+      "detail": "8 Channel",
+      "folder": "assets/images/products/NVR/CP-UNR-4K2081-V4",
+      "localPngPaths": [],
+      "sourceType": "official",
+      "productPageUrl": "https://cpplusworld.com/cp-unr-4k2081-v4",
+      "candidates": [
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/a47806ce-d3be-43e5-8dae-f0fa64df05db.png",
+          "sourceType": "official",
+          "robotsAllowed": false
+        }
+      ],
+      "status": "MANUAL_REVIEW_REQUIRED",
+      "identityVerified": true,
+      "transparencyVerified": false,
+      "lastCheckedAt": "2026-11-12T13:30:39.402Z",
+      "notes": [
+        "Official product images are hosted on a robots-disallowed path; no image bytes were requested."
+      ]
+    },
+    {
+      "model": "CP-UNR-4K2162-V3",
+      "category": "NVR",
+      "subcategory": null,
+      "detail": "16 Channel",
+      "folder": "assets/images/products/NVR/CP-UNR-4K2162-V3",
+      "localPngPaths": [],
+      "sourceType": "official",
+      "productPageUrl": "https://cpplusworld.com/cp-unr-4k2162-v3",
+      "candidates": [
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/321fa297-90c2-43f0-9756-b5aa5fab0be1.png",
+          "sourceType": "official",
+          "robotsAllowed": false
+        }
+      ],
+      "status": "MANUAL_REVIEW_REQUIRED",
+      "identityVerified": true,
+      "transparencyVerified": false,
+      "lastCheckedAt": "2026-11-12T13:30:40.550Z",
+      "notes": [
+        "Official product images are hosted on a robots-disallowed path; no image bytes were requested."
+      ]
+    },
+    {
+      "model": "CP-UNR-4K4322-V4",
+      "category": "NVR",
+      "subcategory": null,
+      "detail": "32 Channel",
+      "folder": "assets/images/products/NVR/CP-UNR-4K4322-V4",
+      "localPngPaths": [],
+      "sourceType": "official",
+      "productPageUrl": "https://cpplusworld.com/cp-unr-4k4322-v4",
+      "candidates": [
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/6b43549a-cfe2-4f37-a089-785112573162.jpg",
+          "sourceType": "official",
+          "robotsAllowed": false
+        }
+      ],
+      "status": "MANUAL_REVIEW_REQUIRED",
+      "identityVerified": true,
+      "transparencyVerified": false,
+      "lastCheckedAt": "2026-11-12T13:30:41.721Z",
+      "notes": [
+        "Official product images are hosted on a robots-disallowed path; no image bytes were requested."
+      ]
+    },
+    {
+      "model": "CP-ANW-HP4H2-N65",
+      "category": "POE_Switches",
+      "subcategory": null,
+      "detail": "",
+      "folder": "assets/images/products/POE_Switches/CP-ANW-HP4H2-N65",
+      "localPngPaths": [],
+      "sourceType": "official",
+      "productPageUrl": "https://cpplusworld.com/cp-anw-hp4h2-n65",
+      "candidates": [
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/a1045d14-810b-425e-a05c-706c0070b688.jpg",
+          "sourceType": "official",
+          "robotsAllowed": false
+        }
+      ],
+      "status": "MANUAL_REVIEW_REQUIRED",
+      "identityVerified": true,
+      "transparencyVerified": false,
+      "lastCheckedAt": "2026-11-12T13:30:43.131Z",
+      "notes": [
+        "Official product images are hosted on a robots-disallowed path; no image bytes were requested."
+      ]
+    },
+    {
+      "model": "CP-DNW-HPU8G2-6-V3",
+      "category": "POE_Switches",
+      "subcategory": null,
+      "detail": "",
+      "folder": "assets/images/products/POE_Switches/CP-DNW-HPU8G2-6-V3",
+      "localPngPaths": [],
+      "sourceType": "official",
+      "productPageUrl": null,
+      "candidates": [],
+      "status": "NO_OFFICIAL_PRODUCT_PAGE",
+      "identityVerified": false,
+      "transparencyVerified": false,
+      "lastCheckedAt": "2026-11-12T13:30:45.007Z",
+      "notes": [
+        "Official search returned no exact product link."
+      ]
+    },
+    {
+      "model": "CP-ANW-HPU8H2-N12",
+      "category": "POE_Switches",
+      "subcategory": null,
+      "detail": "",
+      "folder": "assets/images/products/POE_Switches/CP-ANW-HPU8H2-N12",
+      "localPngPaths": [],
+      "sourceType": "official",
+      "productPageUrl": "https://cpplusworld.com/cp-anw-hpu8h2-n12",
+      "candidates": [
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/edfdbb7b-bb64-4047-91b1-0320af74968f.jpg",
+          "sourceType": "official",
+          "robotsAllowed": false
+        }
+      ],
+      "status": "MANUAL_REVIEW_REQUIRED",
+      "identityVerified": true,
+      "transparencyVerified": false,
+      "lastCheckedAt": "2026-11-12T13:30:45.162Z",
+      "notes": [
+        "Official product images are hosted on a robots-disallowed path; no image bytes were requested."
+      ]
+    }
+  ]
+}

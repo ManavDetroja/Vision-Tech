@@ -8,7 +8,16 @@
     "resolutionMp": 2,
     "features": [],
     "description": null,
-    "image": null,
+    "image": {
+      "localPath": "assets/images/products/ip-cameras/CP-UNC-DA21L3C-Q/main.jpg",
+      "sourcePageUrl": "https://cpplusworld.com/cp-unc-da21l3c-q",
+      "sourceUrl": "https://cpplusworld.com/prodassets/product/small/db0ada61-f18c-4e7a-bd6d-f842c4523d24.png",
+      "sourceHost": "cpplusworld.com",
+      "permissionStatus": "PERMISSION_PENDING",
+      "matchStatus": "EXACT_PAGE_MAIN_IMAGE_ALT",
+      "retrievalStatus": "DOWNLOADED",
+      "displayStatus": "LOCAL_FILES_VERIFIED"
+    },
     "specifications": {},
     "sourceInformation": null,
     "verificationStatus": "Needs verification",
@@ -17,13 +26,23 @@
     "verifiedOn": null,
     "officialName": null,
     "modelNumber": "CP-UNC-DA21L3C-Q",
-    "imagePath": null,
-    "galleryPaths": [],
+    "imagePath": "assets/images/products/ip-cameras/CP-UNC-DA21L3C-Q/main.jpg",
+    "galleryPaths": [
+      "assets/images/products/ip-cameras/CP-UNC-DA21L3C-Q/gallery-01.png",
+      "assets/images/products/ip-cameras/CP-UNC-DA21L3C-Q/gallery-02.png",
+      "assets/images/products/ip-cameras/CP-UNC-DA21L3C-Q/gallery-03.png",
+      "assets/images/products/ip-cameras/CP-UNC-DA21L3C-Q/gallery-04.png",
+      "assets/images/products/ip-cameras/CP-UNC-DA21L3C-Q/gallery-05.png"
+    ],
     "datasheetPath": null,
     "datasheetSourceUrl": null,
     "officialSourceUrls": {},
     "imagePermissionStatus": "pending",
-    "verification": null
+    "verification": null,
+    "imageVerificationStatus": "VERIFIED",
+    "imageModelMatchVerified": true,
+    "imageDirectory": "ip-cameras",
+    "imageDisplayApproval": "OWNER_DIRECTED_RIGHTS_UNCONFIRMED"
   },
   {
     "id": "cp-unc-da21l3b-lq",
@@ -36,7 +55,16 @@
       "2-way audio"
     ],
     "description": null,
-    "image": null,
+    "image": {
+      "localPath": null,
+      "sourcePageUrl": "https://cpplusworld.com/cp-unc-da21l3b-lq",
+      "sourceUrl": "https://cpplusworld.com/prodassets/product/small/06449c0a-7368-4a60-a42d-5244c21d6988.png",
+      "sourceHost": "cpplusworld.com",
+      "permissionStatus": "PERMISSION_PENDING",
+      "matchStatus": "EXACT_PAGE_AND_IMAGE_ALT",
+      "retrievalStatus": "NOT_DOWNLOADED",
+      "displayStatus": "NOT_TESTED"
+    },
     "specifications": {},
     "sourceInformation": null,
     "verificationStatus": "Needs verification",
@@ -51,7 +79,10 @@
     "datasheetSourceUrl": null,
     "officialSourceUrls": {},
     "imagePermissionStatus": "pending",
-    "verification": null
+    "verification": null,
+    "imageVerificationStatus": "PERMISSION_PENDING",
+    "imageModelMatchVerified": false,
+    "imageDirectory": "ip-cameras"
   },
   {
     "id": "cp-unc-da41l3c-q2",
@@ -62,7 +93,16 @@
     "resolutionMp": 4,
     "features": [],
     "description": null,
-    "image": null,
+    "image": {
+      "localPath": null,
+      "sourcePageUrl": null,
+      "sourceUrl": null,
+      "sourceHost": null,
+      "permissionStatus": "NOT_ASSESSED",
+      "matchStatus": "NOT_FOUND",
+      "retrievalStatus": "NOT_DOWNLOADED",
+      "displayStatus": "NOT_TESTED"
+    },
     "specifications": {},
     "sourceInformation": null,
     "verificationStatus": "Needs verification",
@@ -76,8 +116,11 @@
     "datasheetPath": null,
     "datasheetSourceUrl": null,
     "officialSourceUrls": {},
-    "imagePermissionStatus": "pending",
-    "verification": null
+    "imagePermissionStatus": "not_assessed",
+    "verification": null,
+    "imageVerificationStatus": "NOT_FOUND",
+    "imageModelMatchVerified": false,
+    "imageDirectory": "ip-cameras"
   },
   {
     "id": "cp-unc-da61l3c-lq",
@@ -88,7 +131,16 @@
     "resolutionMp": 6,
     "features": [],
     "description": null,
-    "image": null,
+    "image": {
+      "localPath": null,
+      "sourcePageUrl": "https://cpplusworld.com/cp-unc-da61l3c-lq",
+      "sourceUrl": "https://cpplusworld.com/prodassets/product/small/0a58697f-c390-4532-989e-65139a8d09a5.jpg",
+      "sourceHost": "cpplusworld.com",
+      "permissionStatus": "PERMISSION_PENDING",
+      "matchStatus": "EXACT_PAGE_AND_IMAGE_ALT",
+      "retrievalStatus": "NOT_DOWNLOADED",
+      "displayStatus": "NOT_TESTED"
+    },
     "specifications": {},
     "sourceInformation": null,
     "verificationStatus": "Needs verification",
@@ -103,7 +155,10 @@
     "datasheetSourceUrl": null,
     "officialSourceUrls": {},
     "imagePermissionStatus": "pending",
-    "verification": null
+    "verification": null,
+    "imageVerificationStatus": "PERMISSION_PENDING",
+    "imageModelMatchVerified": false,
+    "imageDirectory": "ip-cameras"
   },
   {
     "id": "cp-unc-ta21l3c-q",
@@ -114,7 +169,16 @@
     "resolutionMp": 2,
     "features": [],
     "description": null,
-    "image": null,
+    "image": {
+      "localPath": null,
+      "sourcePageUrl": "https://cpplusworld.com/cp-unc-ta21l3c-q",
+      "sourceUrl": "https://cpplusworld.com/prodassets/product/small/f4202774-1666-40fb-8398-9599d257f92f.png",
+      "sourceHost": "cpplusworld.com",
+      "permissionStatus": "PERMISSION_PENDING",
+      "matchStatus": "EXACT_PAGE_AND_IMAGE_ALT",
+      "retrievalStatus": "NOT_DOWNLOADED",
+      "displayStatus": "NOT_TESTED"
+    },
     "specifications": {},
     "sourceInformation": null,
     "verificationStatus": "Needs verification",
@@ -129,7 +193,10 @@
     "datasheetSourceUrl": null,
     "officialSourceUrls": {},
     "imagePermissionStatus": "pending",
-    "verification": null
+    "verification": null,
+    "imageVerificationStatus": "PERMISSION_PENDING",
+    "imageModelMatchVerified": false,
+    "imageDirectory": "ip-cameras"
   },
   {
     "id": "cp-unc-ta21l3b-lq",
@@ -142,7 +209,16 @@
       "2-way audio"
     ],
     "description": null,
-    "image": null,
+    "image": {
+      "localPath": null,
+      "sourcePageUrl": "https://cpplusworld.com/cp-unc-ta21l3b-lq",
+      "sourceUrl": "https://cpplusworld.com/prodassets/product/small/e72148be-df52-4599-9523-883a05dee63d.png",
+      "sourceHost": "cpplusworld.com",
+      "permissionStatus": "PERMISSION_PENDING",
+      "matchStatus": "EXACT_PAGE_AND_IMAGE_ALT",
+      "retrievalStatus": "NOT_DOWNLOADED",
+      "displayStatus": "NOT_TESTED"
+    },
     "specifications": {},
     "sourceInformation": null,
     "verificationStatus": "Needs verification",
@@ -157,7 +233,10 @@
     "datasheetSourceUrl": null,
     "officialSourceUrls": {},
     "imagePermissionStatus": "pending",
-    "verification": null
+    "verification": null,
+    "imageVerificationStatus": "PERMISSION_PENDING",
+    "imageModelMatchVerified": false,
+    "imageDirectory": "ip-cameras"
   },
   {
     "id": "cp-unc-ta41l3c-d-q2",
@@ -168,7 +247,16 @@
     "resolutionMp": 4,
     "features": [],
     "description": null,
-    "image": null,
+    "image": {
+      "localPath": null,
+      "sourcePageUrl": "https://cpplusworld.com/cp-unc-ta41l3c-d-q2",
+      "sourceUrl": "https://cpplusworld.com/prodassets/product/small/7303e8ee-3475-4a44-8ad1-40d2758ea95a.png",
+      "sourceHost": "cpplusworld.com",
+      "permissionStatus": "PERMISSION_PENDING",
+      "matchStatus": "EXACT_PAGE_AND_IMAGE_ALT",
+      "retrievalStatus": "NOT_DOWNLOADED",
+      "displayStatus": "NOT_TESTED"
+    },
     "specifications": {},
     "sourceInformation": null,
     "verificationStatus": "Needs verification",
@@ -183,7 +271,10 @@
     "datasheetSourceUrl": null,
     "officialSourceUrls": {},
     "imagePermissionStatus": "pending",
-    "verification": null
+    "verification": null,
+    "imageVerificationStatus": "PERMISSION_PENDING",
+    "imageModelMatchVerified": false,
+    "imageDirectory": "ip-cameras"
   },
   {
     "id": "cp-unc-ta61l3c-lq",
@@ -194,7 +285,16 @@
     "resolutionMp": 6,
     "features": [],
     "description": null,
-    "image": null,
+    "image": {
+      "localPath": null,
+      "sourcePageUrl": "https://cpplusworld.com/cp-unc-ta61l3c-lq",
+      "sourceUrl": "https://cpplusworld.com/prodassets/product/small/082acf71-8aab-4587-86cb-6e7d5fea3ba0.png",
+      "sourceHost": "cpplusworld.com",
+      "permissionStatus": "PERMISSION_PENDING",
+      "matchStatus": "EXACT_PAGE_AND_IMAGE_ALT",
+      "retrievalStatus": "NOT_DOWNLOADED",
+      "displayStatus": "NOT_TESTED"
+    },
     "specifications": {},
     "sourceInformation": null,
     "verificationStatus": "Needs verification",
@@ -209,7 +309,10 @@
     "datasheetSourceUrl": null,
     "officialSourceUrls": {},
     "imagePermissionStatus": "pending",
-    "verification": null
+    "verification": null,
+    "imageVerificationStatus": "PERMISSION_PENDING",
+    "imageModelMatchVerified": false,
+    "imageDirectory": "ip-cameras"
   },
   {
     "id": "cp-e21q",
@@ -220,7 +323,16 @@
     "resolutionMp": 2,
     "features": [],
     "description": null,
-    "image": null,
+    "image": {
+      "localPath": null,
+      "sourcePageUrl": "https://cpplusworld.com/cp-e21q",
+      "sourceUrl": "https://cpplusworld.com/prodassets/product/small/bdbd0485-60f3-41c7-949d-446eb2901607.png",
+      "sourceHost": "cpplusworld.com",
+      "permissionStatus": "PERMISSION_PENDING",
+      "matchStatus": "EXACT_PAGE_AND_IMAGE_ALT",
+      "retrievalStatus": "NOT_DOWNLOADED",
+      "displayStatus": "NOT_TESTED"
+    },
     "specifications": {},
     "sourceInformation": null,
     "verificationStatus": "Needs verification",
@@ -235,7 +347,10 @@
     "datasheetSourceUrl": null,
     "officialSourceUrls": {},
     "imagePermissionStatus": "pending",
-    "verification": null
+    "verification": null,
+    "imageVerificationStatus": "PERMISSION_PENDING",
+    "imageModelMatchVerified": false,
+    "imageDirectory": "wifi-cameras"
   },
   {
     "id": "cp-e31q",
@@ -246,7 +361,16 @@
     "resolutionMp": 3,
     "features": [],
     "description": null,
-    "image": null,
+    "image": {
+      "localPath": null,
+      "sourcePageUrl": "https://cpplusworld.com/cp-e31q",
+      "sourceUrl": "https://cpplusworld.com/prodassets/product/small/456a7766-f5f1-4402-ba2e-3a78e482f974.png",
+      "sourceHost": "cpplusworld.com",
+      "permissionStatus": "PERMISSION_PENDING",
+      "matchStatus": "EXACT_PAGE_AND_IMAGE_ALT",
+      "retrievalStatus": "NOT_DOWNLOADED",
+      "displayStatus": "NOT_TESTED"
+    },
     "specifications": {},
     "sourceInformation": null,
     "verificationStatus": "Needs verification",
@@ -261,7 +385,10 @@
     "datasheetSourceUrl": null,
     "officialSourceUrls": {},
     "imagePermissionStatus": "pending",
-    "verification": null
+    "verification": null,
+    "imageVerificationStatus": "PERMISSION_PENDING",
+    "imageModelMatchVerified": false,
+    "imageDirectory": "wifi-cameras"
   },
   {
     "id": "cp-z42q",
@@ -272,7 +399,16 @@
     "resolutionMp": 4,
     "features": [],
     "description": null,
-    "image": null,
+    "image": {
+      "localPath": null,
+      "sourcePageUrl": null,
+      "sourceUrl": null,
+      "sourceHost": null,
+      "permissionStatus": "NOT_ASSESSED",
+      "matchStatus": "NOT_FOUND",
+      "retrievalStatus": "NOT_DOWNLOADED",
+      "displayStatus": "NOT_TESTED"
+    },
     "specifications": {},
     "sourceInformation": null,
     "verificationStatus": "Needs verification",
@@ -286,8 +422,11 @@
     "datasheetPath": null,
     "datasheetSourceUrl": null,
     "officialSourceUrls": {},
-    "imagePermissionStatus": "pending",
-    "verification": null
+    "imagePermissionStatus": "not_assessed",
+    "verification": null,
+    "imageVerificationStatus": "NOT_FOUND",
+    "imageModelMatchVerified": false,
+    "imageDirectory": "wifi-cameras"
   },
   {
     "id": "ez-m32t",
@@ -298,7 +437,16 @@
     "resolutionMp": 3,
     "features": [],
     "description": null,
-    "image": null,
+    "image": {
+      "localPath": null,
+      "sourcePageUrl": "https://cpplusworld.com/ez-m32t",
+      "sourceUrl": "https://cpplusworld.com/prodassets/product/small/ca42f5fa-adc0-4e66-bae6-04f4c08968d8.png",
+      "sourceHost": "cpplusworld.com",
+      "permissionStatus": "PERMISSION_PENDING",
+      "matchStatus": "EXACT_PAGE_AND_IMAGE_ALT",
+      "retrievalStatus": "NOT_DOWNLOADED",
+      "displayStatus": "NOT_TESTED"
+    },
     "specifications": {},
     "sourceInformation": null,
     "verificationStatus": "Needs verification",
@@ -313,7 +461,10 @@
     "datasheetSourceUrl": null,
     "officialSourceUrls": {},
     "imagePermissionStatus": "pending",
-    "verification": null
+    "verification": null,
+    "imageVerificationStatus": "PERMISSION_PENDING",
+    "imageModelMatchVerified": false,
+    "imageDirectory": "4g-cameras"
   },
   {
     "id": "ez-r33t",
@@ -324,7 +475,16 @@
     "resolutionMp": 3,
     "features": [],
     "description": null,
-    "image": null,
+    "image": {
+      "localPath": null,
+      "sourcePageUrl": "https://cpplusworld.com/ez-r33t",
+      "sourceUrl": "https://cpplusworld.com/prodassets/product/small/63a07953-9dae-4885-8ce2-361035538a20.jpg",
+      "sourceHost": "cpplusworld.com",
+      "permissionStatus": "PERMISSION_PENDING",
+      "matchStatus": "EXACT_PAGE_AND_IMAGE_ALT",
+      "retrievalStatus": "NOT_DOWNLOADED",
+      "displayStatus": "NOT_TESTED"
+    },
     "specifications": {},
     "sourceInformation": null,
     "verificationStatus": "Needs verification",
@@ -339,7 +499,10 @@
     "datasheetSourceUrl": null,
     "officialSourceUrls": {},
     "imagePermissionStatus": "pending",
-    "verification": null
+    "verification": null,
+    "imageVerificationStatus": "PERMISSION_PENDING",
+    "imageModelMatchVerified": false,
+    "imageDirectory": "4g-cameras"
   },
   {
     "id": "ez-s35t",
@@ -350,7 +513,16 @@
     "resolutionMp": 3,
     "features": [],
     "description": null,
-    "image": null,
+    "image": {
+      "localPath": null,
+      "sourcePageUrl": "https://cpplusworld.com/ez-s35t",
+      "sourceUrl": "https://cpplusworld.com/prodassets/product/small/496d0a2c-09da-4600-bc9d-9f4a4d2b3901.png",
+      "sourceHost": "cpplusworld.com",
+      "permissionStatus": "PERMISSION_PENDING",
+      "matchStatus": "EXACT_PAGE_AND_IMAGE_ALT",
+      "retrievalStatus": "NOT_DOWNLOADED",
+      "displayStatus": "NOT_TESTED"
+    },
     "specifications": {},
     "sourceInformation": null,
     "verificationStatus": "Needs verification",
@@ -365,7 +537,10 @@
     "datasheetSourceUrl": null,
     "officialSourceUrls": {},
     "imagePermissionStatus": "pending",
-    "verification": null
+    "verification": null,
+    "imageVerificationStatus": "PERMISSION_PENDING",
+    "imageModelMatchVerified": false,
+    "imageDirectory": "4g-cameras"
   },
   {
     "id": "cp-sl06k",
@@ -376,7 +551,16 @@
     "resolutionMp": null,
     "features": [],
     "description": null,
-    "image": null,
+    "image": {
+      "localPath": null,
+      "sourcePageUrl": "https://cpplusworld.com/cp-sl06k",
+      "sourceUrl": "https://cpplusworld.com/prodassets/product/small/d37135f3-a2c2-4d60-8862-3b06d269bf0a.png",
+      "sourceHost": "cpplusworld.com",
+      "permissionStatus": "PERMISSION_PENDING",
+      "matchStatus": "EXACT_PAGE_AND_IMAGE_ALT",
+      "retrievalStatus": "NOT_DOWNLOADED",
+      "displayStatus": "NOT_TESTED"
+    },
     "specifications": {},
     "sourceInformation": null,
     "verificationStatus": "Needs verification",
@@ -391,7 +575,10 @@
     "datasheetSourceUrl": null,
     "officialSourceUrls": {},
     "imagePermissionStatus": "pending",
-    "verification": null
+    "verification": null,
+    "imageVerificationStatus": "PERMISSION_PENDING",
+    "imageModelMatchVerified": false,
+    "imageDirectory": "solar"
   },
   {
     "id": "cp-unr-104f1",
@@ -402,7 +589,16 @@
     "resolutionMp": null,
     "features": [],
     "description": null,
-    "image": null,
+    "image": {
+      "localPath": null,
+      "sourcePageUrl": "https://cpplusworld.com/cp-unr-104f1",
+      "sourceUrl": "https://cpplusworld.com/prodassets/product/small/737554e5-e6e8-4dcc-ab29-2e4c8ba6c462.jpg",
+      "sourceHost": "cpplusworld.com",
+      "permissionStatus": "PERMISSION_PENDING",
+      "matchStatus": "EXACT_PAGE_AND_IMAGE_ALT",
+      "retrievalStatus": "NOT_DOWNLOADED",
+      "displayStatus": "NOT_TESTED"
+    },
     "specifications": {
       "channels": 4
     },
@@ -419,7 +615,10 @@
     "datasheetSourceUrl": null,
     "officialSourceUrls": {},
     "imagePermissionStatus": "pending",
-    "verification": null
+    "verification": null,
+    "imageVerificationStatus": "PERMISSION_PENDING",
+    "imageModelMatchVerified": false,
+    "imageDirectory": "nvr"
   },
   {
     "id": "cp-unr-4k2081-v4",
@@ -430,7 +629,16 @@
     "resolutionMp": null,
     "features": [],
     "description": null,
-    "image": null,
+    "image": {
+      "localPath": null,
+      "sourcePageUrl": "https://cpplusworld.com/cp-unr-4k2081-v4",
+      "sourceUrl": "https://cpplusworld.com/prodassets/product/small/a47806ce-d3be-43e5-8dae-f0fa64df05db.png",
+      "sourceHost": "cpplusworld.com",
+      "permissionStatus": "PERMISSION_PENDING",
+      "matchStatus": "EXACT_PAGE_AND_IMAGE_ALT",
+      "retrievalStatus": "NOT_DOWNLOADED",
+      "displayStatus": "NOT_TESTED"
+    },
     "specifications": {
       "channels": 8
     },
@@ -447,7 +655,10 @@
     "datasheetSourceUrl": null,
     "officialSourceUrls": {},
     "imagePermissionStatus": "pending",
-    "verification": null
+    "verification": null,
+    "imageVerificationStatus": "PERMISSION_PENDING",
+    "imageModelMatchVerified": false,
+    "imageDirectory": "nvr"
   },
   {
     "id": "cp-unr-4k2162-v3",
@@ -458,7 +669,16 @@
     "resolutionMp": null,
     "features": [],
     "description": null,
-    "image": null,
+    "image": {
+      "localPath": null,
+      "sourcePageUrl": "https://cpplusworld.com/cp-unr-4k2162-v3",
+      "sourceUrl": "https://cpplusworld.com/prodassets/product/small/321fa297-90c2-43f0-9756-b5aa5fab0be1.png",
+      "sourceHost": "cpplusworld.com",
+      "permissionStatus": "PERMISSION_PENDING",
+      "matchStatus": "EXACT_PAGE_AND_IMAGE_ALT",
+      "retrievalStatus": "NOT_DOWNLOADED",
+      "displayStatus": "NOT_TESTED"
+    },
     "specifications": {
       "channels": 16
     },
@@ -475,7 +695,10 @@
     "datasheetSourceUrl": null,
     "officialSourceUrls": {},
     "imagePermissionStatus": "pending",
-    "verification": null
+    "verification": null,
+    "imageVerificationStatus": "PERMISSION_PENDING",
+    "imageModelMatchVerified": false,
+    "imageDirectory": "nvr"
   },
   {
     "id": "cp-unr-4k4322-v4",
@@ -486,7 +709,16 @@
     "resolutionMp": null,
     "features": [],
     "description": null,
-    "image": null,
+    "image": {
+      "localPath": null,
+      "sourcePageUrl": "https://cpplusworld.com/cp-unr-4k4322-v4",
+      "sourceUrl": "https://cpplusworld.com/prodassets/product/small/6b43549a-cfe2-4f37-a089-785112573162.jpg",
+      "sourceHost": "cpplusworld.com",
+      "permissionStatus": "PERMISSION_PENDING",
+      "matchStatus": "EXACT_PAGE_AND_IMAGE_ALT",
+      "retrievalStatus": "NOT_DOWNLOADED",
+      "displayStatus": "NOT_TESTED"
+    },
     "specifications": {
       "channels": 32
     },
@@ -503,7 +735,10 @@
     "datasheetSourceUrl": null,
     "officialSourceUrls": {},
     "imagePermissionStatus": "pending",
-    "verification": null
+    "verification": null,
+    "imageVerificationStatus": "PERMISSION_PENDING",
+    "imageModelMatchVerified": false,
+    "imageDirectory": "nvr"
   },
   {
     "id": "cp-anw-hp4h2-n65",
@@ -514,7 +749,16 @@
     "resolutionMp": null,
     "features": [],
     "description": null,
-    "image": null,
+    "image": {
+      "localPath": null,
+      "sourcePageUrl": "https://cpplusworld.com/cp-anw-hp4h2-n65",
+      "sourceUrl": "https://cpplusworld.com/prodassets/product/small/a1045d14-810b-425e-a05c-706c0070b688.jpg",
+      "sourceHost": "cpplusworld.com",
+      "permissionStatus": "PERMISSION_PENDING",
+      "matchStatus": "EXACT_PAGE_AND_IMAGE_ALT",
+      "retrievalStatus": "NOT_DOWNLOADED",
+      "displayStatus": "NOT_TESTED"
+    },
     "specifications": {},
     "sourceInformation": "4 CH",
     "verificationStatus": "Needs verification",
@@ -529,7 +773,10 @@
     "datasheetSourceUrl": null,
     "officialSourceUrls": {},
     "imagePermissionStatus": "pending",
-    "verification": null
+    "verification": null,
+    "imageVerificationStatus": "PERMISSION_PENDING",
+    "imageModelMatchVerified": false,
+    "imageDirectory": "poe-switches"
   },
   {
     "id": "cp-dnw-hpu8g2-6-v3",
@@ -540,7 +787,16 @@
     "resolutionMp": null,
     "features": [],
     "description": null,
-    "image": null,
+    "image": {
+      "localPath": null,
+      "sourcePageUrl": null,
+      "sourceUrl": null,
+      "sourceHost": null,
+      "permissionStatus": "NOT_ASSESSED",
+      "matchStatus": "NOT_FOUND",
+      "retrievalStatus": "NOT_DOWNLOADED",
+      "displayStatus": "NOT_TESTED"
+    },
     "specifications": {},
     "sourceInformation": "8 CH",
     "verificationStatus": "Needs verification",
@@ -554,8 +810,11 @@
     "datasheetPath": null,
     "datasheetSourceUrl": null,
     "officialSourceUrls": {},
-    "imagePermissionStatus": "pending",
-    "verification": null
+    "imagePermissionStatus": "not_assessed",
+    "verification": null,
+    "imageVerificationStatus": "NOT_FOUND",
+    "imageModelMatchVerified": false,
+    "imageDirectory": "poe-switches"
   },
   {
     "id": "cp-anw-hpu8h2-n12",
@@ -566,7 +825,16 @@
     "resolutionMp": null,
     "features": [],
     "description": null,
-    "image": null,
+    "image": {
+      "localPath": null,
+      "sourcePageUrl": "https://cpplusworld.com/cp-anw-hpu8h2-n12",
+      "sourceUrl": "https://cpplusworld.com/prodassets/product/small/edfdbb7b-bb64-4047-91b1-0320af74968f.jpg",
+      "sourceHost": "cpplusworld.com",
+      "permissionStatus": "PERMISSION_PENDING",
+      "matchStatus": "EXACT_PAGE_AND_IMAGE_ALT",
+      "retrievalStatus": "NOT_DOWNLOADED",
+      "displayStatus": "NOT_TESTED"
+    },
     "specifications": {},
     "sourceInformation": "8 CH",
     "verificationStatus": "Needs verification",
@@ -581,6 +849,9 @@
     "datasheetSourceUrl": null,
     "officialSourceUrls": {},
     "imagePermissionStatus": "pending",
-    "verification": null
+    "verification": null,
+    "imageVerificationStatus": "PERMISSION_PENDING",
+    "imageModelMatchVerified": false,
+    "imageDirectory": "poe-switches"
   }
 ]

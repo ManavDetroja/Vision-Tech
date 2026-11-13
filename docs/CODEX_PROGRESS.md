@@ -149,4 +149,3 @@ Verification performed in this workspace:
 - A local HTTP preview attempt was blocked by the sandbox's loopback socket policy; VS Code Live Server/browser visual checks are not claimed. A configured preview and browser session are required to verify page rendering, console errors, responsive behavior, and end-to-end workflows.
 
 Resume point: configure a dedicated staging Supabase project, review/apply the migration, bootstrap the first super admin, seed existing catalogue/service records, deploy behind HTTPS, and then run the staging test plan in `docs/TASKS.md` before enabling public submissions.
-
