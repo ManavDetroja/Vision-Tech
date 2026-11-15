@@ -1,0 +1,1272 @@
+{
+  "models": [
+    {
+      "model": "CP-UNC-DA21L3C-Q",
+      "category": "ip-cameras",
+      "searchExactModel": true,
+      "cardEnquiryModel": true,
+      "route": "product-details.html?model=CP-UNC-DA21L3C-Q",
+      "exactModel": true,
+      "titleAndDescription": true,
+      "canonical": true,
+      "categoryCorrect": true,
+      "specificationRows": 56,
+      "specificationsMatchRecord": true,
+      "unverifiedFieldsLabelled": true,
+      "galleryImages": [
+        {
+          "path": "assets/images/products/IP_Cameras/Dome/CP-UNC-DA21L3C-Q/CP-UNC-DA21L3C-Q_01.png",
+          "loaded": true,
+          "selected": true
+        },
+        {
+          "path": "assets/images/products/IP_Cameras/Dome/CP-UNC-DA21L3C-Q/CP-UNC-DA21L3C-Q_02.png",
+          "loaded": true,
+          "selected": true
+        },
+        {
+          "path": "assets/images/products/IP_Cameras/Dome/CP-UNC-DA21L3C-Q/CP-UNC-DA21L3C-Q_03.png",
+          "loaded": true,
+          "selected": true
+        },
+        {
+          "path": "assets/images/products/IP_Cameras/Dome/CP-UNC-DA21L3C-Q/CP-UNC-DA21L3C-Q_04.png",
+          "loaded": true,
+          "selected": true
+        },
+        {
+          "path": "assets/images/products/IP_Cameras/Dome/CP-UNC-DA21L3C-Q/CP-UNC-DA21L3C-Q_05.png",
+          "loaded": true,
+          "selected": true
+        },
+        {
+          "path": "assets/images/products/IP_Cameras/Dome/CP-UNC-DA21L3C-Q/CP-UNC-DA21L3C-Q_06.png",
+          "loaded": true,
+          "selected": true
+        }
+      ],
+      "lightbox": true,
+      "relatedProducts": true,
+      "imagesWithinFrames": true,
+      "accessibleImagesAndTable": true,
+      "structuredData": true,
+      "enquiryPrefill": true
+    },
+    {
+      "model": "CP-UNC-DA21L3B-LQ",
+      "category": "ip-cameras",
+      "searchExactModel": true,
+      "cardEnquiryModel": true,
+      "route": "product-details.html?model=CP-UNC-DA21L3B-LQ",
+      "exactModel": true,
+      "titleAndDescription": true,
+      "canonical": true,
+      "categoryCorrect": true,
+      "specificationRows": 56,
+      "specificationsMatchRecord": true,
+      "unverifiedFieldsLabelled": true,
+      "galleryImages": [
+        {
+          "path": "assets/images/products/IP_Cameras/Dome/CP-UNC-DA21L3B-LQ/CP-UNC-DA21L3B-LQ_01.png",
+          "loaded": true,
+          "selected": true
+        },
+        {
+          "path": "assets/images/products/IP_Cameras/Dome/CP-UNC-DA21L3B-LQ/CP-UNC-DA21L3B-LQ_02.png",
+          "loaded": true,
+          "selected": true
+        },
+        {
+          "path": "assets/images/products/IP_Cameras/Dome/CP-UNC-DA21L3B-LQ/CP-UNC-DA21L3B-LQ_03.png",
+          "loaded": true,
+          "selected": true
+        },
+        {
+          "path": "assets/images/products/IP_Cameras/Dome/CP-UNC-DA21L3B-LQ/CP-UNC-DA21L3B-LQ_04.png",
+          "loaded": true,
+          "selected": true
+        },
+        {
+          "path": "assets/images/products/IP_Cameras/Dome/CP-UNC-DA21L3B-LQ/CP-UNC-DA21L3B-LQ_05.png",
+          "loaded": true,
+          "selected": true
+        },
+        {
+          "path": "assets/images/products/IP_Cameras/Dome/CP-UNC-DA21L3B-LQ/CP-UNC-DA21L3B-LQ_06.png",
+          "loaded": true,
+          "selected": true
+        },
+        {
+          "path": "assets/images/products/IP_Cameras/Dome/CP-UNC-DA21L3B-LQ/CP-UNC-DA21L3B-LQ_07.png",
+          "loaded": true,
+          "selected": true
+        }
+      ],
+      "lightbox": true,
+      "relatedProducts": true,
+      "imagesWithinFrames": true,
+      "accessibleImagesAndTable": true,
+      "structuredData": true,
+      "enquiryPrefill": true
+    },
+    {
+      "model": "CP-UNC-DA41L3C-Q2",
+      "category": "ip-cameras",
+      "searchExactModel": true,
+      "cardEnquiryModel": true,
+      "route": "product-details.html?model=CP-UNC-DA41L3C-Q2",
+      "exactModel": true,
+      "titleAndDescription": true,
+      "canonical": true,
+      "categoryCorrect": true,
+      "specificationRows": 2,
+      "specificationsMatchRecord": true,
+      "unverifiedFieldsLabelled": true,
+      "galleryImages": [],
+      "placeholderVisible": true,
+      "relatedProducts": true,
+      "imagesWithinFrames": true,
+      "accessibleImagesAndTable": true,
+      "structuredData": true,
+      "enquiryPrefill": true
+    },
+    {
+      "model": "CP-UNC-DA61L3C-LQ",
+      "category": "ip-cameras",
+      "searchExactModel": true,
+      "cardEnquiryModel": true,
+      "route": "product-details.html?model=CP-UNC-DA61L3C-LQ",
+      "exactModel": true,
+      "titleAndDescription": true,
+      "canonical": true,
+      "categoryCorrect": true,
+      "specificationRows": 64,
+      "specificationsMatchRecord": true,
+      "unverifiedFieldsLabelled": true,
+      "galleryImages": [
+        {
+          "path": "assets/images/products/processed/ip-cameras/CP-UNC-DA61L3C-LQ.png",
+          "loaded": true,
+          "selected": true
+        }
+      ],
+      "lightbox": true,
+      "relatedProducts": true,
+      "imagesWithinFrames": true,
+      "accessibleImagesAndTable": true,
+      "structuredData": true,
+      "enquiryPrefill": true
+    },
+    {
+      "model": "CP-UNC-TA21L3C-Q",
+      "category": "ip-cameras",
+      "searchExactModel": true,
+      "cardEnquiryModel": true,
+      "route": "product-details.html?model=CP-UNC-TA21L3C-Q",
+      "exactModel": true,
+      "titleAndDescription": true,
+      "canonical": true,
+      "categoryCorrect": true,
+      "specificationRows": 61,
+      "specificationsMatchRecord": true,
+      "unverifiedFieldsLabelled": true,
+      "galleryImages": [
+        {
+          "path": "assets/images/products/IP_Cameras/Bullet/CP-UNC-TA21L3C-Q/CP-UNC-TA21L3C-Q_01.png",
+          "loaded": true,
+          "selected": true
+        },
+        {
+          "path": "assets/images/products/IP_Cameras/Bullet/CP-UNC-TA21L3C-Q/CP-UNC-TA21L3C-Q_02.png",
+          "loaded": true,
+          "selected": true
+        },
+        {
+          "path": "assets/images/products/IP_Cameras/Bullet/CP-UNC-TA21L3C-Q/CP-UNC-TA21L3C-Q_03.png",
+          "loaded": true,
+          "selected": true
+        },
+        {
+          "path": "assets/images/products/IP_Cameras/Bullet/CP-UNC-TA21L3C-Q/CP-UNC-TA21L3C-Q_04.png",
+          "loaded": true,
+          "selected": true
+        },
+        {
+          "path": "assets/images/products/IP_Cameras/Bullet/CP-UNC-TA21L3C-Q/CP-UNC-TA21L3C-Q_05.png",
+          "loaded": true,
+          "selected": true
+        },
+        {
+          "path": "assets/images/products/IP_Cameras/Bullet/CP-UNC-TA21L3C-Q/CP-UNC-TA21L3C-Q_06.png",
+          "loaded": true,
+          "selected": true
+        }
+      ],
+      "lightbox": true,
+      "relatedProducts": true,
+      "imagesWithinFrames": true,
+      "accessibleImagesAndTable": true,
+      "structuredData": true,
+      "enquiryPrefill": true
+    },
+    {
+      "model": "CP-UNC-TA21L3B-LQ",
+      "category": "ip-cameras",
+      "searchExactModel": true,
+      "cardEnquiryModel": true,
+      "route": "product-details.html?model=CP-UNC-TA21L3B-LQ",
+      "exactModel": true,
+      "titleAndDescription": true,
+      "canonical": true,
+      "categoryCorrect": true,
+      "specificationRows": 63,
+      "specificationsMatchRecord": true,
+      "unverifiedFieldsLabelled": true,
+      "galleryImages": [
+        {
+          "path": "assets/images/products/IP_Cameras/Bullet/CP-UNC-TA21L3B-LQ/CP-UNC-TA21L3B-LQ_01.png",
+          "loaded": true,
+          "selected": true
+        },
+        {
+          "path": "assets/images/products/IP_Cameras/Bullet/CP-UNC-TA21L3B-LQ/CP-UNC-TA21L3B-LQ_02.png",
+          "loaded": true,
+          "selected": true
+        },
+        {
+          "path": "assets/images/products/IP_Cameras/Bullet/CP-UNC-TA21L3B-LQ/CP-UNC-TA21L3B-LQ_03.png",
+          "loaded": true,
+          "selected": true
+        },
+        {
+          "path": "assets/images/products/IP_Cameras/Bullet/CP-UNC-TA21L3B-LQ/CP-UNC-TA21L3B-LQ_04.png",
+          "loaded": true,
+          "selected": true
+        },
+        {
+          "path": "assets/images/products/IP_Cameras/Bullet/CP-UNC-TA21L3B-LQ/CP-UNC-TA21L3B-LQ_05.png",
+          "loaded": true,
+          "selected": true
+        },
+        {
+          "path": "assets/images/products/IP_Cameras/Bullet/CP-UNC-TA21L3B-LQ/CP-UNC-TA21L3B-LQ_06.png",
+          "loaded": true,
+          "selected": true
+        }
+      ],
+      "lightbox": true,
+      "relatedProducts": true,
+      "imagesWithinFrames": true,
+      "accessibleImagesAndTable": true,
+      "structuredData": true,
+      "enquiryPrefill": true
+    },
+    {
+      "model": "CP-UNC-TA41L3C-D-Q2",
+      "category": "ip-cameras",
+      "searchExactModel": true,
+      "cardEnquiryModel": true,
+      "route": "product-details.html?model=CP-UNC-TA41L3C-D-Q2",
+      "exactModel": true,
+      "titleAndDescription": true,
+      "canonical": true,
+      "categoryCorrect": true,
+      "specificationRows": 54,
+      "specificationsMatchRecord": true,
+      "unverifiedFieldsLabelled": true,
+      "galleryImages": [
+        {
+          "path": "assets/images/products/IP_Cameras/Bullet/CP-UNC-TA41L3C-D-Q2/CP-UNC-TA41L3C-D-Q2_01.png",
+          "loaded": true,
+          "selected": true
+        }
+      ],
+      "lightbox": true,
+      "relatedProducts": true,
+      "imagesWithinFrames": true,
+      "accessibleImagesAndTable": true,
+      "structuredData": true,
+      "enquiryPrefill": true
+    },
+    {
+      "model": "CP-UNC-TA61L3C-LQ",
+      "category": "ip-cameras",
+      "searchExactModel": true,
+      "cardEnquiryModel": true,
+      "route": "product-details.html?model=CP-UNC-TA61L3C-LQ",
+      "exactModel": true,
+      "titleAndDescription": true,
+      "canonical": true,
+      "categoryCorrect": true,
+      "specificationRows": 64,
+      "specificationsMatchRecord": true,
+      "unverifiedFieldsLabelled": true,
+      "galleryImages": [
+        {
+          "path": "assets/images/products/processed/ip-cameras/CP-UNC-TA61L3C-LQ.png",
+          "loaded": true,
+          "selected": true
+        }
+      ],
+      "lightbox": true,
+      "relatedProducts": true,
+      "imagesWithinFrames": true,
+      "accessibleImagesAndTable": true,
+      "structuredData": true,
+      "enquiryPrefill": true
+    },
+    {
+      "model": "CP-E21Q",
+      "category": "wi-fi-cameras",
+      "searchExactModel": true,
+      "cardEnquiryModel": true,
+      "route": "product-details.html?model=CP-E21Q",
+      "exactModel": true,
+      "titleAndDescription": true,
+      "canonical": true,
+      "categoryCorrect": true,
+      "specificationRows": 47,
+      "specificationsMatchRecord": true,
+      "unverifiedFieldsLabelled": true,
+      "galleryImages": [
+        {
+          "path": "assets/images/products/WiFi_Cameras/PT/CP-E21Q/CP-E21Q_01.png",
+          "loaded": true,
+          "selected": true
+        }
+      ],
+      "lightbox": true,
+      "relatedProducts": true,
+      "imagesWithinFrames": true,
+      "accessibleImagesAndTable": true,
+      "structuredData": true,
+      "enquiryPrefill": true
+    },
+    {
+      "model": "CP-E31Q",
+      "category": "wi-fi-cameras",
+      "searchExactModel": true,
+      "cardEnquiryModel": true,
+      "route": "product-details.html?model=CP-E31Q",
+      "exactModel": true,
+      "titleAndDescription": true,
+      "canonical": true,
+      "categoryCorrect": true,
+      "specificationRows": 47,
+      "specificationsMatchRecord": true,
+      "unverifiedFieldsLabelled": true,
+      "galleryImages": [
+        {
+          "path": "assets/images/products/WiFi_Cameras/PT/CP-E31Q/CP-E21Q_01.png",
+          "loaded": true,
+          "selected": true
+        }
+      ],
+      "lightbox": true,
+      "relatedProducts": true,
+      "imagesWithinFrames": true,
+      "accessibleImagesAndTable": true,
+      "structuredData": true,
+      "enquiryPrefill": true
+    },
+    {
+      "model": "CP-Z42Q",
+      "category": "wi-fi-cameras",
+      "searchExactModel": true,
+      "cardEnquiryModel": true,
+      "route": "product-details.html?model=CP-Z42Q",
+      "exactModel": true,
+      "titleAndDescription": true,
+      "canonical": true,
+      "categoryCorrect": true,
+      "specificationRows": 2,
+      "specificationsMatchRecord": true,
+      "unverifiedFieldsLabelled": true,
+      "galleryImages": [],
+      "placeholderVisible": true,
+      "relatedProducts": true,
+      "imagesWithinFrames": true,
+      "accessibleImagesAndTable": true,
+      "structuredData": true,
+      "enquiryPrefill": true
+    },
+    {
+      "model": "EZ-M32T",
+      "category": "4g-cameras",
+      "searchExactModel": true,
+      "cardEnquiryModel": true,
+      "route": "product-details.html?model=EZ-M32T",
+      "exactModel": true,
+      "titleAndDescription": true,
+      "canonical": true,
+      "categoryCorrect": true,
+      "specificationRows": 43,
+      "specificationsMatchRecord": true,
+      "unverifiedFieldsLabelled": true,
+      "galleryImages": [
+        {
+          "path": "assets/images/products/processed/4g-cameras/EZ-M32T.png",
+          "loaded": true,
+          "selected": true
+        }
+      ],
+      "lightbox": true,
+      "relatedProducts": true,
+      "imagesWithinFrames": true,
+      "accessibleImagesAndTable": true,
+      "structuredData": true,
+      "enquiryPrefill": true
+    },
+    {
+      "model": "EZ-R33T",
+      "category": "4g-cameras",
+      "searchExactModel": true,
+      "cardEnquiryModel": true,
+      "route": "product-details.html?model=EZ-R33T",
+      "exactModel": true,
+      "titleAndDescription": true,
+      "canonical": true,
+      "categoryCorrect": true,
+      "specificationRows": 47,
+      "specificationsMatchRecord": true,
+      "unverifiedFieldsLabelled": true,
+      "galleryImages": [
+        {
+          "path": "assets/images/products/processed/4g-cameras/EZ-R33T.png",
+          "loaded": true,
+          "selected": true
+        }
+      ],
+      "lightbox": true,
+      "relatedProducts": true,
+      "imagesWithinFrames": true,
+      "accessibleImagesAndTable": true,
+      "structuredData": true,
+      "enquiryPrefill": true
+    },
+    {
+      "model": "EZ-S35T",
+      "category": "4g-cameras",
+      "searchExactModel": true,
+      "cardEnquiryModel": true,
+      "route": "product-details.html?model=EZ-S35T",
+      "exactModel": true,
+      "titleAndDescription": true,
+      "canonical": true,
+      "categoryCorrect": true,
+      "specificationRows": 49,
+      "specificationsMatchRecord": true,
+      "unverifiedFieldsLabelled": true,
+      "galleryImages": [
+        {
+          "path": "assets/images/products/processed/4g-cameras/EZ-S35T.png",
+          "loaded": true,
+          "selected": true
+        }
+      ],
+      "lightbox": true,
+      "relatedProducts": true,
+      "imagesWithinFrames": true,
+      "accessibleImagesAndTable": true,
+      "structuredData": true,
+      "enquiryPrefill": true
+    },
+    {
+      "model": "CP-SL06K",
+      "category": "solar-products",
+      "searchExactModel": true,
+      "cardEnquiryModel": true,
+      "route": "product-details.html?model=CP-SL06K",
+      "exactModel": true,
+      "titleAndDescription": true,
+      "canonical": true,
+      "categoryCorrect": true,
+      "specificationRows": 30,
+      "specificationsMatchRecord": true,
+      "unverifiedFieldsLabelled": true,
+      "galleryImages": [
+        {
+          "path": "assets/images/products/processed/solar-products/CP-SL06K.png",
+          "loaded": true,
+          "selected": true
+        }
+      ],
+      "lightbox": true,
+      "relatedProducts": true,
+      "imagesWithinFrames": true,
+      "accessibleImagesAndTable": true,
+      "structuredData": true,
+      "enquiryPrefill": true
+    },
+    {
+      "model": "CP-UNR-104F1",
+      "category": "nvr",
+      "searchExactModel": true,
+      "cardEnquiryModel": true,
+      "route": "product-details.html?model=CP-UNR-104F1",
+      "exactModel": true,
+      "titleAndDescription": true,
+      "canonical": true,
+      "categoryCorrect": true,
+      "specificationRows": 26,
+      "specificationsMatchRecord": true,
+      "unverifiedFieldsLabelled": true,
+      "galleryImages": [
+        {
+          "path": "assets/images/products/processed/nvr/CP-UNR-104F1.png",
+          "loaded": true,
+          "selected": true
+        }
+      ],
+      "lightbox": true,
+      "relatedProducts": true,
+      "imagesWithinFrames": true,
+      "accessibleImagesAndTable": true,
+      "structuredData": true,
+      "enquiryPrefill": true
+    },
+    {
+      "model": "CP-UNR-4K2081-V4",
+      "category": "nvr",
+      "searchExactModel": true,
+      "cardEnquiryModel": true,
+      "route": "product-details.html?model=CP-UNR-4K2081-V4",
+      "exactModel": true,
+      "titleAndDescription": true,
+      "canonical": true,
+      "categoryCorrect": true,
+      "specificationRows": 30,
+      "specificationsMatchRecord": true,
+      "unverifiedFieldsLabelled": true,
+      "galleryImages": [
+        {
+          "path": "assets/images/products/NVR/CP-UNR-4K2081-V4/CP-UNR-4K2081-V4_01.png",
+          "loaded": true,
+          "selected": true
+        }
+      ],
+      "lightbox": true,
+      "relatedProducts": true,
+      "imagesWithinFrames": true,
+      "accessibleImagesAndTable": true,
+      "structuredData": true,
+      "enquiryPrefill": true
+    },
+    {
+      "model": "CP-UNR-4K2162-V3",
+      "category": "nvr",
+      "searchExactModel": true,
+      "cardEnquiryModel": true,
+      "route": "product-details.html?model=CP-UNR-4K2162-V3",
+      "exactModel": true,
+      "titleAndDescription": true,
+      "canonical": true,
+      "categoryCorrect": true,
+      "specificationRows": 42,
+      "specificationsMatchRecord": true,
+      "unverifiedFieldsLabelled": true,
+      "galleryImages": [
+        {
+          "path": "assets/images/products/NVR/CP-UNR-4K2162-V3/CP-UNR-4K2162-V3_01.png",
+          "loaded": true,
+          "selected": true
+        }
+      ],
+      "lightbox": true,
+      "relatedProducts": true,
+      "imagesWithinFrames": true,
+      "accessibleImagesAndTable": true,
+      "structuredData": true,
+      "enquiryPrefill": true
+    },
+    {
+      "model": "CP-UNR-4K4322-V4",
+      "category": "nvr",
+      "searchExactModel": true,
+      "cardEnquiryModel": true,
+      "route": "product-details.html?model=CP-UNR-4K4322-V4",
+      "exactModel": true,
+      "titleAndDescription": true,
+      "canonical": true,
+      "categoryCorrect": true,
+      "specificationRows": 37,
+      "specificationsMatchRecord": true,
+      "unverifiedFieldsLabelled": true,
+      "galleryImages": [
+        {
+          "path": "assets/images/products/processed/nvr/CP-UNR-4K4322-V4.png",
+          "loaded": true,
+          "selected": true
+        }
+      ],
+      "lightbox": true,
+      "relatedProducts": true,
+      "imagesWithinFrames": true,
+      "accessibleImagesAndTable": true,
+      "structuredData": true,
+      "enquiryPrefill": true
+    },
+    {
+      "model": "CP-ANW-HP4H2-N65",
+      "category": "poe-switches",
+      "searchExactModel": true,
+      "cardEnquiryModel": true,
+      "route": "product-details.html?model=CP-ANW-HP4H2-N65",
+      "exactModel": true,
+      "titleAndDescription": true,
+      "canonical": true,
+      "categoryCorrect": true,
+      "specificationRows": 22,
+      "specificationsMatchRecord": true,
+      "unverifiedFieldsLabelled": true,
+      "galleryImages": [
+        {
+          "path": "assets/images/products/processed/poe-switches/CP-ANW-HP4H2-N65.png",
+          "loaded": true,
+          "selected": true
+        }
+      ],
+      "lightbox": true,
+      "relatedProducts": true,
+      "imagesWithinFrames": true,
+      "accessibleImagesAndTable": true,
+      "structuredData": true,
+      "enquiryPrefill": true
+    },
+    {
+      "model": "CP-DNW-HPU8G2-6-V3",
+      "category": "poe-switches",
+      "searchExactModel": true,
+      "cardEnquiryModel": true,
+      "route": "product-details.html?model=CP-DNW-HPU8G2-6-V3",
+      "exactModel": true,
+      "titleAndDescription": true,
+      "canonical": true,
+      "categoryCorrect": true,
+      "specificationRows": 2,
+      "specificationsMatchRecord": true,
+      "unverifiedFieldsLabelled": true,
+      "galleryImages": [],
+      "placeholderVisible": true,
+      "relatedProducts": true,
+      "imagesWithinFrames": true,
+      "accessibleImagesAndTable": true,
+      "structuredData": true,
+      "enquiryPrefill": true
+    },
+    {
+      "model": "CP-ANW-HPU8H2-N12",
+      "category": "poe-switches",
+      "searchExactModel": true,
+      "cardEnquiryModel": true,
+      "route": "product-details.html?model=CP-ANW-HPU8H2-N12",
+      "exactModel": true,
+      "titleAndDescription": true,
+      "canonical": true,
+      "categoryCorrect": true,
+      "specificationRows": 22,
+      "specificationsMatchRecord": true,
+      "unverifiedFieldsLabelled": true,
+      "galleryImages": [
+        {
+          "path": "assets/images/products/processed/poe-switches/CP-ANW-HPU8H2-N12.png",
+          "loaded": true,
+          "selected": true
+        }
+      ],
+      "lightbox": true,
+      "relatedProducts": true,
+      "imagesWithinFrames": true,
+      "accessibleImagesAndTable": true,
+      "structuredData": true,
+      "enquiryPrefill": true
+    }
+  ],
+  "checks": [
+    {
+      "name": "22 unique exact model records",
+      "passed": true
+    },
+    {
+      "name": "All 22 catalogue cards render",
+      "passed": true
+    },
+    {
+      "name": "19 catalogue photographs load and use contain",
+      "passed": true
+    },
+    {
+      "name": "3 unresolved model cards have clear placeholders",
+      "passed": true
+    },
+    {
+      "name": "Catalogue image bounds prevent clipping",
+      "passed": true
+    },
+    {
+      "name": "All detail assertions: CP-UNC-DA21L3C-Q",
+      "passed": true
+    },
+    {
+      "name": "All detail assertions: CP-UNC-DA21L3B-LQ",
+      "passed": true
+    },
+    {
+      "name": "All detail assertions: CP-UNC-DA41L3C-Q2",
+      "passed": true
+    },
+    {
+      "name": "All detail assertions: CP-UNC-DA61L3C-LQ",
+      "passed": true
+    },
+    {
+      "name": "All detail assertions: CP-UNC-TA21L3C-Q",
+      "passed": true
+    },
+    {
+      "name": "All detail assertions: CP-UNC-TA21L3B-LQ",
+      "passed": true
+    },
+    {
+      "name": "All detail assertions: CP-UNC-TA41L3C-D-Q2",
+      "passed": true
+    },
+    {
+      "name": "All detail assertions: CP-UNC-TA61L3C-LQ",
+      "passed": true
+    },
+    {
+      "name": "All detail assertions: CP-E21Q",
+      "passed": true
+    },
+    {
+      "name": "All detail assertions: CP-E31Q",
+      "passed": true
+    },
+    {
+      "name": "All detail assertions: CP-Z42Q",
+      "passed": true
+    },
+    {
+      "name": "All detail assertions: EZ-M32T",
+      "passed": true
+    },
+    {
+      "name": "All detail assertions: EZ-R33T",
+      "passed": true
+    },
+    {
+      "name": "All detail assertions: EZ-S35T",
+      "passed": true
+    },
+    {
+      "name": "All detail assertions: CP-SL06K",
+      "passed": true
+    },
+    {
+      "name": "All detail assertions: CP-UNR-104F1",
+      "passed": true
+    },
+    {
+      "name": "All detail assertions: CP-UNR-4K2081-V4",
+      "passed": true
+    },
+    {
+      "name": "All detail assertions: CP-UNR-4K2162-V3",
+      "passed": true
+    },
+    {
+      "name": "All detail assertions: CP-UNR-4K4322-V4",
+      "passed": true
+    },
+    {
+      "name": "All detail assertions: CP-ANW-HP4H2-N65",
+      "passed": true
+    },
+    {
+      "name": "All detail assertions: CP-DNW-HPU8G2-6-V3",
+      "passed": true
+    },
+    {
+      "name": "All detail assertions: CP-ANW-HPU8H2-N12",
+      "passed": true
+    },
+    {
+      "name": "Category filter: 4g-cameras",
+      "passed": true
+    },
+    {
+      "name": "Subcategory filter: 4g-cameras/Bullet Cameras",
+      "passed": true
+    },
+    {
+      "name": "Subcategory filter: 4g-cameras/Dome Cameras",
+      "passed": true
+    },
+    {
+      "name": "Subcategory filter: 4g-cameras/PT Cameras",
+      "passed": true
+    },
+    {
+      "name": "Category filter: ip-cameras",
+      "passed": true
+    },
+    {
+      "name": "Subcategory filter: ip-cameras/Bullet Cameras",
+      "passed": true
+    },
+    {
+      "name": "Subcategory filter: ip-cameras/Dome Cameras",
+      "passed": true
+    },
+    {
+      "name": "Category filter: nvr",
+      "passed": true
+    },
+    {
+      "name": "Category filter: poe-switches",
+      "passed": true
+    },
+    {
+      "name": "Category filter: solar-products",
+      "passed": true
+    },
+    {
+      "name": "Subcategory filter: solar-products/Solar Panel Kits",
+      "passed": true
+    },
+    {
+      "name": "Category filter: wi-fi-cameras",
+      "passed": true
+    },
+    {
+      "name": "Subcategory filter: wi-fi-cameras/PT Cameras",
+      "passed": true
+    },
+    {
+      "name": "Resolution filter: 2",
+      "passed": true
+    },
+    {
+      "name": "Resolution filter: 3",
+      "passed": true
+    },
+    {
+      "name": "Resolution filter: 4",
+      "passed": true
+    },
+    {
+      "name": "Resolution filter: 6",
+      "passed": true
+    },
+    {
+      "name": "Sort: az",
+      "passed": true
+    },
+    {
+      "name": "Sort: za",
+      "passed": true
+    },
+    {
+      "name": "Sort: resolution",
+      "passed": true
+    },
+    {
+      "name": "No search results state",
+      "passed": true
+    },
+    {
+      "name": "Clear all filters restores 22",
+      "passed": true
+    },
+    {
+      "name": "Unknown route and noindex",
+      "passed": true
+    },
+    {
+      "name": "Empty form validation",
+      "passed": true
+    },
+    {
+      "name": "Unconfigured form reports nothing transmitted",
+      "passed": true
+    },
+    {
+      "name": "No horizontal overflow 1440: products.html",
+      "passed": true
+    },
+    {
+      "name": "No image clipping 1440: products.html",
+      "passed": true
+    },
+    {
+      "name": "No horizontal overflow 1440: product-details.html?model=CP-UNC-DA21L3C-Q",
+      "passed": true
+    },
+    {
+      "name": "No image clipping 1440: product-details.html?model=CP-UNC-DA21L3C-Q",
+      "passed": true
+    },
+    {
+      "name": "No horizontal overflow 1440: product-details.html?model=CP-SL06K",
+      "passed": true
+    },
+    {
+      "name": "No image clipping 1440: product-details.html?model=CP-SL06K",
+      "passed": true
+    },
+    {
+      "name": "No horizontal overflow 1440: contact.html?type=product&model=CP-E31Q",
+      "passed": true
+    },
+    {
+      "name": "No image clipping 1440: contact.html?type=product&model=CP-E31Q",
+      "passed": true
+    },
+    {
+      "name": "No horizontal overflow 768: products.html",
+      "passed": true
+    },
+    {
+      "name": "No image clipping 768: products.html",
+      "passed": true
+    },
+    {
+      "name": "No horizontal overflow 768: product-details.html?model=CP-UNC-DA21L3C-Q",
+      "passed": true
+    },
+    {
+      "name": "No image clipping 768: product-details.html?model=CP-UNC-DA21L3C-Q",
+      "passed": true
+    },
+    {
+      "name": "No horizontal overflow 768: product-details.html?model=CP-SL06K",
+      "passed": true
+    },
+    {
+      "name": "No image clipping 768: product-details.html?model=CP-SL06K",
+      "passed": true
+    },
+    {
+      "name": "No horizontal overflow 768: contact.html?type=product&model=CP-E31Q",
+      "passed": true
+    },
+    {
+      "name": "No image clipping 768: contact.html?type=product&model=CP-E31Q",
+      "passed": true
+    },
+    {
+      "name": "No horizontal overflow 390: products.html",
+      "passed": true
+    },
+    {
+      "name": "No image clipping 390: products.html",
+      "passed": true
+    },
+    {
+      "name": "No horizontal overflow 390: product-details.html?model=CP-UNC-DA21L3C-Q",
+      "passed": true
+    },
+    {
+      "name": "No image clipping 390: product-details.html?model=CP-UNC-DA21L3C-Q",
+      "passed": true
+    },
+    {
+      "name": "No horizontal overflow 390: product-details.html?model=CP-SL06K",
+      "passed": true
+    },
+    {
+      "name": "No image clipping 390: product-details.html?model=CP-SL06K",
+      "passed": true
+    },
+    {
+      "name": "No horizontal overflow 390: contact.html?type=product&model=CP-E31Q",
+      "passed": true
+    },
+    {
+      "name": "No image clipping 390: contact.html?type=product&model=CP-E31Q",
+      "passed": true
+    },
+    {
+      "name": "Mobile menu opens",
+      "passed": true
+    },
+    {
+      "name": "Mobile menu closes",
+      "passed": true
+    },
+    {
+      "name": "Keyboard thumbnail selection",
+      "passed": true
+    },
+    {
+      "name": "Mobile enquiry exact prefill",
+      "passed": true
+    },
+    {
+      "name": "Public navigation shell: index.html",
+      "passed": true
+    },
+    {
+      "name": "Public navigation shell: services.html",
+      "passed": true
+    },
+    {
+      "name": "Public navigation shell: about.html",
+      "passed": true
+    },
+    {
+      "name": "Public navigation shell: contact.html",
+      "passed": true
+    },
+    {
+      "name": "Internal link /products.html#main-content",
+      "passed": true
+    },
+    {
+      "name": "Internal link /index.html",
+      "passed": true
+    },
+    {
+      "name": "Internal link /products.html",
+      "passed": true
+    },
+    {
+      "name": "Internal link /services.html",
+      "passed": true
+    },
+    {
+      "name": "Internal link /about.html",
+      "passed": true
+    },
+    {
+      "name": "Internal link /contact.html",
+      "passed": true
+    },
+    {
+      "name": "Internal link /product-details.html?model=CP-UNC-DA21L3C-Q",
+      "passed": true
+    },
+    {
+      "name": "Internal link /contact.html?type=product&model=CP-UNC-DA21L3C-Q",
+      "passed": true
+    },
+    {
+      "name": "Internal link /product-details.html?model=CP-UNC-DA21L3B-LQ",
+      "passed": true
+    },
+    {
+      "name": "Internal link /contact.html?type=product&model=CP-UNC-DA21L3B-LQ",
+      "passed": true
+    },
+    {
+      "name": "Internal link /product-details.html?model=CP-UNC-DA41L3C-Q2",
+      "passed": true
+    },
+    {
+      "name": "Internal link /contact.html?type=product&model=CP-UNC-DA41L3C-Q2",
+      "passed": true
+    },
+    {
+      "name": "Internal link /product-details.html?model=CP-UNC-DA61L3C-LQ",
+      "passed": true
+    },
+    {
+      "name": "Internal link /contact.html?type=product&model=CP-UNC-DA61L3C-LQ",
+      "passed": true
+    },
+    {
+      "name": "Internal link /product-details.html?model=CP-UNC-TA21L3C-Q",
+      "passed": true
+    },
+    {
+      "name": "Internal link /contact.html?type=product&model=CP-UNC-TA21L3C-Q",
+      "passed": true
+    },
+    {
+      "name": "Internal link /product-details.html?model=CP-UNC-TA21L3B-LQ",
+      "passed": true
+    },
+    {
+      "name": "Internal link /contact.html?type=product&model=CP-UNC-TA21L3B-LQ",
+      "passed": true
+    },
+    {
+      "name": "Internal link /product-details.html?model=CP-UNC-TA41L3C-D-Q2",
+      "passed": true
+    },
+    {
+      "name": "Internal link /contact.html?type=product&model=CP-UNC-TA41L3C-D-Q2",
+      "passed": true
+    },
+    {
+      "name": "Internal link /product-details.html?model=CP-UNC-TA61L3C-LQ",
+      "passed": true
+    },
+    {
+      "name": "Internal link /contact.html?type=product&model=CP-UNC-TA61L3C-LQ",
+      "passed": true
+    },
+    {
+      "name": "Internal link /product-details.html?model=CP-E21Q",
+      "passed": true
+    },
+    {
+      "name": "Internal link /contact.html?type=product&model=CP-E21Q",
+      "passed": true
+    },
+    {
+      "name": "Internal link /product-details.html?model=CP-E31Q",
+      "passed": true
+    },
+    {
+      "name": "Internal link /contact.html?type=product&model=CP-E31Q",
+      "passed": true
+    },
+    {
+      "name": "Internal link /product-details.html?model=CP-Z42Q",
+      "passed": true
+    },
+    {
+      "name": "Internal link /contact.html?type=product&model=CP-Z42Q",
+      "passed": true
+    },
+    {
+      "name": "Internal link /product-details.html?model=EZ-M32T",
+      "passed": true
+    },
+    {
+      "name": "Internal link /contact.html?type=product&model=EZ-M32T",
+      "passed": true
+    },
+    {
+      "name": "Internal link /product-details.html?model=EZ-R33T",
+      "passed": true
+    },
+    {
+      "name": "Internal link /contact.html?type=product&model=EZ-R33T",
+      "passed": true
+    },
+    {
+      "name": "Internal link /product-details.html?model=EZ-S35T",
+      "passed": true
+    },
+    {
+      "name": "Internal link /contact.html?type=product&model=EZ-S35T",
+      "passed": true
+    },
+    {
+      "name": "Internal link /product-details.html?model=CP-SL06K",
+      "passed": true
+    },
+    {
+      "name": "Internal link /contact.html?type=product&model=CP-SL06K",
+      "passed": true
+    },
+    {
+      "name": "Internal link /product-details.html?model=CP-UNR-104F1",
+      "passed": true
+    },
+    {
+      "name": "Internal link /contact.html?type=product&model=CP-UNR-104F1",
+      "passed": true
+    },
+    {
+      "name": "Internal link /product-details.html?model=CP-UNR-4K2081-V4",
+      "passed": true
+    },
+    {
+      "name": "Internal link /contact.html?type=product&model=CP-UNR-4K2081-V4",
+      "passed": true
+    },
+    {
+      "name": "Internal link /product-details.html?model=CP-UNR-4K2162-V3",
+      "passed": true
+    },
+    {
+      "name": "Internal link /contact.html?type=product&model=CP-UNR-4K2162-V3",
+      "passed": true
+    },
+    {
+      "name": "Internal link /product-details.html?model=CP-UNR-4K4322-V4",
+      "passed": true
+    },
+    {
+      "name": "Internal link /contact.html?type=product&model=CP-UNR-4K4322-V4",
+      "passed": true
+    },
+    {
+      "name": "Internal link /product-details.html?model=CP-ANW-HP4H2-N65",
+      "passed": true
+    },
+    {
+      "name": "Internal link /contact.html?type=product&model=CP-ANW-HP4H2-N65",
+      "passed": true
+    },
+    {
+      "name": "Internal link /product-details.html?model=CP-DNW-HPU8G2-6-V3",
+      "passed": true
+    },
+    {
+      "name": "Internal link /contact.html?type=product&model=CP-DNW-HPU8G2-6-V3",
+      "passed": true
+    },
+    {
+      "name": "Internal link /product-details.html?model=CP-ANW-HPU8H2-N12",
+      "passed": true
+    },
+    {
+      "name": "Internal link /contact.html?type=product&model=CP-ANW-HPU8H2-N12",
+      "passed": true
+    },
+    {
+      "name": "Internal link /services.html#cctv-installation",
+      "passed": true
+    },
+    {
+      "name": "Internal link /services.html#cctv-repair",
+      "passed": true
+    },
+    {
+      "name": "Internal link /services.html#cctv-maintenance",
+      "passed": true
+    },
+    {
+      "name": "Internal link /services.html#cctv-upgrades",
+      "passed": true
+    },
+    {
+      "name": "Internal link /services.html#security-consultation",
+      "passed": true
+    },
+    {
+      "name": "Normal-page console errors",
+      "passed": true
+    },
+    {
+      "name": "Normal-page HTTP errors",
+      "passed": true
+    },
+    {
+      "name": "All failed card images show fallbacks",
+      "passed": true
+    },
+    {
+      "name": "Failed image elements hidden",
+      "passed": true
+    },
+    {
+      "name": "Failed gallery fallback visible",
+      "passed": true
+    },
+    {
+      "name": "Failed gallery cannot open",
+      "passed": true
+    }
+  ],
+  "consoleErrors": [],
+  "networkFailures": [],
+  "server": "Loopback static HTTP server; no build or backend",
+  "passed": 145,
+  "failed": 0
+}

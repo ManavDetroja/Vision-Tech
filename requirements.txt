@@ -1,0 +1,3 @@
+playwright>=1.49,<2
+httpx>=0.27,<1
+Pillow>=10,<12

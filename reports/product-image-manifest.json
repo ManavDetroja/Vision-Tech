@@ -1,0 +1,1171 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-11-13T11:29:49.138556Z",
+  "source": "https://cpplusworld.com",
+  "policy": "Exact official gallery only; robots policy enforced; no overwrite.",
+  "totals": {
+    "models": 22,
+    "verified": 19,
+    "galleryImagesDiscovered": 49,
+    "imagesDownloaded": 39,
+    "failedModels": 3
+  },
+  "products": [
+    {
+      "model": "CP-UNC-DA21L3C-Q",
+      "folder": "assets/images/products/IP_Cameras/Dome/CP-UNC-DA21L3C-Q",
+      "productPageUrl": "https://cpplusworld.com/cp-unc-da21l3c-q",
+      "verified": true,
+      "status": "COMPLETE",
+      "galleryImages": [
+        {
+          "url": "https://cpplusworld.com/prodassets/product/small/db0ada61-f18c-4e7a-bd6d-f842c4523d24.png",
+          "alt": "CP-UNC-DA21L3C-Q",
+          "galleryElement": "product-image",
+          "order": "0",
+          "robotsAllowed": true
+        },
+        {
+          "url": "https://cpplusworld.com/prodassets/product/small/a2ee0747-3d06-44c8-929c-b99064041339.png",
+          "alt": "",
+          "galleryElement": "product-image",
+          "order": "1",
+          "robotsAllowed": true
+        },
+        {
+          "url": "https://cpplusworld.com/prodassets/product/small/75f38446-b2a8-46a8-867d-ac42ff822de1.png",
+          "alt": "",
+          "galleryElement": "product-image",
+          "order": "2",
+          "robotsAllowed": true
+        },
+        {
+          "url": "https://cpplusworld.com/prodassets/product/small/261c7e82-71ab-4fe9-ab8b-735f359da638.png",
+          "alt": "",
+          "galleryElement": "product-image",
+          "order": "3",
+          "robotsAllowed": true
+        },
+        {
+          "url": "https://cpplusworld.com/prodassets/product/small/d18cebec-0ecb-48b0-8c1d-813c079dfcdf.png",
+          "alt": "",
+          "galleryElement": "product-image",
+          "order": "4",
+          "robotsAllowed": true
+        },
+        {
+          "url": "https://cpplusworld.com/prodassets/product/small/9960ba10-5e0b-4782-8d33-5c7862057cca.png",
+          "alt": "",
+          "galleryElement": "product-image",
+          "order": "5",
+          "robotsAllowed": true
+        },
+        {
+          "url": "https://cpplusworld.com/prodassets/product/small/6e5a466e-3872-4bb8-977f-7aac7e86c601.png",
+          "alt": "",
+          "galleryElement": "product-image",
+          "order": "6",
+          "robotsAllowed": true
+        }
+      ],
+      "downloads": [
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/db0ada61-f18c-4e7a-bd6d-f842c4523d24.png",
+          "path": "assets/images/products/IP_Cameras/Dome/CP-UNC-DA21L3C-Q/CP-UNC-DA21L3C-Q_01.png",
+          "sha256": "97846acdf590b08a279f414212dbe6746031ae679e11daf7535e50bf615bfc70",
+          "bytes": 170640,
+          "width": 400,
+          "height": 520,
+          "format": "PNG",
+          "extension": ".png",
+          "validated": true
+        },
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/a2ee0747-3d06-44c8-929c-b99064041339.png",
+          "path": "assets/images/products/IP_Cameras/Dome/CP-UNC-DA21L3C-Q/CP-UNC-DA21L3C-Q_02.png",
+          "sha256": "67ad58adc517f4b6f51279efa5d600e0b4a24bc0f4ccf3f1116cf6eaba1cd419",
+          "bytes": 158410,
+          "width": 400,
+          "height": 520,
+          "format": "PNG",
+          "extension": ".png",
+          "validated": true
+        },
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/75f38446-b2a8-46a8-867d-ac42ff822de1.png",
+          "path": "assets/images/products/IP_Cameras/Dome/CP-UNC-DA21L3C-Q/CP-UNC-DA21L3C-Q_03.png",
+          "sha256": "c51ba347a1bdeffa537ffa3e1f92c84120388f98e2e2eb72941c2bbe6fb3d120",
+          "bytes": 122593,
+          "width": 400,
+          "height": 520,
+          "format": "PNG",
+          "extension": ".png",
+          "validated": true
+        },
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/261c7e82-71ab-4fe9-ab8b-735f359da638.png",
+          "path": "assets/images/products/IP_Cameras/Dome/CP-UNC-DA21L3C-Q/CP-UNC-DA21L3C-Q_04.png",
+          "sha256": "646c41845f96fead4442722715fe312aedc0df6b10e182bd3ee9491a39656333",
+          "bytes": 225172,
+          "width": 400,
+          "height": 520,
+          "format": "PNG",
+          "extension": ".png",
+          "validated": true
+        },
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/d18cebec-0ecb-48b0-8c1d-813c079dfcdf.png",
+          "path": "assets/images/products/IP_Cameras/Dome/CP-UNC-DA21L3C-Q/CP-UNC-DA21L3C-Q_05.png",
+          "sha256": "8cef691870d426c5ed63084e6d57a29c13561cda06b54a08ab330d668cf33836",
+          "bytes": 173316,
+          "width": 400,
+          "height": 520,
+          "format": "PNG",
+          "extension": ".png",
+          "validated": true
+        },
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/9960ba10-5e0b-4782-8d33-5c7862057cca.png",
+          "path": "assets/images/products/IP_Cameras/Dome/CP-UNC-DA21L3C-Q/CP-UNC-DA21L3C-Q_06.png",
+          "sha256": "56b15cb2a7e451d1cea33cb2d64e4b93ba104903ebab3fa6e59e042e7a2c323b",
+          "bytes": 165730,
+          "width": 400,
+          "height": 520,
+          "format": "PNG",
+          "extension": ".png",
+          "validated": true
+        }
+      ],
+      "failures": [],
+      "duplicates": [
+        {
+          "url": "https://cpplusworld.com/prodassets/product/small/6e5a466e-3872-4bb8-977f-7aac7e86c601.png",
+          "sha256": "97846acdf590b08a279f414212dbe6746031ae679e11daf7535e50bf615bfc70",
+          "matches": "assets/images/products/IP_Cameras/Dome/CP-UNC-DA21L3C-Q/CP-UNC-DA21L3C-Q_01.png"
+        }
+      ],
+      "manualSelectionRequired": false,
+      "checkedAt": "2026-11-13T11:26:48.706476Z"
+    },
+    {
+      "model": "CP-UNC-DA21L3B-LQ",
+      "folder": "assets/images/products/IP_Cameras/Dome/CP-UNC-DA21L3B-LQ",
+      "productPageUrl": "https://cpplusworld.com/cp-unc-da21l3b-lq",
+      "verified": true,
+      "status": "COMPLETE",
+      "galleryImages": [
+        {
+          "url": "https://cpplusworld.com/prodassets/product/small/06449c0a-7368-4a60-a42d-5244c21d6988.png",
+          "alt": "CP-UNC-DA21L3B-LQ",
+          "galleryElement": "product-image",
+          "order": "0",
+          "robotsAllowed": true
+        },
+        {
+          "url": "https://cpplusworld.com/prodassets/product/small/61da0baf-ea65-472b-9675-3b6ae7cdbea3.png",
+          "alt": "",
+          "galleryElement": "product-image",
+          "order": "1",
+          "robotsAllowed": true
+        },
+        {
+          "url": "https://cpplusworld.com/prodassets/product/small/d41f801e-062e-43c7-93ea-4cb801350c6b.png",
+          "alt": "",
+          "galleryElement": "product-image",
+          "order": "2",
+          "robotsAllowed": true
+        },
+        {
+          "url": "https://cpplusworld.com/prodassets/product/small/a4005d07-f216-44fe-aa5a-d22df4ba1012.png",
+          "alt": "",
+          "galleryElement": "product-image",
+          "order": "3",
+          "robotsAllowed": true
+        },
+        {
+          "url": "https://cpplusworld.com/prodassets/product/small/13578f3d-bc5d-4aa3-8748-37b822dc552e.png",
+          "alt": "",
+          "galleryElement": "product-image",
+          "order": "4",
+          "robotsAllowed": true
+        },
+        {
+          "url": "https://cpplusworld.com/prodassets/product/small/8c1eccfa-bb5c-413a-9c00-d94d56b10ade.png",
+          "alt": "",
+          "galleryElement": "product-image",
+          "order": "5",
+          "robotsAllowed": true
+        },
+        {
+          "url": "https://cpplusworld.com/prodassets/product/small/041ede3f-1540-4940-8fc3-adbce27233a1.png",
+          "alt": "",
+          "galleryElement": "product-image",
+          "order": "6",
+          "robotsAllowed": true
+        }
+      ],
+      "downloads": [
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/06449c0a-7368-4a60-a42d-5244c21d6988.png",
+          "path": "assets/images/products/IP_Cameras/Dome/CP-UNC-DA21L3B-LQ/CP-UNC-DA21L3B-LQ_01.png",
+          "sha256": "4ddb79f64d73fb89ba335b1fd7d8dd7462a7b747bee428e1d50bf908937d2705",
+          "bytes": 152115,
+          "width": 400,
+          "height": 520,
+          "format": "PNG",
+          "extension": ".png",
+          "validated": true
+        },
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/61da0baf-ea65-472b-9675-3b6ae7cdbea3.png",
+          "path": "assets/images/products/IP_Cameras/Dome/CP-UNC-DA21L3B-LQ/CP-UNC-DA21L3B-LQ_02.png",
+          "sha256": "7d1eeeafabf85f79f1ce7b1bca9c805eba2e1b816880dc52e3447f49f7c051ff",
+          "bytes": 139511,
+          "width": 400,
+          "height": 520,
+          "format": "PNG",
+          "extension": ".png",
+          "validated": true
+        },
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/d41f801e-062e-43c7-93ea-4cb801350c6b.png",
+          "path": "assets/images/products/IP_Cameras/Dome/CP-UNC-DA21L3B-LQ/CP-UNC-DA21L3B-LQ_03.png",
+          "sha256": "450037e923a2f92b243f17740cfb27a0a7d1f22a2b6a094494a349c13574a1fe",
+          "bytes": 112700,
+          "width": 498,
+          "height": 383,
+          "format": "PNG",
+          "extension": ".png",
+          "validated": true
+        },
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/a4005d07-f216-44fe-aa5a-d22df4ba1012.png",
+          "path": "assets/images/products/IP_Cameras/Dome/CP-UNC-DA21L3B-LQ/CP-UNC-DA21L3B-LQ_04.png",
+          "sha256": "6fa29bfc2b3855d5c0ec0f6f275c8a499cbe42226851bedd977a2769599c58d3",
+          "bytes": 166494,
+          "width": 400,
+          "height": 520,
+          "format": "PNG",
+          "extension": ".png",
+          "validated": true
+        },
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/13578f3d-bc5d-4aa3-8748-37b822dc552e.png",
+          "path": "assets/images/products/IP_Cameras/Dome/CP-UNC-DA21L3B-LQ/CP-UNC-DA21L3B-LQ_05.png",
+          "sha256": "a6ed40dfabe4e5b095a1785d78c3add6417e1c4a0fb9e57a247af04780b97ca5",
+          "bytes": 191401,
+          "width": 400,
+          "height": 520,
+          "format": "PNG",
+          "extension": ".png",
+          "validated": true
+        },
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/8c1eccfa-bb5c-413a-9c00-d94d56b10ade.png",
+          "path": "assets/images/products/IP_Cameras/Dome/CP-UNC-DA21L3B-LQ/CP-UNC-DA21L3B-LQ_06.png",
+          "sha256": "e7a9f3be7cbbc0731dc693bad39220e4ff398a0998f00a1593b59d3116f3c89a",
+          "bytes": 187373,
+          "width": 400,
+          "height": 520,
+          "format": "PNG",
+          "extension": ".png",
+          "validated": true
+        },
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/041ede3f-1540-4940-8fc3-adbce27233a1.png",
+          "path": "assets/images/products/IP_Cameras/Dome/CP-UNC-DA21L3B-LQ/CP-UNC-DA21L3B-LQ_07.png",
+          "sha256": "766a57d8075fc2a51be04330595e3140687b26948c6a70cbe629c3a62b7e65a1",
+          "bytes": 199689,
+          "width": 400,
+          "height": 520,
+          "format": "PNG",
+          "extension": ".png",
+          "validated": true
+        }
+      ],
+      "failures": [],
+      "duplicates": [],
+      "manualSelectionRequired": false,
+      "checkedAt": "2026-11-13T11:26:53.711466Z"
+    },
+    {
+      "model": "CP-UNC-DA41L3C-Q2",
+      "folder": "assets/images/products/IP_Cameras/Dome/CP-UNC-DA41L3C-Q2",
+      "productPageUrl": null,
+      "verified": false,
+      "status": "OFFICIAL_PAGE_NOT_FOUND",
+      "galleryImages": [],
+      "downloads": [],
+      "failures": [
+        "No exact official product page was found."
+      ],
+      "duplicates": [],
+      "manualSelectionRequired": true,
+      "checkedAt": "2026-11-13T11:27:03.959742Z"
+    },
+    {
+      "model": "CP-UNC-DA61L3C-LQ",
+      "folder": "assets/images/products/IP_Cameras/Dome/CP-UNC-DA61L3C-LQ",
+      "productPageUrl": "https://cpplusworld.com/cp-unc-da61l3c-lq",
+      "verified": true,
+      "status": "COMPLETE",
+      "galleryImages": [
+        {
+          "url": "https://cpplusworld.com/prodassets/product/small/0a58697f-c390-4532-989e-65139a8d09a5.jpg",
+          "alt": "CP-UNC-DA61L3C-LQ",
+          "galleryElement": "product-image",
+          "order": "0",
+          "robotsAllowed": true
+        }
+      ],
+      "downloads": [
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/0a58697f-c390-4532-989e-65139a8d09a5.jpg",
+          "path": "assets/images/products/IP_Cameras/Dome/CP-UNC-DA61L3C-LQ/CP-UNC-DA61L3C-LQ_01.jpg",
+          "sha256": "a1ca3c191f8c578ca85f6536dfba038c2e3d8910b103cb65eba23da3e18e853b",
+          "bytes": 56433,
+          "width": 400,
+          "height": 520,
+          "format": "JPEG",
+          "extension": ".jpg",
+          "validated": true
+        }
+      ],
+      "failures": [],
+      "duplicates": [],
+      "manualSelectionRequired": false,
+      "checkedAt": "2026-11-13T11:27:05.345327Z"
+    },
+    {
+      "model": "CP-UNC-TA21L3C-Q",
+      "folder": "assets/images/products/IP_Cameras/Bullet/CP-UNC-TA21L3C-Q",
+      "productPageUrl": "https://cpplusworld.com/cp-unc-ta21l3c-q",
+      "verified": true,
+      "status": "COMPLETE",
+      "galleryImages": [
+        {
+          "url": "https://cpplusworld.com/prodassets/product/small/f4202774-1666-40fb-8398-9599d257f92f.png",
+          "alt": "CP-UNC-TA21L3C-Q",
+          "galleryElement": "product-image",
+          "order": "0",
+          "robotsAllowed": true
+        },
+        {
+          "url": "https://cpplusworld.com/prodassets/product/small/78f9e6c3-4253-4809-b7fd-6628f0992fdf.png",
+          "alt": "",
+          "galleryElement": "product-image",
+          "order": "1",
+          "robotsAllowed": true
+        },
+        {
+          "url": "https://cpplusworld.com/prodassets/product/small/2d18844b-367d-4e47-a6ab-fe0156bd233b.png",
+          "alt": "",
+          "galleryElement": "product-image",
+          "order": "2",
+          "robotsAllowed": true
+        },
+        {
+          "url": "https://cpplusworld.com/prodassets/product/small/d09c10d7-d010-4cbc-9fb4-3de69d1d0da3.png",
+          "alt": "",
+          "galleryElement": "product-image",
+          "order": "3",
+          "robotsAllowed": true
+        },
+        {
+          "url": "https://cpplusworld.com/prodassets/product/small/9acb9201-fb5e-4a00-9f3b-66547918b185.png",
+          "alt": "",
+          "galleryElement": "product-image",
+          "order": "4",
+          "robotsAllowed": true
+        },
+        {
+          "url": "https://cpplusworld.com/prodassets/product/small/76d50e55-c926-4388-9276-1f5fe25fe9fd.png",
+          "alt": "",
+          "galleryElement": "product-image",
+          "order": "5",
+          "robotsAllowed": true
+        },
+        {
+          "url": "https://cpplusworld.com/prodassets/product/small/a8697d1c-644b-449b-9875-cfb419311332.png",
+          "alt": "",
+          "galleryElement": "product-image",
+          "order": "6",
+          "robotsAllowed": true
+        }
+      ],
+      "downloads": [
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/f4202774-1666-40fb-8398-9599d257f92f.png",
+          "path": "assets/images/products/IP_Cameras/Bullet/CP-UNC-TA21L3C-Q/CP-UNC-TA21L3C-Q_01.png",
+          "sha256": "0d9ff0afc8fe9c3d321f0ef58c4681e33c1dfd9081a3fc9705afceb119283776",
+          "bytes": 57274,
+          "width": 400,
+          "height": 520,
+          "format": "PNG",
+          "extension": ".png",
+          "validated": true
+        },
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/78f9e6c3-4253-4809-b7fd-6628f0992fdf.png",
+          "path": "assets/images/products/IP_Cameras/Bullet/CP-UNC-TA21L3C-Q/CP-UNC-TA21L3C-Q_02.png",
+          "sha256": "21063800ed9b184e0ad20ac38bf101ff9c314b19e843128b87cb3d6d51be5682",
+          "bytes": 54561,
+          "width": 400,
+          "height": 520,
+          "format": "PNG",
+          "extension": ".png",
+          "validated": true
+        },
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/2d18844b-367d-4e47-a6ab-fe0156bd233b.png",
+          "path": "assets/images/products/IP_Cameras/Bullet/CP-UNC-TA21L3C-Q/CP-UNC-TA21L3C-Q_03.png",
+          "sha256": "54246e9ae27f1196b4d9ede45df62d04eadc9157ae616b0d9f0683a421070527",
+          "bytes": 66192,
+          "width": 400,
+          "height": 520,
+          "format": "PNG",
+          "extension": ".png",
+          "validated": true
+        },
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/d09c10d7-d010-4cbc-9fb4-3de69d1d0da3.png",
+          "path": "assets/images/products/IP_Cameras/Bullet/CP-UNC-TA21L3C-Q/CP-UNC-TA21L3C-Q_04.png",
+          "sha256": "0cc5d73562ae70fe99b90490e920fbdc1228ab9d23a59aeb8cee23daf1feeb9d",
+          "bytes": 59011,
+          "width": 520,
+          "height": 400,
+          "format": "PNG",
+          "extension": ".png",
+          "validated": true
+        },
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/9acb9201-fb5e-4a00-9f3b-66547918b185.png",
+          "path": "assets/images/products/IP_Cameras/Bullet/CP-UNC-TA21L3C-Q/CP-UNC-TA21L3C-Q_05.png",
+          "sha256": "c769549043fee61c7718424d41bc78395ddc28003bd09caf6030004fbecdf44f",
+          "bytes": 36148,
+          "width": 400,
+          "height": 520,
+          "format": "PNG",
+          "extension": ".png",
+          "validated": true
+        },
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/76d50e55-c926-4388-9276-1f5fe25fe9fd.png",
+          "path": "assets/images/products/IP_Cameras/Bullet/CP-UNC-TA21L3C-Q/CP-UNC-TA21L3C-Q_06.png",
+          "sha256": "df83f11ec4486fdfa61c6c8f854178f071e1f72e3a690fed1ab8add5687b3170",
+          "bytes": 40751,
+          "width": 400,
+          "height": 520,
+          "format": "PNG",
+          "extension": ".png",
+          "validated": true
+        }
+      ],
+      "failures": [],
+      "duplicates": [
+        {
+          "url": "https://cpplusworld.com/prodassets/product/small/a8697d1c-644b-449b-9875-cfb419311332.png",
+          "sha256": "0d9ff0afc8fe9c3d321f0ef58c4681e33c1dfd9081a3fc9705afceb119283776",
+          "matches": "assets/images/products/IP_Cameras/Bullet/CP-UNC-TA21L3C-Q/CP-UNC-TA21L3C-Q_01.png"
+        }
+      ],
+      "manualSelectionRequired": false,
+      "checkedAt": "2026-11-13T11:27:09.532421Z"
+    },
+    {
+      "model": "CP-UNC-TA21L3B-LQ",
+      "folder": "assets/images/products/IP_Cameras/Bullet/CP-UNC-TA21L3B-LQ",
+      "productPageUrl": "https://cpplusworld.com/cp-unc-ta21l3b-lq",
+      "verified": true,
+      "status": "COMPLETE",
+      "galleryImages": [
+        {
+          "url": "https://cpplusworld.com/prodassets/product/small/e72148be-df52-4599-9523-883a05dee63d.png",
+          "alt": "CP-UNC-TA21L3B-LQ",
+          "galleryElement": "product-image",
+          "order": "0",
+          "robotsAllowed": true
+        },
+        {
+          "url": "https://cpplusworld.com/prodassets/product/small/6a28d74d-5fb1-40f2-bbdc-b8151403a434.png",
+          "alt": "",
+          "galleryElement": "product-image",
+          "order": "1",
+          "robotsAllowed": true
+        },
+        {
+          "url": "https://cpplusworld.com/prodassets/product/small/ec722bdf-7541-40a6-ace1-660f1a658bbf.png",
+          "alt": "",
+          "galleryElement": "product-image",
+          "order": "2",
+          "robotsAllowed": true
+        },
+        {
+          "url": "https://cpplusworld.com/prodassets/product/small/4c26a34f-1c48-48c8-a0ca-4128392269d7.png",
+          "alt": "",
+          "galleryElement": "product-image",
+          "order": "3",
+          "robotsAllowed": true
+        },
+        {
+          "url": "https://cpplusworld.com/prodassets/product/small/5a865b7e-36bc-47ca-ba5a-14997bae136b.png",
+          "alt": "",
+          "galleryElement": "product-image",
+          "order": "4",
+          "robotsAllowed": true
+        },
+        {
+          "url": "https://cpplusworld.com/prodassets/product/small/44e23295-bfab-4f85-a605-985a9eb57e33.png",
+          "alt": "",
+          "galleryElement": "product-image",
+          "order": "5",
+          "robotsAllowed": true
+        },
+        {
+          "url": "https://cpplusworld.com/prodassets/product/small/367d6dc0-ceaf-482b-a262-2253317ef3c5.png",
+          "alt": "",
+          "galleryElement": "product-image",
+          "order": "6",
+          "robotsAllowed": true
+        }
+      ],
+      "downloads": [
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/e72148be-df52-4599-9523-883a05dee63d.png",
+          "path": "assets/images/products/IP_Cameras/Bullet/CP-UNC-TA21L3B-LQ/CP-UNC-TA21L3B-LQ_01.png",
+          "sha256": "694817e960a9c4bf1e3b3e800bce5f506bb424a4297eb4e6bbf831feadc5e6a8",
+          "bytes": 70548,
+          "width": 400,
+          "height": 520,
+          "format": "PNG",
+          "extension": ".png",
+          "validated": true
+        },
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/6a28d74d-5fb1-40f2-bbdc-b8151403a434.png",
+          "path": "assets/images/products/IP_Cameras/Bullet/CP-UNC-TA21L3B-LQ/CP-UNC-TA21L3B-LQ_02.png",
+          "sha256": "dded5bfbd613327ebcaf266a9a59003007f5a8ceb146c76c08dfa2873143514b",
+          "bytes": 71241,
+          "width": 400,
+          "height": 520,
+          "format": "PNG",
+          "extension": ".png",
+          "validated": true
+        },
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/ec722bdf-7541-40a6-ace1-660f1a658bbf.png",
+          "path": "assets/images/products/IP_Cameras/Bullet/CP-UNC-TA21L3B-LQ/CP-UNC-TA21L3B-LQ_03.png",
+          "sha256": "8f92911bf8f69d3f17435cc95e48443e944036bb79e71fcb5414ae4072ea7ec1",
+          "bytes": 121051,
+          "width": 400,
+          "height": 520,
+          "format": "PNG",
+          "extension": ".png",
+          "validated": true
+        },
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/4c26a34f-1c48-48c8-a0ca-4128392269d7.png",
+          "path": "assets/images/products/IP_Cameras/Bullet/CP-UNC-TA21L3B-LQ/CP-UNC-TA21L3B-LQ_04.png",
+          "sha256": "ed61264319845095efd77281936eb3a7ebbc0142af9e5aa894dadcdc3cc960fc",
+          "bytes": 77537,
+          "width": 400,
+          "height": 520,
+          "format": "PNG",
+          "extension": ".png",
+          "validated": true
+        },
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/5a865b7e-36bc-47ca-ba5a-14997bae136b.png",
+          "path": "assets/images/products/IP_Cameras/Bullet/CP-UNC-TA21L3B-LQ/CP-UNC-TA21L3B-LQ_05.png",
+          "sha256": "c7d1f2740740b16046ac3a506dad23ea75d65c0b89c44c3a930807ec64d95a08",
+          "bytes": 65898,
+          "width": 400,
+          "height": 520,
+          "format": "PNG",
+          "extension": ".png",
+          "validated": true
+        },
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/44e23295-bfab-4f85-a605-985a9eb57e33.png",
+          "path": "assets/images/products/IP_Cameras/Bullet/CP-UNC-TA21L3B-LQ/CP-UNC-TA21L3B-LQ_06.png",
+          "sha256": "940792b049406e7e3e1fa6ca27bac0a8e02a1073478bdfe28f7a328d4352028c",
+          "bytes": 75651,
+          "width": 400,
+          "height": 520,
+          "format": "PNG",
+          "extension": ".png",
+          "validated": true
+        }
+      ],
+      "failures": [],
+      "duplicates": [
+        {
+          "url": "https://cpplusworld.com/prodassets/product/small/367d6dc0-ceaf-482b-a262-2253317ef3c5.png",
+          "sha256": "694817e960a9c4bf1e3b3e800bce5f506bb424a4297eb4e6bbf831feadc5e6a8",
+          "matches": "assets/images/products/IP_Cameras/Bullet/CP-UNC-TA21L3B-LQ/CP-UNC-TA21L3B-LQ_01.png"
+        }
+      ],
+      "manualSelectionRequired": false,
+      "checkedAt": "2026-11-13T11:27:19.737539Z"
+    },
+    {
+      "model": "CP-UNC-TA41L3C-D-Q2",
+      "folder": "assets/images/products/IP_Cameras/Bullet/CP-UNC-TA41L3C-D-Q2",
+      "productPageUrl": "https://cpplusworld.com/cp-unc-ta41l3c-d-q2",
+      "verified": true,
+      "status": "COMPLETE",
+      "galleryImages": [
+        {
+          "url": "https://cpplusworld.com/prodassets/product/small/7303e8ee-3475-4a44-8ad1-40d2758ea95a.png",
+          "alt": "CP-UNC-TA41L3C-D-Q2",
+          "galleryElement": "product-image",
+          "order": "0",
+          "robotsAllowed": true
+        },
+        {
+          "url": "https://cpplusworld.com/prodassets/product/small/7d6d827a-88ea-4d4e-8a8f-b7d82831554e.png",
+          "alt": "",
+          "galleryElement": "product-image",
+          "order": "1",
+          "robotsAllowed": true
+        },
+        {
+          "url": "https://cpplusworld.com/prodassets/product/small/9d56c578-ccba-495b-973f-580e817f04fa.png",
+          "alt": "",
+          "galleryElement": "product-image",
+          "order": "2",
+          "robotsAllowed": true
+        },
+        {
+          "url": "https://cpplusworld.com/prodassets/product/small/061facf2-189c-4252-a790-4a9dacdcf4da.png",
+          "alt": "",
+          "galleryElement": "product-image",
+          "order": "3",
+          "robotsAllowed": true
+        },
+        {
+          "url": "https://cpplusworld.com/prodassets/product/small/ce0de9d2-9285-41d2-8e38-677ae0ce40a9.png",
+          "alt": "",
+          "galleryElement": "product-image",
+          "order": "4",
+          "robotsAllowed": true
+        },
+        {
+          "url": "https://cpplusworld.com/prodassets/product/small/23991d33-e481-4d66-a920-e40da83104e0.png",
+          "alt": "",
+          "galleryElement": "product-image",
+          "order": "5",
+          "robotsAllowed": true
+        },
+        {
+          "url": "https://cpplusworld.com/prodassets/product/small/e9f9a972-2f83-4624-a156-2c8ab19f647c.png",
+          "alt": "",
+          "galleryElement": "product-image",
+          "order": "6",
+          "robotsAllowed": true
+        }
+      ],
+      "downloads": [
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/9d56c578-ccba-495b-973f-580e817f04fa.png",
+          "path": "assets/images/products/IP_Cameras/Bullet/CP-UNC-TA41L3C-D-Q2/CP-UNC-TA41L3C-D-Q2_01.png",
+          "sha256": "813f6c3057f2fec446cb7a42398e0c7e894f510a499ab212a627307036063e88",
+          "bytes": 38352,
+          "width": 400,
+          "height": 520,
+          "format": "PNG",
+          "extension": ".png",
+          "validated": true
+        }
+      ],
+      "failures": [],
+      "duplicates": [
+        {
+          "url": "https://cpplusworld.com/prodassets/product/small/7303e8ee-3475-4a44-8ad1-40d2758ea95a.png",
+          "sha256": "0d9ff0afc8fe9c3d321f0ef58c4681e33c1dfd9081a3fc9705afceb119283776",
+          "matches": "assets/images/products/IP_Cameras/Bullet/CP-UNC-TA21L3C-Q/CP-UNC-TA21L3C-Q_01.png"
+        },
+        {
+          "url": "https://cpplusworld.com/prodassets/product/small/7d6d827a-88ea-4d4e-8a8f-b7d82831554e.png",
+          "sha256": "21063800ed9b184e0ad20ac38bf101ff9c314b19e843128b87cb3d6d51be5682",
+          "matches": "assets/images/products/IP_Cameras/Bullet/CP-UNC-TA21L3C-Q/CP-UNC-TA21L3C-Q_02.png"
+        },
+        {
+          "url": "https://cpplusworld.com/prodassets/product/small/061facf2-189c-4252-a790-4a9dacdcf4da.png",
+          "sha256": "0cc5d73562ae70fe99b90490e920fbdc1228ab9d23a59aeb8cee23daf1feeb9d",
+          "matches": "assets/images/products/IP_Cameras/Bullet/CP-UNC-TA21L3C-Q/CP-UNC-TA21L3C-Q_04.png"
+        },
+        {
+          "url": "https://cpplusworld.com/prodassets/product/small/ce0de9d2-9285-41d2-8e38-677ae0ce40a9.png",
+          "sha256": "c769549043fee61c7718424d41bc78395ddc28003bd09caf6030004fbecdf44f",
+          "matches": "assets/images/products/IP_Cameras/Bullet/CP-UNC-TA21L3C-Q/CP-UNC-TA21L3C-Q_05.png"
+        },
+        {
+          "url": "https://cpplusworld.com/prodassets/product/small/23991d33-e481-4d66-a920-e40da83104e0.png",
+          "sha256": "54246e9ae27f1196b4d9ede45df62d04eadc9157ae616b0d9f0683a421070527",
+          "matches": "assets/images/products/IP_Cameras/Bullet/CP-UNC-TA21L3C-Q/CP-UNC-TA21L3C-Q_03.png"
+        },
+        {
+          "url": "https://cpplusworld.com/prodassets/product/small/e9f9a972-2f83-4624-a156-2c8ab19f647c.png",
+          "sha256": "0d9ff0afc8fe9c3d321f0ef58c4681e33c1dfd9081a3fc9705afceb119283776",
+          "matches": "assets/images/products/IP_Cameras/Bullet/CP-UNC-TA21L3C-Q/CP-UNC-TA21L3C-Q_01.png"
+        }
+      ],
+      "manualSelectionRequired": false,
+      "checkedAt": "2026-11-13T11:27:27.809643Z"
+    },
+    {
+      "model": "CP-UNC-TA61L3C-LQ",
+      "folder": "assets/images/products/IP_Cameras/Bullet/CP-UNC-TA61L3C-LQ",
+      "productPageUrl": "https://cpplusworld.com/cp-unc-ta61l3c-lq",
+      "verified": true,
+      "status": "COMPLETE",
+      "galleryImages": [
+        {
+          "url": "https://cpplusworld.com/prodassets/product/small/082acf71-8aab-4587-86cb-6e7d5fea3ba0.png",
+          "alt": "CP-UNC-TA61L3C-LQ",
+          "galleryElement": "product-image",
+          "order": "0",
+          "robotsAllowed": true
+        }
+      ],
+      "downloads": [
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/082acf71-8aab-4587-86cb-6e7d5fea3ba0.png",
+          "path": "assets/images/products/IP_Cameras/Bullet/CP-UNC-TA61L3C-LQ/CP-UNC-TA61L3C-LQ_01.png",
+          "sha256": "9afd884b26c47c730c6bc6bc789ff417531b8f8007c3b924389eec7428f67cc7",
+          "bytes": 58911,
+          "width": 400,
+          "height": 520,
+          "format": "PNG",
+          "extension": ".png",
+          "validated": true
+        }
+      ],
+      "failures": [],
+      "duplicates": [],
+      "manualSelectionRequired": false,
+      "checkedAt": "2026-11-13T11:27:33.084778Z"
+    },
+    {
+      "model": "CP-E21Q",
+      "folder": "assets/images/products/WiFi_Cameras/PT/CP-E21Q",
+      "productPageUrl": "https://cpplusworld.com/cp-e21q",
+      "verified": true,
+      "status": "COMPLETE",
+      "galleryImages": [
+        {
+          "url": "https://cpplusworld.com/prodassets/product/small/bdbd0485-60f3-41c7-949d-446eb2901607.png",
+          "alt": "CP-E21Q",
+          "galleryElement": "product-image",
+          "order": "0",
+          "robotsAllowed": true
+        }
+      ],
+      "downloads": [
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/bdbd0485-60f3-41c7-949d-446eb2901607.png",
+          "path": "assets/images/products/WiFi_Cameras/PT/CP-E21Q/CP-E21Q_01.png",
+          "sha256": "2509fbf4c0fd9f780a9b2f6a8ff4805167fb84601f65afa8150372ded73dd20a",
+          "bytes": 69081,
+          "width": 400,
+          "height": 520,
+          "format": "PNG",
+          "extension": ".png",
+          "validated": true
+        }
+      ],
+      "failures": [],
+      "duplicates": [],
+      "manualSelectionRequired": false,
+      "checkedAt": "2026-11-13T11:27:37.046622Z"
+    },
+    {
+      "model": "CP-E31Q",
+      "folder": "assets/images/products/WiFi_Cameras/PT/CP-E31Q",
+      "productPageUrl": "https://cpplusworld.com/cp-e31q",
+      "verified": true,
+      "status": "COMPLETE_DUPLICATES_ONLY",
+      "galleryImages": [
+        {
+          "url": "https://cpplusworld.com/prodassets/product/small/456a7766-f5f1-4402-ba2e-3a78e482f974.png",
+          "alt": "CP-E31Q",
+          "galleryElement": "product-image",
+          "order": "0",
+          "robotsAllowed": true
+        }
+      ],
+      "downloads": [],
+      "failures": [],
+      "duplicates": [
+        {
+          "url": "https://cpplusworld.com/prodassets/product/small/456a7766-f5f1-4402-ba2e-3a78e482f974.png",
+          "sha256": "2509fbf4c0fd9f780a9b2f6a8ff4805167fb84601f65afa8150372ded73dd20a",
+          "matches": "assets/images/products/WiFi_Cameras/PT/CP-E21Q/CP-E21Q_01.png"
+        }
+      ],
+      "manualSelectionRequired": false,
+      "checkedAt": "2026-11-13T11:29:44.534169Z"
+    },
+    {
+      "model": "CP-Z42Q",
+      "folder": "assets/images/products/WiFi_Cameras/PT/CP-Z42Q",
+      "productPageUrl": null,
+      "verified": false,
+      "status": "OFFICIAL_PAGE_NOT_FOUND",
+      "galleryImages": [],
+      "downloads": [],
+      "failures": [
+        "No exact official product page was found."
+      ],
+      "duplicates": [],
+      "manualSelectionRequired": true,
+      "checkedAt": "2026-11-13T11:27:44.478210Z"
+    },
+    {
+      "model": "EZ-M32T",
+      "folder": "assets/images/products/4G_Cameras/Dome/EZ-M32T",
+      "productPageUrl": "https://cpplusworld.com/ez-m32t",
+      "verified": true,
+      "status": "COMPLETE",
+      "galleryImages": [
+        {
+          "url": "https://cpplusworld.com/prodassets/product/small/ca42f5fa-adc0-4e66-bae6-04f4c08968d8.png",
+          "alt": "EZ-M32T",
+          "galleryElement": "product-image",
+          "order": "0",
+          "robotsAllowed": true
+        }
+      ],
+      "downloads": [
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/ca42f5fa-adc0-4e66-bae6-04f4c08968d8.png",
+          "path": "assets/images/products/4G_Cameras/Dome/EZ-M32T/EZ-M32T_01.png",
+          "sha256": "d7d6d71ee83bc34387d5db36ea140f692977713da55749c235148ce670481f52",
+          "bytes": 97289,
+          "width": 400,
+          "height": 520,
+          "format": "PNG",
+          "extension": ".png",
+          "validated": true
+        }
+      ],
+      "failures": [],
+      "duplicates": [],
+      "manualSelectionRequired": false,
+      "checkedAt": "2026-11-13T11:27:45.656866Z"
+    },
+    {
+      "model": "EZ-R33T",
+      "folder": "assets/images/products/4G_Cameras/Bullet/EZ-R33T",
+      "productPageUrl": "https://cpplusworld.com/ez-r33t",
+      "verified": true,
+      "status": "COMPLETE",
+      "galleryImages": [
+        {
+          "url": "https://cpplusworld.com/prodassets/product/small/63a07953-9dae-4885-8ce2-361035538a20.jpg",
+          "alt": "EZ-R33T",
+          "galleryElement": "product-image",
+          "order": "0",
+          "robotsAllowed": true
+        }
+      ],
+      "downloads": [
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/63a07953-9dae-4885-8ce2-361035538a20.jpg",
+          "path": "assets/images/products/4G_Cameras/Bullet/EZ-R33T/EZ-R33T_01.jpg",
+          "sha256": "456814580ead860e30bea6cbfebc4cad48fc8434fb92ed77f77ca709be54709a",
+          "bytes": 66851,
+          "width": 400,
+          "height": 520,
+          "format": "JPEG",
+          "extension": ".jpg",
+          "validated": true
+        }
+      ],
+      "failures": [],
+      "duplicates": [],
+      "manualSelectionRequired": false,
+      "checkedAt": "2026-11-13T11:27:50.006003Z"
+    },
+    {
+      "model": "EZ-S35T",
+      "folder": "assets/images/products/4G_Cameras/PT/EZ-S35T",
+      "productPageUrl": "https://cpplusworld.com/ez-s35t",
+      "verified": true,
+      "status": "COMPLETE",
+      "galleryImages": [
+        {
+          "url": "https://cpplusworld.com/prodassets/product/small/496d0a2c-09da-4600-bc9d-9f4a4d2b3901.png",
+          "alt": "EZ-S35T",
+          "galleryElement": "product-image",
+          "order": "0",
+          "robotsAllowed": true
+        }
+      ],
+      "downloads": [
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/496d0a2c-09da-4600-bc9d-9f4a4d2b3901.png",
+          "path": "assets/images/products/4G_Cameras/PT/EZ-S35T/EZ-S35T_01.png",
+          "sha256": "a5a668a905a7cb0b99568b0837eb1ea268b459756e12aa152479995623f4cb6c",
+          "bytes": 117172,
+          "width": 400,
+          "height": 520,
+          "format": "PNG",
+          "extension": ".png",
+          "validated": true
+        }
+      ],
+      "failures": [],
+      "duplicates": [],
+      "manualSelectionRequired": false,
+      "checkedAt": "2026-11-13T11:27:53.963002Z"
+    },
+    {
+      "model": "CP-SL06K",
+      "folder": "assets/images/products/Solar_Products/CP-SL06K",
+      "productPageUrl": "https://cpplusworld.com/cp-sl06k",
+      "verified": true,
+      "status": "COMPLETE",
+      "galleryImages": [
+        {
+          "url": "https://cpplusworld.com/prodassets/product/small/d37135f3-a2c2-4d60-8862-3b06d269bf0a.png",
+          "alt": "CP-SL06K",
+          "galleryElement": "product-image",
+          "order": "0",
+          "robotsAllowed": true
+        }
+      ],
+      "downloads": [
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/d37135f3-a2c2-4d60-8862-3b06d269bf0a.png",
+          "path": "assets/images/products/Solar_Products/CP-SL06K/CP-SL06K_01.png",
+          "sha256": "57e42f7417385fd1e2842affcfa0200e2740cf44b24a80869c993a08c809214f",
+          "bytes": 156125,
+          "width": 400,
+          "height": 520,
+          "format": "PNG",
+          "extension": ".png",
+          "validated": true
+        }
+      ],
+      "failures": [],
+      "duplicates": [],
+      "manualSelectionRequired": false,
+      "checkedAt": "2026-11-13T11:27:58.719507Z"
+    },
+    {
+      "model": "CP-UNR-104F1",
+      "folder": "assets/images/products/NVR/CP-UNR-104F1",
+      "productPageUrl": "https://cpplusworld.com/cp-unr-104f1",
+      "verified": true,
+      "status": "COMPLETE",
+      "galleryImages": [
+        {
+          "url": "https://cpplusworld.com/prodassets/product/small/737554e5-e6e8-4dcc-ab29-2e4c8ba6c462.jpg",
+          "alt": "CP-UNR-104F1",
+          "galleryElement": "product-image",
+          "order": "0",
+          "robotsAllowed": true
+        }
+      ],
+      "downloads": [
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/737554e5-e6e8-4dcc-ab29-2e4c8ba6c462.jpg",
+          "path": "assets/images/products/NVR/CP-UNR-104F1/CP-UNR-104F1_01.jpg",
+          "sha256": "5b301b3308e0811a4511883699d298fb73ecce48835b90d636b05d3fef0a5db5",
+          "bytes": 7735,
+          "width": 400,
+          "height": 520,
+          "format": "JPEG",
+          "extension": ".jpg",
+          "validated": true
+        }
+      ],
+      "failures": [],
+      "duplicates": [],
+      "manualSelectionRequired": false,
+      "checkedAt": "2026-11-13T11:28:02.532743Z"
+    },
+    {
+      "model": "CP-UNR-4K2081-V4",
+      "folder": "assets/images/products/NVR/CP-UNR-4K2081-V4",
+      "productPageUrl": "https://cpplusworld.com/cp-unr-4k2081-v4",
+      "verified": true,
+      "status": "COMPLETE",
+      "galleryImages": [
+        {
+          "url": "https://cpplusworld.com/prodassets/product/small/a47806ce-d3be-43e5-8dae-f0fa64df05db.png",
+          "alt": "CP-UNR-4K2081-V4",
+          "galleryElement": "product-image",
+          "order": "0",
+          "robotsAllowed": true
+        }
+      ],
+      "downloads": [
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/a47806ce-d3be-43e5-8dae-f0fa64df05db.png",
+          "path": "assets/images/products/NVR/CP-UNR-4K2081-V4/CP-UNR-4K2081-V4_01.png",
+          "sha256": "6a6bb64a5728d343c0afbde68144399099a170bf0a7a4408c943a5b349de824d",
+          "bytes": 24448,
+          "width": 400,
+          "height": 520,
+          "format": "PNG",
+          "extension": ".png",
+          "validated": true
+        }
+      ],
+      "failures": [],
+      "duplicates": [],
+      "manualSelectionRequired": false,
+      "checkedAt": "2026-11-13T11:28:06.094108Z"
+    },
+    {
+      "model": "CP-UNR-4K2162-V3",
+      "folder": "assets/images/products/NVR/CP-UNR-4K2162-V3",
+      "productPageUrl": "https://cpplusworld.com/cp-unr-4k2162-v3",
+      "verified": true,
+      "status": "COMPLETE",
+      "galleryImages": [
+        {
+          "url": "https://cpplusworld.com/prodassets/product/small/321fa297-90c2-43f0-9756-b5aa5fab0be1.png",
+          "alt": "CP-UNR-4K2162-V3",
+          "galleryElement": "product-image",
+          "order": "0",
+          "robotsAllowed": true
+        }
+      ],
+      "downloads": [
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/321fa297-90c2-43f0-9756-b5aa5fab0be1.png",
+          "path": "assets/images/products/NVR/CP-UNR-4K2162-V3/CP-UNR-4K2162-V3_01.png",
+          "sha256": "8d7b5ad121ee17edd93b7d1b398db9aec62f32aaf0603344a3cd52c42099cedf",
+          "bytes": 39081,
+          "width": 400,
+          "height": 520,
+          "format": "PNG",
+          "extension": ".png",
+          "validated": true
+        }
+      ],
+      "failures": [],
+      "duplicates": [],
+      "manualSelectionRequired": false,
+      "checkedAt": "2026-11-13T11:28:09.556770Z"
+    },
+    {
+      "model": "CP-UNR-4K4322-V4",
+      "folder": "assets/images/products/NVR/CP-UNR-4K4322-V4",
+      "productPageUrl": "https://cpplusworld.com/cp-unr-4k4322-v4",
+      "verified": true,
+      "status": "COMPLETE",
+      "galleryImages": [
+        {
+          "url": "https://cpplusworld.com/prodassets/product/small/6b43549a-cfe2-4f37-a089-785112573162.jpg",
+          "alt": "CP-UNR-4K4322-V4",
+          "galleryElement": "product-image",
+          "order": "0",
+          "robotsAllowed": true
+        }
+      ],
+      "downloads": [
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/6b43549a-cfe2-4f37-a089-785112573162.jpg",
+          "path": "assets/images/products/NVR/CP-UNR-4K4322-V4/CP-UNR-4K4322-V4_01.jpg",
+          "sha256": "9045583bbd5277a1b89817b32feb76d3dc2d0fff882585044583e0492b0a51e3",
+          "bytes": 44451,
+          "width": 400,
+          "height": 520,
+          "format": "JPEG",
+          "extension": ".jpg",
+          "validated": true
+        }
+      ],
+      "failures": [],
+      "duplicates": [],
+      "manualSelectionRequired": false,
+      "checkedAt": "2026-11-13T11:28:13.034300Z"
+    },
+    {
+      "model": "CP-ANW-HP4H2-N65",
+      "folder": "assets/images/products/POE_Switches/CP-ANW-HP4H2-N65",
+      "productPageUrl": "https://cpplusworld.com/cp-anw-hp4h2-n65",
+      "verified": true,
+      "status": "COMPLETE",
+      "galleryImages": [
+        {
+          "url": "https://cpplusworld.com/prodassets/product/small/a1045d14-810b-425e-a05c-706c0070b688.jpg",
+          "alt": "CP-ANW-HP4H2-N65",
+          "galleryElement": "product-image",
+          "order": "0",
+          "robotsAllowed": true
+        }
+      ],
+      "downloads": [
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/a1045d14-810b-425e-a05c-706c0070b688.jpg",
+          "path": "assets/images/products/POE_Switches/CP-ANW-HP4H2-N65/CP-ANW-HP4H2-N65_01.jpg",
+          "sha256": "9924c27f9a7dc234f6e48135c70751ab11150e9d3b50aea89f444d2ffb98efd4",
+          "bytes": 38304,
+          "width": 400,
+          "height": 520,
+          "format": "JPEG",
+          "extension": ".jpg",
+          "validated": true
+        }
+      ],
+      "failures": [],
+      "duplicates": [],
+      "manualSelectionRequired": false,
+      "checkedAt": "2026-11-13T11:28:16.480780Z"
+    },
+    {
+      "model": "CP-DNW-HPU8G2-6-V3",
+      "folder": "assets/images/products/POE_Switches/CP-DNW-HPU8G2-6-V3",
+      "productPageUrl": null,
+      "verified": false,
+      "status": "OFFICIAL_PAGE_NOT_FOUND",
+      "galleryImages": [],
+      "downloads": [],
+      "failures": [
+        "No exact official product page was found."
+      ],
+      "duplicates": [],
+      "manualSelectionRequired": true,
+      "checkedAt": "2026-11-13T11:28:20.056481Z"
+    },
+    {
+      "model": "CP-ANW-HPU8H2-N12",
+      "folder": "assets/images/products/POE_Switches/CP-ANW-HPU8H2-N12",
+      "productPageUrl": "https://cpplusworld.com/cp-anw-hpu8h2-n12",
+      "verified": true,
+      "status": "COMPLETE",
+      "galleryImages": [
+        {
+          "url": "https://cpplusworld.com/prodassets/product/small/edfdbb7b-bb64-4047-91b1-0320af74968f.jpg",
+          "alt": "CP-ANW-HPU8H2-N12",
+          "galleryElement": "product-image",
+          "order": "0",
+          "robotsAllowed": true
+        }
+      ],
+      "downloads": [
+        {
+          "sourceUrl": "https://cpplusworld.com/prodassets/product/small/edfdbb7b-bb64-4047-91b1-0320af74968f.jpg",
+          "path": "assets/images/products/POE_Switches/CP-ANW-HPU8H2-N12/CP-ANW-HPU8H2-N12_01.jpg",
+          "sha256": "d1c8541f100e52f1d1d374c3ba52316e8a6afece3092b38525af36d9b8812842",
+          "bytes": 56176,
+          "width": 400,
+          "height": 520,
+          "format": "JPEG",
+          "extension": ".jpg",
+          "validated": true
+        }
+      ],
+      "failures": [],
+      "duplicates": [],
+      "manualSelectionRequired": false,
+      "checkedAt": "2026-11-13T11:28:21.112409Z"
+    }
+  ]
+}

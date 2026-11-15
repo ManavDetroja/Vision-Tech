@@ -49,7 +49,7 @@ select set_config('request.jwt.claim.sub', '10000000-0000-4000-8000-000000000003
 select extensions.is((select count(*)::integer from public.enquiries), 1, 'staff sees assigned enquiry only');
 select extensions.is((select count(*)::integer from public.enquiry_notes), 1, 'staff sees notes for assigned enquiry only');
 select extensions.is((select count(*)::integer from public.admin_notifications), 1, 'staff sees own notifications only');
-select extensions.is((select count(*)::integer from public.admin_activity), 1, 'staff sees activity for assigned enquiry only');
+select extensions.is((select count(*)::integer from public.admin_activity), 2, 'staff sees assigned enquiry event and own actor event only');
 select extensions.throws_ok('update public.profiles set role = ''SUPER_ADMIN'' where id = auth.uid()', '42501', null, 'staff cannot modify profile role directly');
 select extensions.throws_ok($$select public.admin_update_product('pgtap-visible', '{"summary":"forbidden"}'::jsonb, true)$$, 'P0001', 'Forbidden', 'staff cannot update product records');
 

@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-11-13 — Supabase staging credential preparation
+
+- Added support for `SUPABASE_PUBLISHABLE_KEY` and server-only `SUPABASE_SECRET_KEY`, retaining legacy key-variable aliases for staged transition.
+- Updated REST/Auth headers so new API keys use `apikey` and authenticated users use their own access token in `Authorization`.
+- Added a placeholder-only root `.env.example`, a no-network variable presence/format checker, and staging credential setup/security documentation.
+- Scanned the public remote `main` history for exposed credential patterns. No actual secrets were found; no Supabase connection or migration was performed.
+
 ## 2026-11-12 — Prompt 09 admin and enquiry management foundation
 
 - Added vanilla-JS private dashboard for enquiry workflows, dashboard totals, staff accounts, notifications, products, services and approved public contact settings.

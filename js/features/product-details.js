@@ -1,6 +1,8 @@
 import { categories } from '../data/categories.js';
 import { products } from '../data/products.js';
 import { bindProductImageFallbacks, productImageMarkup, publicProductGalleryPaths, publicProductImagePath } from '../components/product-image.js';
+import { officialSourceUrl, productEnquiryUrl } from '../components/product-content.js';
+import { ENQUIRY_API_URL, PUBLIC_API_BASE_URL } from '../data/contact-config.js';
 
 const target = document.querySelector('#product-detail');
 const requestedModel = new URLSearchParams(window.location.search).get('model');
@@ -21,20 +23,53 @@ function displayValue(value) {
 function specificationRows(item) {
   const rows = [['Exact model number', item.model, 'Catalogue record']];
 
-  if (item.resolutionMp !== null && item.resolutionMp !== undefined) {
+  if (item.resolutionMp !== null && item.resolutionMp !== undefined && !item.verification?.verifiedFields?.includes('resolutionMp')) {
     rows.push(['Resolution (supplied)', `${item.resolutionMp} MP`, 'Not yet verified']);
   }
 
   for (const [key, value] of Object.entries(item.specifications || {})) {
-    const label = key === 'channels' ? 'Supplied channel information' : key.replace(/([A-Z])/g, ' $1').replace(/^./, (letter) => letter.toUpperCase());
-    rows.push([label, displayValue(value), 'Not yet verified']);
-  }
-
-  if (item.sourceInformation) {
-    rows.push(['Original source label', item.sourceInformation, 'Meaning not yet verified']);
+    const label = key === 'channels' ? 'IP camera input channels' : key;
+    const evidence = item.specificationEvidence?.[key];
+    const verified = value !== null && evidence?.status === 'verified' && officialSourceUrl(evidence.sourceUrl);
+    rows.push([label, verified ? displayValue(value) : 'Not yet verified', verified ? (evidence.sourceUrl.endsWith('.pdf') ? 'Official datasheet' : 'Official page') : 'Needs confirmation']);
   }
 
   return rows;
+}
+
+function setProductMetadata(item, name, description) {
+  document.title = `${item.model} — ${name} | VisionTech Solutions™`;
+  let meta = document.querySelector('meta[name="description"]');
+  if (!meta) {
+    meta = document.createElement('meta');
+    meta.name = 'description';
+    document.head.append(meta);
+  }
+  meta.content = `${item.model}: ${description}`;
+  // Domain comes from the existing CNAME; never canonicalize localhost previews.
+  const canonicalUrl = new URL('product-details.html', 'https://visiontechsolutionmorbi.in/');
+  canonicalUrl.searchParams.set('model', item.model);
+  let canonical = document.querySelector('link[rel="canonical"]');
+  if (!canonical) {
+    canonical = document.createElement('link');
+    canonical.rel = 'canonical';
+    document.head.append(canonical);
+  }
+  canonical.href = canonicalUrl.href;
+  document.querySelector('#product-structured-data')?.remove();
+  if (item.verification?.status !== 'verified') return;
+  const data = {
+    '@context': 'https://schema.org', '@type': 'Product', name,
+    model: item.model, brand: { '@type': 'Brand', name: 'CP PLUS' },
+    description, url: canonicalUrl.href
+  };
+  const image = publicProductImagePath(item);
+  if (image) data.image = new URL(image, canonicalUrl.origin).href;
+  const script = document.createElement('script');
+  script.id = 'product-structured-data';
+  script.type = 'application/ld+json';
+  script.textContent = JSON.stringify(data);
+  document.head.append(script);
 }
 
 function productGalleryMarkup(item) {
@@ -183,6 +218,10 @@ function bindProductGallery(root) {
 
 function renderNotFound() {
   document.title = 'Product Not Found | VisionTech Solutions™';
+  const robots = document.createElement('meta');
+  robots.name = 'robots';
+  robots.content = 'noindex';
+  document.head.append(robots);
   target.innerHTML = `
     <nav class="breadcrumbs" aria-label="Breadcrumb">
       <a href="index.html">Home</a><span aria-hidden="true">/</span><a href="products.html">Products</a><span aria-hidden="true">/</span><span>Not found</span>
@@ -201,14 +240,17 @@ function renderProduct(item) {
 
   const relatedProducts = products.filter((entry) => entry.categoryId === item.categoryId && entry.id !== item.id);
   const rows = specificationRows(item);
-  const features = Array.isArray(item.features) ? item.features.filter(Boolean) : [];
   const isVerified = item.verification?.status === 'verified';
+  const features = isVerified && Array.isArray(item.features) ? item.features.filter(Boolean) : [];
   const name = item.officialName || item.name || `Model ${item.model}`;
   const description = item.description?.trim() || 'A model-specific description is not yet verified for this product.';
   const canDisplayImage = productGalleryMarkup(item);
   const imagePath = publicProductImagePath(item);
 
-  document.title = `${name} | VisionTech Solutions™`;
+  const officialPage = officialSourceUrl(item.officialSourceUrls?.productPage);
+  const datasheet = officialSourceUrl(item.datasheetSourceUrl);
+  const sourceNotes = (item.researchIssues || []).filter((issue) => item.specifications?.[issue.field] === null);
+  setProductMetadata(item, name, description);
   target.innerHTML = `
     <nav class="breadcrumbs" aria-label="Breadcrumb">
       <a href="index.html">Home</a>
@@ -234,12 +276,13 @@ function renderProduct(item) {
           </div>
           <h1 id="detail-title">${escapeHtml(name)}</h1>
           <p class="detail-model"><span>Model number</span><strong>${escapeHtml(item.model)}</strong></p>
-          <span class="verification-badge">${isVerified ? 'Product details verified' : 'Product details not yet verified'}</span>
+          <span class="verification-badge${isVerified ? ' is-verified' : ''}">${isVerified ? 'Official sources reviewed' : 'Product details not yet verified'}</span>
           <p class="detail-description">${escapeHtml(description)}</p>
-          <a class="button button-primary detail-enquiry-button" href="contact.html?type=product&amp;model=${encodeURIComponent(item.model)}">
+          <a class="button button-primary detail-enquiry-button" href="${escapeHtml(productEnquiryUrl(item))}">
             Enquire About This Product
           </a>
-          <p class="detail-enquiry-note">Use the contact form to prepare a product enquiry. Live submission is not configured yet.</p>
+          <p class="detail-enquiry-note">${ENQUIRY_API_URL || PUBLIC_API_BASE_URL ? 'The contact form will include this exact product model.' : 'Prepare your product enquiry in the contact form. Live submission is not configured yet.'}</p>
+          ${officialPage ? `<div class="detail-source-links"><a href="${escapeHtml(officialPage)}" target="_blank" rel="noopener noreferrer">Official product page ↗</a>${datasheet ? `<a href="${escapeHtml(datasheet)}" target="_blank" rel="noopener noreferrer">Manufacturer datasheet ↗</a>` : ''}</div>` : ''}
         </div>
       </section>
 
@@ -250,7 +293,7 @@ function renderProduct(item) {
             <h2 id="features-title">Key features</h2>
           </div>
           ${features.length
-            ? `<ul class="detail-feature-list">${features.map((feature) => `<li><span aria-hidden="true">✓</span><span>${escapeHtml(feature)}</span><small>Not yet verified</small></li>`).join('')}</ul>`
+            ? `<ul class="detail-feature-list">${features.map((feature) => `<li><span aria-hidden="true">✓</span><span>${escapeHtml(feature)}</span><small>Official source</small></li>`).join('')}</ul>`
             : '<p class="detail-unavailable">Not yet verified. No model-specific features are available in the product record.</p>'}
         </section>
 
@@ -259,13 +302,16 @@ function renderProduct(item) {
             <p class="eyebrow">Technical data</p>
             <h2 id="specifications-title">Specifications</h2>
           </div>
-          <div class="spec-table-wrap">
+          <div class="spec-table-wrap" tabindex="0" role="region" aria-label="Product specifications, scroll horizontally if needed">
             <table class="spec-table">
+              <caption>Specifications for ${escapeHtml(item.model)}</caption>
               <thead><tr><th scope="col">Specification</th><th scope="col">Details</th><th scope="col">Status</th></tr></thead>
               <tbody>${rows.map(([label, value, status]) => `<tr><th scope="row">${escapeHtml(label)}</th><td>${escapeHtml(value || 'Not yet verified')}</td><td><span class="spec-status ${status === 'Catalogue record' ? 'spec-status-record' : ''}">${escapeHtml(status)}</span></td></tr>`).join('')}
               ${rows.length === 1 ? '<tr><th scope="row">Additional specifications</th><td>Not yet verified</td><td><span class="spec-status">Not yet verified</span></td></tr>' : ''}</tbody>
             </table>
           </div>
+          ${sourceNotes.length ? `<details class="detail-source-notes"><summary>Fields awaiting manufacturer clarification</summary><ul>${sourceNotes.map((issue) => `<li><strong>${escapeHtml(issue.field)}:</strong> ${escapeHtml(issue.reason)}</li>`).join('')}</ul></details>` : ''}
+          <p class="detail-source-note">${isVerified ? `Official sources reviewed on ${escapeHtml(item.verifiedOn)}. Unavailable or conflicting fields are labelled individually. Warranty terms are not yet verified.` : 'No authoritative technical source for this exact model has been verified. Specifications from similar models are not used.'}</p>
         </section>
 
         <section class="detail-panel detail-applications" aria-labelledby="applications-title">
@@ -273,7 +319,7 @@ function renderProduct(item) {
             <p class="eyebrow">Planning guidance</p>
             <h2 id="applications-title">Applications &amp; use cases</h2>
           </div>
-          <p class="detail-unavailable">Not yet verified. No model-specific application or installation guidance is included in the current product record.</p>
+          ${isVerified && item.applications?.length ? `<ul class="detail-feature-list">${item.applications.map((application) => `<li><span aria-hidden="true">✓</span><span>${escapeHtml(application)}</span></li>`).join('')}</ul>` : '<p class="detail-unavailable">Model-specific application guidance is not yet verified. Confirm suitability for your installation before choosing this product.</p>'}
         </section>
       </div>
 

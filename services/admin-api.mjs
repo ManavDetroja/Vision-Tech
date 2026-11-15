@@ -3,8 +3,8 @@ import { createServer } from 'node:http';
 
 const config = {
   supabaseUrl: (process.env.SUPABASE_URL || '').replace(/\/+$/, ''),
-  anonKey: process.env.SUPABASE_ANON_KEY || '',
-  serviceKey: process.env.SUPABASE_SERVICE_ROLE_KEY || '',
+  publishableKey: process.env.SUPABASE_PUBLISHABLE_KEY || process.env.SUPABASE_ANON_KEY || '',
+  secretKey: process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY || '',
   appOrigin: process.env.APP_ORIGIN || '',
   sessionKey: process.env.SESSION_ENCRYPTION_KEY || '',
   rateSecret: process.env.RATE_LIMIT_HASH_SECRET || '',
@@ -30,8 +30,8 @@ function reply(res, status, data, headers = {}) {
 function missingConfig() {
   const missing = [];
   if (!config.supabaseUrl) missing.push('SUPABASE_URL');
-  if (!config.anonKey) missing.push('SUPABASE_ANON_KEY');
-  if (!config.serviceKey) missing.push('SUPABASE_SERVICE_ROLE_KEY');
+  if (!config.publishableKey) missing.push('SUPABASE_PUBLISHABLE_KEY');
+  if (!config.secretKey) missing.push('SUPABASE_SECRET_KEY');
   if (!config.appOrigin) missing.push('APP_ORIGIN');
   if (!/^[0-9a-f]{64}$/i.test(config.sessionKey)) missing.push('SESSION_ENCRYPTION_KEY');
   if (config.rateSecret.length < 32) missing.push('RATE_LIMIT_HASH_SECRET');
@@ -78,11 +78,15 @@ async function readJson(req, max = 32768) {
   try { return size ? JSON.parse(Buffer.concat(chunks).toString('utf8')) : {}; }
   catch { throw Object.assign(new Error('Request body must be valid JSON.'), { status: 400 }); }
 }
+function isLegacyJwtKey(key) { return key.startsWith('eyJ'); }
+function supabaseHeaders(apiKey, bearerToken = '', includeLegacyKeyBearer = false) {
+  const bearer = bearerToken || (includeLegacyKeyBearer && isLegacyJwtKey(apiKey) ? apiKey : '');
+  return { apikey: apiKey, ...(bearer ? { Authorization: `Bearer ${bearer}` } : {}) };
+}
 async function sb(path, { method = 'GET', body, token, service = false, headers = {} } = {}) {
-  const key = service ? config.serviceKey : config.anonKey;
-  const bearer = service ? config.serviceKey : token || config.anonKey;
+  const key = service ? config.secretKey : config.publishableKey;
   const response = await fetch(`${config.supabaseUrl}${path}`, {
-    method, headers: { apikey: key, Authorization: `Bearer ${bearer}`, ...(body === undefined ? {} : { 'Content-Type': 'application/json' }), ...headers },
+    method, headers: { ...supabaseHeaders(key, token, true), ...(body === undefined ? {} : { 'Content-Type': 'application/json' }), ...headers },
     ...(body === undefined ? {} : { body: JSON.stringify(body) }), redirect: 'error'
   });
   const text = await response.text(); let data = null;
@@ -96,7 +100,7 @@ async function profileFor(id, token) {
 }
 async function refresh(session) {
   const response = await fetch(`${config.supabaseUrl}/auth/v1/token?grant_type=refresh_token`, {
-    method: 'POST', headers: { apikey: config.anonKey, 'Content-Type': 'application/json' }, body: JSON.stringify({ refresh_token: session.refreshToken }), redirect: 'error'
+    method: 'POST', headers: { ...supabaseHeaders(config.publishableKey), 'Content-Type': 'application/json' }, body: JSON.stringify({ refresh_token: session.refreshToken }), redirect: 'error'
   });
   if (!response.ok) throw new Error('Expired session.');
   const data = await response.json();
@@ -110,7 +114,7 @@ async function actorFor(req, res, allowed = roles) {
       session = await refresh(session);
       res.setHeader('Set-Cookie', encryptSession(session));
     }
-    const userResponse = await fetch(`${config.supabaseUrl}/auth/v1/user`, { headers: { apikey: config.anonKey, Authorization: `Bearer ${session.accessToken}` }, redirect: 'error' });
+    const userResponse = await fetch(`${config.supabaseUrl}/auth/v1/user`, { headers: supabaseHeaders(config.publishableKey, session.accessToken), redirect: 'error' });
     if (!userResponse.ok) throw new Error('Authentication expired.');
     const user = await userResponse.json();
     const profile = await profileFor(user.id, session.accessToken);
@@ -191,7 +195,7 @@ async function handle(req, res) {
     if (email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return reply(res, 400, { error: 'Enter a valid email address.' });
     const redirectTo = new URL('/admin/reset-password.html', config.appOrigin).href;
     const response = await fetch(`${config.supabaseUrl}/auth/v1/recover?redirect_to=${encodeURIComponent(redirectTo)}`, {
-      method: 'POST', headers: { apikey: config.anonKey, 'Content-Type': 'application/json' },
+      method: 'POST', headers: { ...supabaseHeaders(config.publishableKey), 'Content-Type': 'application/json' },
       body: JSON.stringify({ email }), redirect: 'error'
     }).catch(() => null);
     if (!response) return reply(res, 502, { error: 'Password reset could not be requested. Try again later.' });
@@ -208,7 +212,7 @@ async function handle(req, res) {
       return reply(res, 422, { error: 'Use the reset link and choose a password between 12 and 256 characters.' });
     }
     const response = await fetch(`${config.supabaseUrl}/auth/v1/user`, {
-      method: 'PUT', headers: { apikey: config.anonKey, Authorization: `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
+      method: 'PUT', headers: { ...supabaseHeaders(config.publishableKey, accessToken), 'Content-Type': 'application/json' },
       body: JSON.stringify({ password }), redirect: 'error'
     }).catch(() => null);
     if (!response?.ok) return reply(res, 422, { error: 'The reset link is invalid or expired. Request a new reset email.' });
@@ -219,7 +223,7 @@ async function handle(req, res) {
     if (!sameOrigin(req)) return reply(res, 403, { error: 'Request origin is not allowed.' });
     const body = await readJson(req, 8192); const email = String(body.email || '').trim().toLowerCase(); const password = String(body.password || '');
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || !password || password.length > 256) return reply(res, 400, { error: 'Enter a valid email and password.' });
-    const response = await fetch(`${config.supabaseUrl}/auth/v1/token?grant_type=password`, { method: 'POST', headers: { apikey: config.anonKey, 'Content-Type': 'application/json' }, body: JSON.stringify({ email, password }), redirect: 'error' });
+    const response = await fetch(`${config.supabaseUrl}/auth/v1/token?grant_type=password`, { method: 'POST', headers: { ...supabaseHeaders(config.publishableKey), 'Content-Type': 'application/json' }, body: JSON.stringify({ email, password }), redirect: 'error' });
     if (!response.ok) return reply(res, 401, { error: 'Email or password is incorrect.' });
     const data = await response.json(); const profile = await profileFor(data.user.id, data.access_token);
     if (!profile || profile.account_state !== 'ACTIVE') return reply(res, 403, { error: 'This account is not active. Ask a super admin to authorize it.' });
@@ -235,7 +239,7 @@ async function handle(req, res) {
     if (!sameOrigin(req)) return reply(res, 403, { error: 'Request origin is not allowed.' });
     const session = decryptSession(req);
     if (session?.accessToken) {
-      await fetch(`${config.supabaseUrl}/auth/v1/logout`, { method: 'POST', headers: { apikey: config.anonKey, Authorization: `Bearer ${session.accessToken}` }, redirect: 'error' }).catch(() => null);
+      await fetch(`${config.supabaseUrl}/auth/v1/logout`, { method: 'POST', headers: supabaseHeaders(config.publishableKey, session.accessToken), redirect: 'error' }).catch(() => null);
     }
     return reply(res, 200, { signedOut: true }, { 'Set-Cookie': clearSession() });
   }
@@ -262,15 +266,15 @@ async function handle(req, res) {
   }
 
   if (path === '/api/public/products' && req.method === 'GET') {
-    const records = await sb('/rest/v1/products?select=record&is_visible=eq.true&order=model.asc', { token: config.anonKey });
+    const records = await sb('/rest/v1/products?select=record&is_visible=eq.true&order=model.asc');
     return reply(res, 200, { products: records.map((row) => row.record) });
   }
   if (path === '/api/public/services' && req.method === 'GET') {
-    const records = await sb('/rest/v1/service_content?select=record&is_visible=eq.true&order=id.asc', { token: config.anonKey });
+    const records = await sb('/rest/v1/service_content?select=record&is_visible=eq.true&order=id.asc');
     return reply(res, 200, { services: records.map((row) => row.record) });
   }
   if (path === '/api/public/contact-settings' && req.method === 'GET') {
-    const settings = await sb('/rest/v1/rpc/public_contact_settings', { method: 'POST', token: config.anonKey, body: {} });
+    const settings = await sb('/rest/v1/rpc/public_contact_settings', { method: 'POST', body: {} });
     return reply(res, 200, settings || {});
   }
 
@@ -389,7 +393,8 @@ async function handle(req, res) {
     const role = ['ADMIN', 'STAFF'].includes(body.role) ? body.role : '';
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || name.length < 2 || name.length > 100 || !role) return reply(res, 422, { error: 'Enter a valid name, email and role.' });
     if (role === 'ADMIN' && actor.profile.role !== 'SUPER_ADMIN') return reply(res, 403, { error: 'Only a super administrator may invite an administrator.' });
-    const response = await fetch(`${config.supabaseUrl}/auth/v1/invite`, { method: 'POST', headers: { apikey: config.serviceKey, Authorization: `Bearer ${config.serviceKey}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ email, data: { full_name: name } }), redirect: 'error' });
+    const inviteHeaders = supabaseHeaders(config.secretKey, '', true);
+    const response = await fetch(`${config.supabaseUrl}/auth/v1/invite`, { method: 'POST', headers: { ...inviteHeaders, 'Content-Type': 'application/json' }, body: JSON.stringify({ email, data: { full_name: name } }), redirect: 'error' });
     if (!response.ok) return reply(res, 400, { error: 'The staff invitation could not be created.' });
     const invited = await response.json();
     await adminRequest('/rest/v1/rpc/admin_set_staff', { method: 'POST', body: { p_actor: actor.user.id, p_target: invited.id, p_role: role, p_state: 'ACTIVE', p_name: name, p_email: email } });
@@ -474,4 +479,4 @@ const server = createServer(async (req, res) => {
 if (process.argv[1] && new URL(import.meta.url).pathname.toLowerCase() === new URL(`file://${process.argv[1].replaceAll('\\', '/')}`).pathname.toLowerCase()) {
   server.listen(config.port, '127.0.0.1', () => console.log(`VisionTech API listening on 127.0.0.1:${config.port}${missingConfig().length ? ` (not configured: ${missingConfig().join(', ')})` : ''}`));
 }
-export { handle, validateEnquiry };
+export { handle, supabaseHeaders, validateEnquiry };

@@ -33,21 +33,21 @@ The CLI version is known, but parser/database compatibility remains **unconfirme
 
 ## API key compatibility findings
 
-The current backend in `services/admin-api.mjs` supports the legacy JWT-style variables:
+Updated after adding the current Supabase API key format. The server API reads:
 
 - `SUPABASE_URL`
-- `SUPABASE_ANON_KEY`
-- `SUPABASE_SERVICE_ROLE_KEY`
+- `SUPABASE_PUBLISHABLE_KEY` (`SUPABASE_ANON_KEY` remains a legacy fallback)
+- `SUPABASE_SECRET_KEY` (`SUPABASE_SERVICE_ROLE_KEY` remains a legacy fallback)
 
-The `sb()` request helper uses the anon or service-role value in the `apikey` header **and also** places it in `Authorization: Bearer ...` when there is no user session token. The Auth invite endpoint also uses the service-role value in both headers. This is compatible with the legacy JWT-shaped keys the code was written for.
+For current `sb_publishable_...` and `sb_secret_...` keys, the backend sends the key in `apikey` only. Authenticated user requests add `Authorization: Bearer <user access token>`. The new secret key is never used as a user bearer token. Legacy JWT-style keys remain supported; the legacy service-role JWT is used as a service identity bearer only on server-side privileged calls.
 
-The backend does **not** implement `SUPABASE_PUBLISHABLE_KEY` or `SUPABASE_SECRET_KEY` variables. It does not support the newer `sb_publishable_...` / `sb_secret_...` key flow correctly: these are opaque API keys, not JWTs, and Supabase directs callers to send them in `apikey`, not `Authorization: Bearer`. Passing a new key as the bearer value can fail JWT verification. The public-key token-login requests happen to set only `apikey`, but ordinary public Data API requests still put the configured anon value in the bearer header; elevated server calls likewise put the secret/service value in the bearer header.
+The server API supports the newer `sb_publishable_...` / `sb_secret_...` keys and legacy aliases. The separate seed utility uses the same current secret variable and keeps its legacy service-role JWT bearer behavior isolated to legacy JWT credentials.
 
 ### Safe compatibility approach
 
-1. For immediate staging validation with the existing code, use only the legacy `anon` and `service_role` JWT keys if the staging Dashboard still provides them. Keep `service_role` in the server's private environment only. Do not put it in browser code or chat.
-2. Before adopting the newer API keys or using this backend for production, update the backend to read publishable/secret variables and separate the two headers: put the publishable or secret key in `apikey`; use `Authorization: Bearer <user access token>` only for authenticated user requests; do not send a new API key as a bearer token. Verify Auth invite/token flows and REST/RPC calls on staging using the documented API-key behavior.
-3. During any transition, do not silently fall back from a missing secret key to a public key for privileged calls. Fail closed and report only missing variable names.
+1. For new staging setup, use `SUPABASE_PUBLISHABLE_KEY` and `SUPABASE_SECRET_KEY` from the staging project. Keep the secret key only in the private server environment.
+2. API requests send either key in `apikey`; authenticated-user requests send the user's access token separately in `Authorization`. A missing secret key never falls back to the publishable key.
+3. Use `node --env-file=.env scripts/check-staging-env.mjs` to check presence and format without printing values or making network requests.
 
 Supabase currently documents publishable keys for public components and secret keys for server components; secret keys map to the elevated `service_role` and bypass RLS. [API keys and header rules](https://supabase.com/docs/guides/getting-started/api-keys), [migration guide for new keys](https://supabase.com/docs/guides/getting-started/migrating-to-new-api-keys)
 
@@ -64,7 +64,7 @@ The root `.gitignore` was reviewed and `git check-ignore --no-index` produced th
 | `.env.example` | No — trackable |
 | `services/.env.example` | No — trackable |
 
-`git ls-files` found no tracked `.env`/`.env.*` files. A scan of browser code (`js/` and `admin/`, JS/MJS/HTML/CSS) found no occurrences of `service_role`, `SUPABASE_SERVICE_ROLE_KEY`, `SUPABASE_SECRET_KEY`, `sb_secret_`, or secret-key references. The backend service files do refer to the server-only service role key as expected. No key values were printed or read.
+The root `.env.example` contains placeholders only. The current worktree has no `.env` file, and the remote `main` history was scanned for service-role JWTs, new `sb_secret_` keys, common provider tokens, private-key blocks, credential assignments, database URIs, and tracked real environment files. No real credential was detected; one angle-bracket placeholder in `docs/DEPLOYMENT.md` is not a credential. No matched values were printed. Browser sources contain no secret key references.
 
 ## Remaining setup requirements
 

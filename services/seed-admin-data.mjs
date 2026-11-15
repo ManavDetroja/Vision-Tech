@@ -2,15 +2,22 @@ import { readFile } from 'node:fs/promises';
 import { services } from '../js/data/services.js';
 
 const supabaseUrl = (process.env.SUPABASE_URL || '').replace(/\/+$/, '');
-const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
-if (!supabaseUrl || !serviceKey) throw new Error('Set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY in the server environment.');
+const secretKey = process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY || '';
+if (!supabaseUrl || !secretKey) throw new Error('Set SUPABASE_URL and SUPABASE_SECRET_KEY in the server environment.');
+
+function secretHeaders() {
+  const headers = { apikey: secretKey };
+  // Legacy service-role JWTs need a role bearer for PostgREST. New sb_secret_ keys
+  // are API keys, not JWTs, and must be sent only as `apikey`.
+  if (secretKey.startsWith('eyJ')) headers.Authorization = `Bearer ${secretKey}`;
+  return headers;
+}
 
 async function upsert(table, records, onConflict) {
   const response = await fetch(`${supabaseUrl}/rest/v1/${table}?on_conflict=${onConflict}`, {
     method: 'POST',
     headers: {
-      apikey: serviceKey,
-      Authorization: `Bearer ${serviceKey}`,
+      ...secretHeaders(),
       'Content-Type': 'application/json',
       Prefer: 'resolution=merge-duplicates,return=minimal'
     },

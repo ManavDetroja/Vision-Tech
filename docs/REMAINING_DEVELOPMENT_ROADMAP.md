@@ -1,12 +1,12 @@
 # VisionTech Solutions™ — Remaining Development Roadmap
 
-**Updated:** 2026-11-13  
+**Updated:** 2026-11-13
 **Rule:** Preserve the existing Vanilla JavaScript website. Product-image retrieval remains paused; do not scrape, download, substitute, or publish product photographs until approved assets and usage permission are supplied.
 
 ## Recommended sequence
 
-1. **P0-01 — Finalize the local database schema/RLS and regression suite.**
-2. **P0-02 — Create/verify dedicated Supabase staging and apply/test reviewed migrations.**
+1. **P0-01 — Local schema/RLS regression suite: complete and passing 21/21 on disposable Supabase.**
+2. **P0-02 — Verify staging identity and complete read-only baseline; apply only after explicit approval.**
 3. **P0-03 — Configure and deploy the API** with server-only credentials and an exact staging origin/API route.
 4. **P0-04 — Bootstrap and verify one SUPER_ADMIN** using the approved business email and Supabase invite/reset flow.
 5. **P0-05 — Verify role boundaries and staff administration** with separate test accounts.
@@ -24,8 +24,8 @@
 
 | Task ID / priority | Name and status | Dependencies | Detailed work required | Deliverables | Acceptance criteria |
 |---|---|---|---|---|---|
-| P0-01 / Critical | Database schema/RLS design — **PREPARED LOCALLY** | None | Existing schema/RLS reviewed; additive hardening migration and 21 pgTAP assertions prepared. No live schema has been confirmed. | Database architecture, migration, local regression suite | Local review complete; retain a clear boundary between prepared SQL and verified database behavior. |
-| P0-02 / Critical | Supabase staging and live database security verification — **LOCAL CONFIG PREPARED; STAGING BLOCKED** | Owner-created staging project; Docker engine; staging config/credentials | CLI 3.1.0 is available via `npx`; local config is initialized; root ignore rules are verified. Docker is unavailable on the latest check and the two 12-digit migrations do not follow canonical 14-digit names, so local parser compatibility remains unconfirmed. Create/identify staging; inspect remote history before apply; verify schema/policies and run pgTAP/API probes. | Local readiness, staging setup, migration history, verification, and test-results reports | Local engine starts and CLI recognizes all migrations; staging history is reconciled; migrations apply only to staging; RLS and API role probes pass with actual evidence. |
+| P0-01 / Critical | Database schema/RLS design — **LOCAL TEST COMPLETE; 21/21 PASS** | None | All three original migrations applied in order on a disposable local Supabase stack. Original filenames work with CLI 3.1.0. Auth trigger behavior passed. One stale activity-count expectation was corrected in the pgTAP test; original migration SQL is unchanged. | Database architecture, migration preflight, local test report | Keep staging conclusions separate from local test evidence; retain the test's exact activity-visibility assertion. |
+| P0-02 / Critical | Supabase staging identity, history, and application — **NOT READY FOR APPROVAL** | Owner-created staging project; verified Dashboard project reference; fresh remote baseline; recovery point; explicit approval | CLI 3.1.0 accepts all three existing migration versions locally. The earlier staging reference and complete schema/history are not independently verified; prior no-ledger/no-public-table results were owner-supplied. Confirm exact project ref, inspect ledger and all conflicting objects read-only, verify CLI dry-run, and confirm backup/restore. Apply the three unchanged migrations only after separate approval. | `SUPABASE_STAGING_MIGRATION_EXECUTION_PLAN.md`, verified staging baseline, approved execution record | Dashboard identity and full baseline are evidenced; dry run shows exactly the three migrations; recovery is confirmed; explicit approval recorded; post-apply ledger/RLS/grants/triggers match expectations. |
 | P0-03 / Critical | API configuration and routing — **BLOCKED** | P0-02; hosting/runtime; approved staging app origin | Resolve current key-format compatibility; configure URL, public key, server-only elevated key, `APP_ORIGIN`, session key, rate-limit secret, and API port in secret manager; deploy Node API to staging and configure same-site `/api` routing. | Staging API, secret inventory (names only), proxy configuration | Health reports ready; staging API calls route correctly; elevated key absent from repository/browser traffic; exact origin enforced. |
 | P0-04 / Critical | Administrator bootstrap and authentication — **BLOCKED** | P0-02/P0-03; approved administrator email | Only after approval, invite a business-controlled administrator through Supabase Auth; promote exact verified profile UUID; verify login, refresh, reset, logout, and disabled account handling. | Verified bootstrap account and authentication test record | Authorized admin auth works; no password stored in source/localStorage; production cookie controls verified before production. |
 | P0-05 / Critical | Staff roles and access control — **BLOCKED** | P0-04; separate staging test accounts | Verify ADMIN/STAFF permissions, staff lifecycle, prevent escalation and protected-role changes, and verify record access. | Role matrix and staff test results | STAFF sees assigned enquiries only; Admin cannot grant elevated roles; disabled accounts fail server-side. |
@@ -44,4 +44,4 @@
 
 ## Next milestone
 
-Implement **P0-01: Supabase schema/RLS review and staging application**. It unlocks every backend-dependent milestone and establishes whether the existing SQL is safe to deploy. Do not bootstrap a real administrator or connect public enquiries until the staging schema and RLS tests pass.
+Complete the manual gates in [SUPABASE_STAGING_MIGRATION_EXECUTION_PLAN.md](SUPABASE_STAGING_MIGRATION_EXECUTION_PLAN.md): verify the exact `VisionTech-Staging` project reference in the Dashboard, authorize a read-only full staging baseline, and confirm a recovery point. Then review the CLI dry run and obtain explicit approval before any staging apply. Do not bootstrap an administrator or connect public enquiries until staging schema, RLS, grants, and API tests pass.

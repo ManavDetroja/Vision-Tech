@@ -1,6 +1,7 @@
 import { categories } from '../data/categories.js';
 import { products } from '../data/products.js';
 import { bindProductImageFallbacks, productImageMarkup } from '../components/product-image.js';
+import { productEnquiryUrl, verifiedProductFacts } from '../components/product-content.js';
 
 const controls = document.querySelector('#catalogue-controls');
 const grid = document.querySelector('#product-grid');
@@ -120,25 +121,26 @@ function filterProducts() {
 function productCard(product) {
   const category = categoryFor(product);
   const detailUrl = `product-details.html?model=${encodeURIComponent(product.model)}`;
-  const suppliedInfo = product.resolutionMp
-    ? `<span>${product.resolutionMp} MP</span>`
-    : product.specifications.channels
-      ? `<span>${product.specifications.channels} CH</span>`
-      : product.sourceInformation
-        ? `<span class="unverified-info">Source label: ${escapeHtml(product.sourceInformation)} · verify</span>`
-        : '';
+  const facts = verifiedProductFacts(product);
+  const features = product.verification?.status === 'verified' ? (product.features || []).slice(0, 3) : [];
+  const suppliedInfo = facts.length ? facts.map((fact) => `<span>${escapeHtml(fact)}</span>`).join(' · ')
+    : '<span class="unverified-info">Specifications awaiting verification</span>';
 
   return `
-    <article class="product-card">
+    <article class="product-card" data-model="${escapeHtml(product.model)}">
       <a class="product-art" href="${detailUrl}" aria-label="View details for ${escapeHtml(product.model)}">
         ${productImageMarkup(product, { className: 'catalogue-product-image-frame', fallback: `${category?.name || 'Security product'} · image pending` })}
       </a>
       <div class="product-card-body">
         <p class="product-category">${escapeHtml(category?.name || '')}${product.subcategory ? ` / ${escapeHtml(product.subcategory)}` : ''}</p>
-        <h2>${escapeHtml(product.name || product.model)}</h2>
+        <h2>${escapeHtml(product.officialName || product.name || product.model)}</h2>
         ${product.name ? `<p class="product-model">Model: ${escapeHtml(product.model)}</p>` : ''}
         <div class="product-facts">${suppliedInfo}</div>
-        <a class="button button-primary" href="${detailUrl}">View Details</a>
+        ${features.length ? `<ul class="product-card-features">${features.map((feature) => `<li>${escapeHtml(feature)}</li>`).join('')}</ul>` : ''}
+        <div class="product-card-actions">
+          <a class="button button-primary" href="${detailUrl}" aria-label="View details for ${escapeHtml(product.model)}">View Details</a>
+          <a class="button button-secondary" href="${escapeHtml(productEnquiryUrl(product))}" aria-label="Enquire about ${escapeHtml(product.model)}">Enquire Now</a>
+        </div>
       </div>
     </article>`;
 }

@@ -39,14 +39,16 @@ Official Supabase documentation describes version-controlled [local migrations](
 Provide these only to the API host's secret manager or private local environment (never frontend JS or committed files):
 
 - `SUPABASE_URL`
-- `SUPABASE_ANON_KEY`
-- `SUPABASE_SERVICE_ROLE_KEY`
+- `SUPABASE_PUBLISHABLE_KEY` (legacy fallback: `SUPABASE_ANON_KEY`)
+- `SUPABASE_SECRET_KEY` (legacy fallback: `SUPABASE_SERVICE_ROLE_KEY`)
 - `APP_ORIGIN` (exact trusted web origin)
 - `SESSION_ENCRYPTION_KEY` (64 hex characters for this API's AES-256 key)
 - `RATE_LIMIT_HASH_SECRET` (at least 32 characters)
 - Email delivery settings if enabled: `RESEND_API_KEY`, `ENQUIRY_FROM_EMAIL`, `ENQUIRY_NOTIFICATION_EMAIL`, and `ADMIN_DASHBOARD_URL`
 
 These values are not needed to apply SQL from a private Supabase dashboard. Do not send them in chat or place them in website files.
+
+The API does not load `.env` itself. For local Windows use, run it from the project root with `node --env-file=.env services/admin-api.mjs`. The new publishable and secret keys are sent in the `apikey` header; only an authenticated user's access token is sent as a bearer token. The secret key is backend-only.
 
 ## Staging acceptance checklist
 

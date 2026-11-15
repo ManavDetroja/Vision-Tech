@@ -8,8 +8,8 @@ Configure these values in a server-side secret manager, never in browser JavaScr
 
 ```text
 SUPABASE_URL=https://<project>.supabase.co
-SUPABASE_ANON_KEY=<public anon key, server configuration>
-SUPABASE_SERVICE_ROLE_KEY=<secret service role key>
+SUPABASE_PUBLISHABLE_KEY=<staging publishable key>
+SUPABASE_SECRET_KEY=<staging secret key; server only>
 APP_ORIGIN=https://<public-site-origin>
 SESSION_ENCRYPTION_KEY=<64 hexadecimal characters>
 RATE_LIMIT_HASH_SECRET=<at least 32 random characters>
@@ -21,7 +21,9 @@ ENQUIRY_FROM_EMAIL=<verified sender when email is enabled>
 ADMIN_DASHBOARD_URL=https://<public-site-origin>/admin/dashboard.html
 ```
 
-Use a Node version that supports native ES modules, `fetch`, and modern crypto APIs. Start with `node services/admin-api.mjs`. The process binds to loopback port 4175 by default. Configure the HTTPS reverse proxy so `/api/` forwards to that process, passes the original allowed site origin, and overwrites forwarding headers. Serve static files from the same origin when possible. For a separate origin, configure exact `APP_ORIGIN` and credentialed CORS; do not use wildcards.
+Use a Node version that supports native ES modules, `fetch`, and modern crypto APIs. For local Windows development, create `C:\Vision Tech\.env` from `.env.example` and start from the project root with `node --env-file=.env services/admin-api.mjs`. The API does not auto-load `.env`. The process binds to loopback port 4175 by default. Configure the HTTPS reverse proxy so `/api/` forwards to that process, passes the original allowed site origin, and overwrites forwarding headers. Serve static files from the same origin when possible. For a separate origin, configure exact `APP_ORIGIN` and credentialed CORS; do not use wildcards.
+
+Send Supabase publishable/secret API keys in `apikey`. Send only the signed-in user's access token in `Authorization: Bearer ...`. Never use the new secret API key as a bearer token.
 
 `GET /api/health` reports whether required backend configuration is present. It does not prove database connectivity. Do not expose detailed health output publicly if that reveals deployment metadata.
 

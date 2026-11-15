@@ -1,7 +1,7 @@
 # Supabase Staging Setup
 
 **Updated:** 2026-11-13  
-**Status:** Waiting for the business owner to create a dedicated staging project. No Supabase project has been created, linked, or contacted from this workspace.
+**Status:** The business owner reports that `VisionTech-Staging` exists and Docker Desktop is running. Neither status nor project identity was independently checked during this credential-preparation task; this workspace did not connect to Supabase.
 
 ## Environment inventory (2026-11-13)
 
@@ -10,20 +10,20 @@
 | Node.js | Available: v24.14.1 | Satisfies the current CLI's Node 20+ requirement when using `npx`. |
 | npm | Available: v11.11.0 | Present, but no npm CLI dependency was added to this static site. |
 | Supabase CLI | Available through `npx`: 3.1.0 | Not installed globally or as a project dependency. A local migration-list attempt could not connect because the local Postgres service was stopped. |
-| Docker CLI / engine | CLI available: 29.6.2; engine unavailable on latest check | The Docker named pipe was missing during the latest `docker ps`; no Supabase containers were running. |
+| Docker CLI / engine | Owner reports Docker Desktop running; not rechecked in this task | No Supabase containers were started. |
 | `psql` | Missing | Optional for this workflow; Supabase CLI and Dashboard SQL editor are alternatives. |
 | `supabase/config.toml` | Created locally with CLI 3.1.0 | `supabase init` added the missing config and `.gitignore` without changing migrations/tests. The local config disables signup and seeding. It does not identify or link a hosted project. |
-| Project credentials / `.env*` files | Not present | No Supabase URL/key environment variables were found by name; no secret values were read. |
+| Project credentials / `.env*` files | Not configured in this workspace | The owner reports obtaining staging URL, publishable key and secret key; values were not shared or read. |
 
 ## Windows setup guide
 
 ### 1. Create a separate staging project
 
 1. Sign in to the Supabase Dashboard using the business-controlled organization.
-2. Choose **New project** and name it clearly, such as **VisionTech Staging**. Confirm the organization and project name indicate staging; do not select or alter the production project.
-3. Select a region appropriate for the intended users and business operations.
-4. Generate a unique database password and save it in a reputable password manager. Do not reuse a website, email, or Windows password. Do not send it in chat or put it in this repository.
-5. Create the project and wait until its database/API status is ready. Keep public signup disabled for this admin-only project until a reviewed onboarding flow exists.
+2. Open the existing project named `VisionTech-Staging` and verify its project reference and URL are the staging project, not production.
+3. Confirm the project reports ready. Do not create another project as part of this setup.
+4. Keep the database password in a password manager; do not send it in chat or put it in this repository.
+5. Keep public signup disabled until a reviewed onboarding flow exists.
 
 ### 2. Install tools locally
 
@@ -45,23 +45,23 @@ The repository now has a `supabase/config.toml` created by the CLI and reviewed 
 
 In the staging project's Dashboard, open **Connect** for its URL and publishable key, or **Settings → API Keys** to review available key types. Keep the public API URL and publishable/legacy anon key distinct from server-only keys.
 
-The current `services/admin-api.mjs` expects the legacy JWT key names `SUPABASE_ANON_KEY` and `SUPABASE_SERVICE_ROLE_KEY`, along with `SUPABASE_URL`, `APP_ORIGIN`, `SESSION_ENCRYPTION_KEY`, and `RATE_LIMIT_HASH_SECRET`. It also optionally reads the email settings documented in the migration guide. Do not substitute a newer `sb_secret_...` value into the service-role variable without first updating and testing API authentication: this implementation currently sends the configured key in both `apikey` and `Authorization: Bearer` headers. Supabase's current API-key guidance distinguishes publishable keys from elevated secret keys and says elevated keys bypass RLS. Resolve this compatibility before API staging tests.
+`services/admin-api.mjs` now accepts `SUPABASE_URL`, `SUPABASE_PUBLISHABLE_KEY`, and `SUPABASE_SECRET_KEY`. It sends API keys in `apikey`; for signed-in users, `Authorization: Bearer` carries the user's Supabase Auth access token. It does not send a new `sb_secret_...` key as a bearer token. Legacy `SUPABASE_ANON_KEY` and `SUPABASE_SERVICE_ROLE_KEY` aliases remain supported. Email settings are optional and documented in the migration guide.
 
 Only the URL and public publishable/anon key may be used in browser code where explicitly needed. The service-role/secret key is backend-only and must never be pasted into chat, a source file, HTML, JavaScript, or a public environment variable.
 
 ### 5. Configure local API secrets safely
 
 - Prefer the hosting provider's secret manager for a deployed test API.
-- For local PowerShell testing, use a private ignored `.env.local` file with filesystem access restricted to the Windows account. The API reads `process.env`; it does not automatically load `.env.local`. With the installed Node v24 runtime, launch explicitly with `node --env-file=.env.local services/admin-api.mjs` after the file has been created locally.
+- For local PowerShell testing, use the ignored root `.env` file (`C:\Vision Tech\.env`). The API reads `process.env`; it does not automatically load `.env`. With Node v24, start from the project root using `node --env-file=.env services/admin-api.mjs`.
 - Never use a command that prints environment values. Verify only that required variable names are set or `/api/health` reports missing names; redact output before saving logs.
-- `.gitignore` now excludes `.env`, `.env.*`, Supabase CLI local state, and local npm artifacts, with `.env.example` allowed as a non-secret template. Verify `git check-ignore` before placing secrets in any local env file. Do not create a file containing actual credentials in this task.
+- `.gitignore` excludes `.env` and `.env.*` while allowing `.env.example` as a placeholder-only template. Verify `git check-ignore` before saving credentials. `node --env-file=.env scripts/check-staging-env.mjs` checks variable presence/format only and makes no network request.
 
-## Handoff required before remote work
+## Next staging verification step
 
-After creating the project, tell Codex only that the **staging** project is ready and provide its non-secret project reference if necessary. Do not send database passwords or API keys in chat. Configure credentials directly in the private local environment or hosting secret manager. Then the next run can inspect the remote migration ledger, verify that the project reference is staging, and run a dry-run before applying anything.
+The owner reports the staging project exists. Configure credentials locally and run the no-network checker first. If it passes, verify the non-secret project reference and migration ledger before any migration work. Do not send database passwords or API keys in chat.
 
 ## Current stop point
 
-No project exists/configuration is available in this workspace, so remote migration inspection and all live database/API tests are blocked. Do not run `supabase link`, `supabase db push`, `supabase migration repair`, or any reset until the staging identity and history are confirmed.
+No credentials are configured in this workspace, so the project identity, migration ledger, and live API are not verified. No remote connection or migration was performed. Do not run `supabase link`, `supabase db push`, `supabase migration repair`, or any reset until the staging identity and history are confirmed.
 
 See the official [Supabase CLI setup guide](https://supabase.com/docs/guides/local-development/cli/getting-started), [API keys guide](https://supabase.com/docs/guides/getting-started/api-keys), and [migration deployment guide](https://supabase.com/docs/guides/deployment/database-migrations).

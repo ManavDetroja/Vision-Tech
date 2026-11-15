@@ -1,0 +1,25 @@
+{
+  "site": "https://cpplusworld.com",
+  "outputRoot": "assets/images/products",
+  "products": [
+    {"model":"CP-UNC-DA21L3C-Q","category":"IP_Cameras","subcategory":"Dome"},
+    {"model":"CP-UNC-DA21L3B-LQ","category":"IP_Cameras","subcategory":"Dome"},
+    {"model":"CP-UNC-DA61L3C-LQ","category":"IP_Cameras","subcategory":"Dome"},
+    {"model":"CP-UNC-TA21L3C-Q","category":"IP_Cameras","subcategory":"Bullet"},
+    {"model":"CP-UNC-TA21L3B-LQ","category":"IP_Cameras","subcategory":"Bullet"},
+    {"model":"CP-UNC-TA41L3C-D-Q2","category":"IP_Cameras","subcategory":"Bullet"},
+    {"model":"CP-UNC-TA61L3C-LQ","category":"IP_Cameras","subcategory":"Bullet"},
+    {"model":"CP-E21Q","category":"WiFi_Cameras","subcategory":"PT"},
+    {"model":"CP-E31Q","category":"WiFi_Cameras","subcategory":"PT"},
+    {"model":"EZ-M32T","category":"4G_Cameras","subcategory":"Dome"},
+    {"model":"EZ-R33T","category":"4G_Cameras","subcategory":"Bullet"},
+    {"model":"EZ-S35T","category":"4G_Cameras","subcategory":"PT"},
+    {"model":"CP-SL06K","category":"Solar_Products"},
+    {"model":"CP-UNR-104F1","category":"NVR"},
+    {"model":"CP-UNR-4K2081-V4","category":"NVR"},
+    {"model":"CP-UNR-4K2162-V3","category":"NVR"},
+    {"model":"CP-UNR-4K4322-V4","category":"NVR"},
+    {"model":"CP-ANW-HP4H2-N65","category":"POE_Switches"},
+    {"model":"CP-ANW-HPU8H2-N12","category":"POE_Switches"}
+  ]
+}
