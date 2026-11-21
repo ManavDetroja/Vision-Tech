@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
+    <meta name="referrer" content="no-referrer">
     <title>Admin Sign In | VisionTech Solutions™</title>
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/components.css">
@@ -26,7 +27,7 @@
           <label for="admin-email">Work email</label>
           <input id="admin-email" name="email" type="email" autocomplete="username" maxlength="254" required>
           <label for="admin-password">Password</label>
-          <input id="admin-password" name="password" type="password" autocomplete="current-password" required>
+          <div class="admin-password-field"><input id="admin-password" name="password" type="password" autocomplete="current-password" maxlength="256" required><button class="admin-password-toggle" type="button" data-password-toggle="admin-password" aria-controls="admin-password" aria-pressed="false">Show password</button></div>
           <p id="admin-login-status" class="admin-status" role="status" aria-live="polite"></p>
           <button class="button button-primary" type="submit">Sign in</button>
         </form>

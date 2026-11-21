@@ -1,42 +1,17 @@
-import { createHmac, createCipheriv, createDecipheriv, randomBytes } from 'node:crypto';
+import { config, missingConfig } from './api/config.mjs';
+import { roles, statuses, enquiryTypes } from './api/constants.mjs';
+import { reply, readJson, sameOrigin, handleError } from './api/http.mjs';
+import { sb, supabaseHeaders } from './api/supabase.mjs';
+import { actorFor } from './api/auth.mjs';
+import { authRoutes } from './api/auth-routes.mjs';
+import { invitationRoutes } from './api/invitation-routes.mjs';
+import { staffRoutes } from './api/staff-routes.mjs';
+import { routePermission } from './api/permissions.mjs';
+import { recordDenied } from './api/audit.mjs';
+import { publicRoutes } from './api/public-routes.mjs';
+import { validateEnquiry } from './api/validation.mjs';
 import { createServer } from 'node:http';
 
-const config = {
-  supabaseUrl: (process.env.SUPABASE_URL || '').replace(/\/+$/, ''),
-  publishableKey: process.env.SUPABASE_PUBLISHABLE_KEY || process.env.SUPABASE_ANON_KEY || '',
-  secretKey: process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY || '',
-  appOrigin: process.env.APP_ORIGIN || '',
-  sessionKey: process.env.SESSION_ENCRYPTION_KEY || '',
-  rateSecret: process.env.RATE_LIMIT_HASH_SECRET || '',
-  resendKey: process.env.RESEND_API_KEY || '',
-  emailFrom: process.env.ENQUIRY_FROM_EMAIL || '',
-  enquiryNotificationEmail: (process.env.ENQUIRY_NOTIFICATION_EMAIL || '').trim().toLowerCase(),
-  adminUrl: process.env.ADMIN_DASHBOARD_URL || '',
-  trustedProxy: process.env.TRUST_PROXY === 'true',
-  port: Number(process.env.ADMIN_API_PORT || 4175),
-  production: process.env.NODE_ENV === 'production'
-};
-const roles = ['SUPER_ADMIN', 'ADMIN', 'STAFF'];
-const statuses = ['NEW', 'CONTACTED', 'IN_PROGRESS', 'CONVERTED', 'CLOSED'];
-const enquiryTypes = new Map([
-  ['product', 'PRODUCT_INFORMATION'], ['installation', 'CCTV_INSTALLATION'], ['repair', 'CCTV_REPAIR'],
-  ['maintenance', 'CCTV_MAINTENANCE'], ['upgrade', 'CCTV_UPGRADE'], ['general', 'GENERAL_ENQUIRY']
-]);
-
-function reply(res, status, data, headers = {}) {
-  res.writeHead(status, { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff', ...headers });
-  res.end(JSON.stringify(data));
-}
-function missingConfig() {
-  const missing = [];
-  if (!config.supabaseUrl) missing.push('SUPABASE_URL');
-  if (!config.publishableKey) missing.push('SUPABASE_PUBLISHABLE_KEY');
-  if (!config.secretKey) missing.push('SUPABASE_SECRET_KEY');
-  if (!config.appOrigin) missing.push('APP_ORIGIN');
-  if (!/^[0-9a-f]{64}$/i.test(config.sessionKey)) missing.push('SESSION_ENCRYPTION_KEY');
-  if (config.rateSecret.length < 32) missing.push('RATE_LIMIT_HASH_SECRET');
-  return missing;
-}
 function applyCors(req, res) {
   const origin = req.headers.origin;
   if (origin && origin === config.appOrigin) {
@@ -46,100 +21,6 @@ function applyCors(req, res) {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE, OPTIONS');
     res.setHeader('Vary', 'Origin');
   }
-}
-function encryptSession(session) {
-  const iv = randomBytes(12);
-  const cipher = createCipheriv('aes-256-gcm', Buffer.from(config.sessionKey, 'hex'), iv);
-  const body = Buffer.concat([cipher.update(JSON.stringify(session)), cipher.final()]);
-  const cookie = Buffer.concat([iv, cipher.getAuthTag(), body]).toString('base64url');
-  return `vt_admin_session=${cookie}; HttpOnly; Path=/api; SameSite=Strict; Max-Age=604800${config.production ? '; Secure' : ''}`;
-}
-function clearSession() {
-  return `vt_admin_session=; HttpOnly; Path=/api; SameSite=Strict; Max-Age=0${config.production ? '; Secure' : ''}`;
-}
-function decryptSession(req) {
-  const item = (req.headers.cookie || '').split(';').map((part) => part.trim()).find((part) => part.startsWith('vt_admin_session='));
-  if (!item) return null;
-  try {
-    const bytes = Buffer.from(item.slice('vt_admin_session='.length), 'base64url');
-    const decipher = createDecipheriv('aes-256-gcm', Buffer.from(config.sessionKey, 'hex'), bytes.subarray(0, 12));
-    decipher.setAuthTag(bytes.subarray(12, 28));
-    return JSON.parse(Buffer.concat([decipher.update(bytes.subarray(28)), decipher.final()]).toString());
-  } catch { return null; }
-}
-function sameOrigin(req) { return req.headers.origin === config.appOrigin; }
-async function readJson(req, max = 32768) {
-  const chunks = []; let size = 0;
-  for await (const chunk of req) {
-    size += chunk.length;
-    if (size > max) throw Object.assign(new Error('Request is too large.'), { status: 413 });
-    chunks.push(chunk);
-  }
-  try { return size ? JSON.parse(Buffer.concat(chunks).toString('utf8')) : {}; }
-  catch { throw Object.assign(new Error('Request body must be valid JSON.'), { status: 400 }); }
-}
-function isLegacyJwtKey(key) { return key.startsWith('eyJ'); }
-function supabaseHeaders(apiKey, bearerToken = '', includeLegacyKeyBearer = false) {
-  const bearer = bearerToken || (includeLegacyKeyBearer && isLegacyJwtKey(apiKey) ? apiKey : '');
-  return { apikey: apiKey, ...(bearer ? { Authorization: `Bearer ${bearer}` } : {}) };
-}
-async function sb(path, { method = 'GET', body, token, service = false, headers = {} } = {}) {
-  const key = service ? config.secretKey : config.publishableKey;
-  const response = await fetch(`${config.supabaseUrl}${path}`, {
-    method, headers: { ...supabaseHeaders(key, token, true), ...(body === undefined ? {} : { 'Content-Type': 'application/json' }), ...headers },
-    ...(body === undefined ? {} : { body: JSON.stringify(body) }), redirect: 'error'
-  });
-  const text = await response.text(); let data = null;
-  try { data = text ? JSON.parse(text) : null; } catch { data = null; }
-  if (!response.ok) { const error = new Error(data?.message || data?.msg || `Database service returned ${response.status}.`); error.status = response.status; throw error; }
-  return data;
-}
-async function profileFor(id, token) {
-  const query = new URLSearchParams({ select: 'id,full_name,notification_email,role,account_state,created_at,last_login_at', id: `eq.${id}`, limit: '1' });
-  return (await sb(`/rest/v1/profiles?${query}`, { token }))?.[0] || null;
-}
-async function refresh(session) {
-  const response = await fetch(`${config.supabaseUrl}/auth/v1/token?grant_type=refresh_token`, {
-    method: 'POST', headers: { ...supabaseHeaders(config.publishableKey), 'Content-Type': 'application/json' }, body: JSON.stringify({ refresh_token: session.refreshToken }), redirect: 'error'
-  });
-  if (!response.ok) throw new Error('Expired session.');
-  const data = await response.json();
-  return { accessToken: data.access_token, refreshToken: data.refresh_token, expiresAt: data.expires_at || Math.floor(Date.now() / 1000) + data.expires_in };
-}
-async function actorFor(req, res, allowed = roles) {
-  let session = decryptSession(req);
-  if (!session) { reply(res, 401, { error: 'Sign in to continue.' }); return null; }
-  try {
-    if (session.expiresAt < Math.floor(Date.now() / 1000) + 30) {
-      session = await refresh(session);
-      res.setHeader('Set-Cookie', encryptSession(session));
-    }
-    const userResponse = await fetch(`${config.supabaseUrl}/auth/v1/user`, { headers: supabaseHeaders(config.publishableKey, session.accessToken), redirect: 'error' });
-    if (!userResponse.ok) throw new Error('Authentication expired.');
-    const user = await userResponse.json();
-    const profile = await profileFor(user.id, session.accessToken);
-    if (!profile || profile.account_state !== 'ACTIVE') { reply(res, 403, { error: 'This account is disabled or not authorized.' }, { 'Set-Cookie': clearSession() }); return null; }
-    if (!allowed.includes(profile.role)) { reply(res, 403, { error: 'You do not have permission to perform this action.' }); return null; }
-    return { session, user, profile };
-  } catch {
-    reply(res, 401, { error: 'Sign in again to continue.' }, { 'Set-Cookie': clearSession() });
-    return null;
-  }
-}
-function validateEnquiry(body) {
-  const name = String(body.name || '').trim(); const email = String(body.email || '').trim(); const phone = String(body.phone || '').trim();
-  const type = String(body.enquiryType || ''); const model = String(body.productModel || '').trim(); const service = String(body.serviceRequirement || '').trim(); const message = String(body.message || '').trim();
-  const normalizedPhone = phone.replace(/[\s().-]/g, ''); const digits = phone.replace(/\D/g, ''); const errors = [];
-  if (name.length < 2 || name.length > 100) errors.push('Enter a name between 2 and 100 characters.');
-  if (email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errors.push('Enter a valid email address.');
-  if (phone.length > 20 || !/^\+?\d+$/.test(normalizedPhone) || digits.length < 7 || digits.length > 15) errors.push('Enter a valid phone number with 7 to 15 digits.');
-  if (!enquiryTypes.has(type)) errors.push('Choose a valid enquiry type.');
-  if (model.length > 100 || service.length > 180) errors.push('A selected field is too long.');
-  if (message.length < 20 || message.length > 2000) errors.push('Enter a message between 20 and 2000 characters.');
-  if (body.consent !== true) errors.push('Consent is required.');
-  if (String(body.website || '').trim()) errors.push('Submission rejected.');
-  if (['installation', 'repair', 'maintenance', 'upgrade'].includes(type) && !service) errors.push('Describe the service requirement.');
-  return errors.length ? errors : { name, email, phone, enquiryType: type, productModel: model, serviceRequirement: service, message, consent: true, website: '' };
 }
 function html(value) { return String(value ?? '').replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]); }
 async function setEmailStatus(id, status, providerId = null, error = null) {
@@ -166,7 +47,7 @@ async function sendOutbox(id) {
     body: JSON.stringify({
       from: config.emailFrom, to: [config.enquiryNotificationEmail], ...(recipients.length ? { bcc: recipients } : {}), subject: `New enquiry ${enquiry.enquiry_code}`,
       html: `<h1>New customer enquiry</h1><p><strong>ID:</strong> ${html(enquiry.enquiry_code)}</p><p><strong>Name:</strong> ${html(enquiry.customer_name)}</p><p><strong>Category:</strong> ${html(enquiry.enquiry_type)}</p><p><strong>Product:</strong> ${html(enquiry.product_model || 'Not supplied')}</p><p><strong>Message preview:</strong> ${html(enquiry.customer_message.slice(0, 240))}</p><p><strong>Submitted:</strong> ${html(enquiry.created_at)}</p><p><a href="${html(config.adminUrl)}">Open private dashboard</a></p>`
-    }), redirect: 'error'
+    }), redirect: 'error', signal: AbortSignal.timeout(8000)
     });
   } catch {
     await setEmailStatus(id, 'FAILED', null, 'Email provider could not be reached.');
@@ -181,90 +62,11 @@ async function handle(req, res) {
   applyCors(req, res);
   if (req.method === 'OPTIONS') { res.writeHead(204); return res.end(); }
   const url = new URL(req.url, 'http://api.local'); const path = url.pathname;
-  if (path === '/api/health' && req.method === 'GET') {
-    const missing = missingConfig();
-    const emailConfigured = Boolean(config.resendKey && config.emailFrom && config.enquiryNotificationEmail && config.adminUrl);
-    return reply(res, missing.length ? 503 : 200, { ready: !missing.length, missing, emailConfigured });
-  }
+  if (await publicRoutes(req, res, path, { sendOutbox, setEmailStatus })) return;
   if (missingConfig().length) return reply(res, 503, { error: 'Admin API is not configured.' });
 
-  if (path === '/api/auth/password-reset' && req.method === 'POST') {
-    if (!sameOrigin(req)) return reply(res, 403, { error: 'Request origin is not allowed.' });
-    const body = await readJson(req, 4096);
-    const email = String(body.email || '').trim().toLowerCase();
-    if (email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return reply(res, 400, { error: 'Enter a valid email address.' });
-    const redirectTo = new URL('/admin/reset-password.html', config.appOrigin).href;
-    const response = await fetch(`${config.supabaseUrl}/auth/v1/recover?redirect_to=${encodeURIComponent(redirectTo)}`, {
-      method: 'POST', headers: { ...supabaseHeaders(config.publishableKey), 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email }), redirect: 'error'
-    }).catch(() => null);
-    if (!response) return reply(res, 502, { error: 'Password reset could not be requested. Try again later.' });
-    if (response.status === 429) return reply(res, 429, { error: 'Too many reset requests. Please wait and try again.' });
-    if (!response.ok) return reply(res, 502, { error: 'Password reset could not be requested. Try again later.' });
-    return reply(res, 200, { accepted: true, message: 'If an active account matches that email, reset instructions will be sent.' });
-  }
-  if (path === '/api/auth/password-update' && req.method === 'POST') {
-    if (!sameOrigin(req)) return reply(res, 403, { error: 'Request origin is not allowed.' });
-    const body = await readJson(req, 8192);
-    const accessToken = String(body.accessToken || '');
-    const password = String(body.password || '');
-    if (accessToken.length < 32 || accessToken.length > 8192 || password.length < 12 || password.length > 256) {
-      return reply(res, 422, { error: 'Use the reset link and choose a password between 12 and 256 characters.' });
-    }
-    const response = await fetch(`${config.supabaseUrl}/auth/v1/user`, {
-      method: 'PUT', headers: { ...supabaseHeaders(config.publishableKey, accessToken), 'Content-Type': 'application/json' },
-      body: JSON.stringify({ password }), redirect: 'error'
-    }).catch(() => null);
-    if (!response?.ok) return reply(res, 422, { error: 'The reset link is invalid or expired. Request a new reset email.' });
-    return reply(res, 200, { updated: true });
-  }
-
-  if (path === '/api/auth/login' && req.method === 'POST') {
-    if (!sameOrigin(req)) return reply(res, 403, { error: 'Request origin is not allowed.' });
-    const body = await readJson(req, 8192); const email = String(body.email || '').trim().toLowerCase(); const password = String(body.password || '');
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || !password || password.length > 256) return reply(res, 400, { error: 'Enter a valid email and password.' });
-    const response = await fetch(`${config.supabaseUrl}/auth/v1/token?grant_type=password`, { method: 'POST', headers: { ...supabaseHeaders(config.publishableKey), 'Content-Type': 'application/json' }, body: JSON.stringify({ email, password }), redirect: 'error' });
-    if (!response.ok) return reply(res, 401, { error: 'Email or password is incorrect.' });
-    const data = await response.json(); const profile = await profileFor(data.user.id, data.access_token);
-    if (!profile || profile.account_state !== 'ACTIVE') return reply(res, 403, { error: 'This account is not active. Ask a super admin to authorize it.' });
-    const session = { accessToken: data.access_token, refreshToken: data.refresh_token, expiresAt: data.expires_at || Math.floor(Date.now() / 1000) + data.expires_in };
-    await sb('/rest/v1/rpc/record_own_login', { method: 'POST', token: session.accessToken, body: {} });
-    return reply(res, 200, { user: { id: data.user.id, email: data.user.email }, profile }, { 'Set-Cookie': encryptSession(session) });
-  }
-  if (path === '/api/auth/session' && req.method === 'GET') {
-    const actor = await actorFor(req, res); if (!actor) return;
-    return reply(res, 200, { user: { id: actor.user.id, email: actor.user.email }, profile: actor.profile });
-  }
-  if (path === '/api/auth/logout' && req.method === 'POST') {
-    if (!sameOrigin(req)) return reply(res, 403, { error: 'Request origin is not allowed.' });
-    const session = decryptSession(req);
-    if (session?.accessToken) {
-      await fetch(`${config.supabaseUrl}/auth/v1/logout`, { method: 'POST', headers: supabaseHeaders(config.publishableKey, session.accessToken), redirect: 'error' }).catch(() => null);
-    }
-    return reply(res, 200, { signedOut: true }, { 'Set-Cookie': clearSession() });
-  }
-  if (path === '/api/enquiries' && req.method === 'POST') {
-    if (!sameOrigin(req)) return reply(res, 403, { error: 'Request origin is not allowed.' });
-    const key = String(req.headers['idempotency-key'] || ''); if (!/^[0-9a-f-]{36}$/i.test(key)) return reply(res, 400, { error: 'Refresh the page and try again.' });
-    const body = await readJson(req); const validation = validateEnquiry(body);
-    if (Array.isArray(validation)) return reply(res, 422, { error: validation[0], fields: validation });
-    const forwarded = config.trustedProxy ? String(req.headers['x-forwarded-for'] || '').split(',')[0].trim() : '';
-    const ip = forwarded || req.socket.remoteAddress || 'unknown'; const ipHash = createHmac('sha256', config.rateSecret).update(ip).digest('hex');
-    try {
-      const result = await sb('/rest/v1/rpc/submit_public_enquiry', { method: 'POST', service: true, body: { p_payload: validation, p_idempotency_key: key, p_rate_hash: ipHash } });
-      if (!result?.accepted) return reply(res, 502, { error: 'The database did not confirm that the enquiry was saved.' });
-      if (!result.duplicate && result.emailOutboxId) {
-        await sendOutbox(result.emailOutboxId).catch(async () => {
-          await setEmailStatus(result.emailOutboxId, 'FAILED', null, 'Notification processing failed after the enquiry was saved.').catch(() => null);
-        });
-      }
-      return reply(res, 201, { accepted: true, enquiryId: result.enquiryCode, savedAt: result.createdAt });
-    } catch (error) {
-      const tooMany = /too many submissions/i.test(error.message);
-      return reply(res, tooMany ? 429 : 400, { error: tooMany ? 'Too many submissions. Please try later.' : 'The enquiry could not be saved. Please review the form and try again.' });
-    }
-  }
-
+  if (await invitationRoutes(req, res, path)) return;
+  if (await authRoutes(req, res, path)) return;
   if (path === '/api/public/products' && req.method === 'GET') {
     const records = await sb('/rest/v1/products?select=record&is_visible=eq.true&order=model.asc');
     return reply(res, 200, { products: records.map((row) => row.record) });
@@ -278,8 +80,20 @@ async function handle(req, res) {
     return reply(res, 200, settings || {});
   }
 
-  const staffRoute = path.startsWith('/api/admin/staff');
-  const actor = await actorFor(req, res, staffRoute ? ['SUPER_ADMIN', 'ADMIN'] : roles); if (!actor) return;
+  if (!path.startsWith('/api/admin/')) return reply(res, 404, { error: 'Not found.' });
+  const actor = await actorFor(req, res); if (!actor) return;
+  const permission = routePermission(path, req.method);
+  req.auditActor = actor; req.auditPermission = permission.name;
+  if (!permission.roles.includes(actor.profile.role)) {
+    await recordDenied(actor, permission.name);
+    return reply(res, 403, { error: 'You do not have permission to perform this action.' });
+  }
+  // Central CSRF gate also protects future private mutation routes.
+  if (path.startsWith('/api/admin/') && !['GET', 'HEAD'].includes(req.method) && !sameOrigin(req)) {
+    await recordDenied(actor, 'REQUEST_ORIGIN');
+    return reply(res, 403, { error: 'Request origin is not allowed.' });
+  }
+  if (await staffRoutes(req, res, url, actor)) return;
   const userRequest = (route, options = {}) => sb(route, { token: actor.session.accessToken, ...options });
   const adminRequest = (route, options = {}) => sb(route, { service: true, ...options });
 
@@ -382,36 +196,6 @@ async function handle(req, res) {
     if (!['SUPER_ADMIN', 'ADMIN'].includes(actor.profile.role)) return reply(res, 403, { error: 'Only admins may retry notifications.' });
     return reply(res, 200, { notification: await sendOutbox(retryRoute[1]) });
   }
-  if (path === '/api/admin/staff' && req.method === 'GET') {
-    const staffFilter = actor.profile.role === 'SUPER_ADMIN' ? '' : '&role=eq.STAFF';
-    const staff = await userRequest(`/rest/v1/profiles?select=id,full_name,notification_email,role,account_state,created_at,last_login_at&order=created_at.asc${staffFilter}`);
-    return reply(res, 200, { staff });
-  }
-  if (path === '/api/admin/staff/invite' && req.method === 'POST') {
-    if (!sameOrigin(req)) return reply(res, 403, { error: 'Request origin is not allowed.' });
-    const body = await readJson(req, 4096); const email = String(body.email || '').trim().toLowerCase(); const name = String(body.fullName || '').trim();
-    const role = ['ADMIN', 'STAFF'].includes(body.role) ? body.role : '';
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || name.length < 2 || name.length > 100 || !role) return reply(res, 422, { error: 'Enter a valid name, email and role.' });
-    if (role === 'ADMIN' && actor.profile.role !== 'SUPER_ADMIN') return reply(res, 403, { error: 'Only a super administrator may invite an administrator.' });
-    const inviteHeaders = supabaseHeaders(config.secretKey, '', true);
-    const response = await fetch(`${config.supabaseUrl}/auth/v1/invite`, { method: 'POST', headers: { ...inviteHeaders, 'Content-Type': 'application/json' }, body: JSON.stringify({ email, data: { full_name: name } }), redirect: 'error' });
-    if (!response.ok) return reply(res, 400, { error: 'The staff invitation could not be created.' });
-    const invited = await response.json();
-    await adminRequest('/rest/v1/rpc/admin_set_staff', { method: 'POST', body: { p_actor: actor.user.id, p_target: invited.id, p_role: role, p_state: 'ACTIVE', p_name: name, p_email: email } });
-    return reply(res, 201, { invited: true, userId: invited.id, role });
-  }
-  if (path === '/api/admin/staff/update' && req.method === 'POST') {
-    if (!sameOrigin(req)) return reply(res, 403, { error: 'Request origin is not allowed.' });
-    const body = await readJson(req, 4096);
-    const email = String(body.email || '').trim().toLowerCase();
-    const fullName = String(body.fullName || '').trim();
-    if (!/^[0-9a-f-]{36}$/i.test(String(body.userId || '')) || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || fullName.length < 2 || fullName.length > 100 || !['ADMIN', 'STAFF'].includes(body.role) || !['ACTIVE', 'DISABLED'].includes(body.accountState)) {
-      return reply(res, 422, { error: 'Enter a valid name, email, role and account state.' });
-    }
-    if (body.role === 'ADMIN' && actor.profile.role !== 'SUPER_ADMIN') return reply(res, 403, { error: 'Only a super administrator may grant the administrator role.' });
-    await adminRequest('/rest/v1/rpc/admin_set_staff', { method: 'POST', body: { p_actor: actor.user.id, p_target: body.userId, p_role: body.role, p_state: body.accountState, p_name: body.fullName, p_email: body.email } });
-    return reply(res, 200, { updated: true });
-  }
   if (path === '/api/admin/activity' && req.method === 'GET') {
     const params = new URLSearchParams({ select: 'id,actor_id,action,entity_type,entity_id,details,created_at', order: 'created_at.desc', limit: '100' });
     const actorId = url.searchParams.get('actor');
@@ -466,15 +250,19 @@ async function handle(req, res) {
   return reply(res, 404, { error: 'Not found.' });
 }
 
-const server = createServer(async (req, res) => {
-  try { await handle(req, res); }
-  catch (error) {
-    const safePath = new URL(req.url, 'http://api.local').pathname;
-    console.error(`[admin-api] ${req.method} ${safePath}: request failed`);
-    if (!res.headersSent) reply(res, error.status || 500, { error: error.status && error.status < 500 ? error.message : 'The request could not be completed.' });
-    else res.destroy();
-  }
-});
+export function createApiServer() {
+  const server = createServer(async (req, res) => {
+    try { await handle(req, res); }
+    catch (error) {
+      if (error.status === 403 && req.auditActor) await recordDenied(req.auditActor, req.auditPermission || 'PRIVATE_OPERATION');
+      handleError(error, req, res);
+    }
+  });
+  server.requestTimeout = 15000;
+  server.headersTimeout = 10000;
+  return server;
+}
+const server = createApiServer();
 
 if (process.argv[1] && new URL(import.meta.url).pathname.toLowerCase() === new URL(`file://${process.argv[1].replaceAll('\\', '/')}`).pathname.toLowerCase()) {
   server.listen(config.port, '127.0.0.1', () => console.log(`VisionTech API listening on 127.0.0.1:${config.port}${missingConfig().length ? ` (not configured: ${missingConfig().join(', ')})` : ''}`));

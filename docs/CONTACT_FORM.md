@@ -2,7 +2,7 @@
 
 ## Current status
 
-The Contact page performs client-side validation and supports product/service query prefill. Live enquiry delivery is **not operational in this checkout**. `PUBLIC_API_BASE_URL` and `ENQUIRY_API_URL` in `js/data/contact-config.js` are intentionally empty, so a valid submit displays an honest not-configured message and sends or stores nothing. The page does not put enquiry data in `localStorage`, cookies, or a public database. The optional implementation is `services/admin-api.mjs` plus the Supabase migration; see `docs/DEPLOYMENT.md`.
+The Contact form targets same-origin `/api/enquiries`. A Node API reverse proxy is required; Live Server alone cannot save enquiries. Staging API and browser submission with email passed on 2026-11-16, with synthetic cleanup verified. Email is optional in the form/API and its approved staging RPC; no-email HTTP storage was verified after deployment. See [ENQUIRY_API_TEST_REPORT.md](ENQUIRY_API_TEST_REPORT.md) for the exact tested scope. No production deployment occurred.
 
 All public contact information switches in `js/data/contact-config.js` default to `false`; all associated values are blank. Do not enable a switch until the corresponding business detail and its publication are approved.
 
@@ -40,7 +40,7 @@ Use HTTPS. Keep mail-provider keys, database credentials and other secrets in th
 4. Set the public API URL in `js/data/contact-config.js`, then test from the deployed origin.
 5. Publish contact details only after the business approves the exact value for display.
 
-VS Code Live Server can run the frontend locally, but it is not an enquiry backend. No production credentials, endpoint, deployment or live delivery test are configured in this repository.
+VS Code Live Server can run the frontend locally, but it is not an enquiry backend. No production deployment or real email delivery test was performed. Staging credentials remain exclusively in the ignored server environment.
 
 ## Privacy and data lifecycle
 

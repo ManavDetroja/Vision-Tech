@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="referrer" content="no-referrer">
+    <title>Accept Staff Invitation | VisionTech Solutions™</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/admin.css">
+    <script type="module" src="../js/admin/invitation.js"></script>
+  </head>
+  <body>
+    <main class="admin-login-shell"><section class="admin-login-card" aria-labelledby="invite-title">
+      <a class="wordmark admin-login-brand" href="../index.html"><img class="brand-logo" src="../assets/images/logo/visiontech-vt-logo.png" alt="" width="61" height="48"><span class="brand-name">VisionTech <small>Solutions™</small></span></a>
+      <p class="eyebrow">Private staff invitation</p><h1 id="invite-title">Set up your staff account.</h1>
+      <p>Use the individual invitation sent to your work email.</p>
+      <form id="invitation-form" class="admin-form">
+        <label for="invite-password">Choose a password</label><div class="admin-password-field"><input id="invite-password" name="password" type="password" autocomplete="new-password" minlength="12" maxlength="256" required><button type="button" class="admin-password-toggle" data-password-toggle="invite-password" aria-controls="invite-password" aria-pressed="false">Show password</button></div>
+        <label for="invite-confirm">Confirm password</label><input id="invite-confirm" name="confirmPassword" type="password" autocomplete="new-password" minlength="12" maxlength="256" required>
+        <p id="invitation-status" role="status" aria-live="polite"></p><button type="submit" class="button button-primary" disabled>Complete account setup</button>
+      </form><a class="admin-return-link" href="index.html">Return to admin sign in</a>
+    </section></main>
+  </body>
+</html>

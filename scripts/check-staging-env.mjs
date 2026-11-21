@@ -22,7 +22,7 @@ add('SUPABASE_URL', validUrl);
 add('SUPABASE_PUBLISHABLE_KEY', /^(sb_publishable_[A-Za-z0-9_-]{10,}|eyJ[A-Za-z0-9_-]*\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+)$/.test(publishableKey) && !publishableKey.endsWith('_replace_me'));
 add('SUPABASE_SECRET_KEY', /^(sb_secret_[A-Za-z0-9_-]{10,}|eyJ[A-Za-z0-9_-]*\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+)$/.test(secretKey) && !secretKey.endsWith('_replace_me'));
 add('APP_ORIGIN', (() => { try { const parsed = new URL(env.APP_ORIGIN || ''); return ['http:', 'https:'].includes(parsed.protocol) && !parsed.hostname.includes('*'); } catch { return false; } })());
-add('SESSION_ENCRYPTION_KEY', /^[0-9a-f]{64}$/i.test(env.SESSION_ENCRYPTION_KEY || ''));
+// Opaque server-side sessions no longer need SESSION_ENCRYPTION_KEY.
 add('RATE_LIMIT_HASH_SECRET', (env.RATE_LIMIT_HASH_SECRET || '').length >= 32);
 
 for (const result of results) console.log(`${result.label}: ${result.ok ? 'present/valid' : 'missing or invalid'}`);

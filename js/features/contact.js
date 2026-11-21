@@ -68,7 +68,7 @@ function renderPublicContactDetails(root, published = null) {
 
   target.innerHTML = entries.length
     ? entries.join('')
-    : '<p class="contact-details-unpublished">Business contact details are not published on this page. You can still prepare an enquiry below; live submission is not configured yet.</p>';
+    : '<p class="contact-details-unpublished">Business contact details are not published on this page. Use the enquiry form below; submission availability depends on the configured service.</p>';
 }
 
 function getField(name, root = document) {
@@ -197,7 +197,7 @@ function bindForm(root, { apiUrl, fetcher }) {
   const endpointConfigured = Boolean(apiUrl.trim());
   if (availability) {
     availability.textContent = endpointConfigured
-      ? 'Enquiry submission is connected. Your information will be sent securely to the configured service for processing.'
+      ? 'Submission requires the enquiry API. Success is shown only after the server confirms storage.'
       : 'Form validation is available, but live enquiry submission is not configured. No enquiry will be sent or saved.';
     availability.classList.toggle('is-configured', endpointConfigured);
   }
@@ -269,7 +269,7 @@ function bindForm(root, { apiUrl, fetcher }) {
       });
       let result = {};
       try { result = await response.json(); } catch { /* The configured API must return JSON acceptance. */ }
-      if (!response.ok || result.accepted !== true) {
+      if (!response.ok || result.accepted !== true || typeof result.enquiryId !== 'string' || !result.enquiryId || !Number.isFinite(Date.parse(result.savedAt))) {
         throw new Error('The configured service did not accept this enquiry.');
       }
 
@@ -277,7 +277,7 @@ function bindForm(root, { apiUrl, fetcher }) {
       prefillFromUrl(root);
       retryKey = '';
       retryFingerprint = '';
-      status.textContent = 'Your enquiry was accepted for processing by the configured service. This confirms acceptance only, not delivery to a staff member.';
+      status.textContent = 'Your enquiry was saved for processing. This confirms storage, not delivery to a staff member.';
       status.className = 'contact-form-status is-success';
     } catch {
       status.textContent = 'We could not submit your enquiry. Your entries remain in the form; please try again later.';

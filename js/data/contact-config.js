@@ -11,6 +11,6 @@ export const BUSINESS_ADDRESS = '';
 export const BUSINESS_HOURS = '';
 export const GOOGLE_MAPS_URL = '';
 
-// These are public URLs, never credentials. Keep empty until the API is deployed.
+// Public URLs only. Serve /api through the Node reverse proxy; Live Server alone cannot save enquiries.
 export const PUBLIC_API_BASE_URL = '';
-export const ENQUIRY_API_URL = '';
+export const ENQUIRY_API_URL = '/api/enquiries';
