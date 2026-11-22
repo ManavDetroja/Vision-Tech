@@ -70,4 +70,6 @@ export async function renderStaff({ view, api, profile, esc, date, toast }) {
   view.querySelector('#staff-next').addEventListener('click', () => { offset += 25; load().catch(e => toast(e.message, true)); });
   view.querySelector('#staff-close').addEventListener('click', () => dialog.close());
   await load();
+  const requested = new URLSearchParams(location.search).get('id');
+  if (requested && /^[0-9a-f-]{36}$/i.test(requested)) await detail(requested);
 }

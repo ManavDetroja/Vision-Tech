@@ -21,7 +21,7 @@ async function readiness() {
   return healthPending;
 }
 
-export async function publicRoutes(req, res, path, { sendOutbox, setEmailStatus }) {
+export async function publicRoutes(req, res, path) {
   if (path === '/api/health' && req.method === 'GET') {
     const health = await readiness();
     reply(res, health.ready ? 200 : 503, health);
@@ -45,11 +45,6 @@ export async function publicRoutes(req, res, path, { sendOutbox, setEmailStatus 
     return true;
   }
   const result = await saveEnquiry(payload, key, rateHash);
-  if (!result.duplicate && result.emailOutboxId) {
-    await sendOutbox(result.emailOutboxId).catch(async () => {
-      await setEmailStatus(result.emailOutboxId, 'FAILED', null, 'Notification processing failed after storage.').catch(() => null);
-    });
-  }
   reply(res, result.duplicate ? 200 : 201, { accepted: true, enquiryId: result.enquiryCode, savedAt: result.createdAt });
   return true;
 }

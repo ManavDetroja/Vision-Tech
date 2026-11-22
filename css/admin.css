@@ -342,3 +342,33 @@
 .staff-table th { white-space: nowrap; }
 .staff-confirm-message { white-space: pre-line; }
 body[data-admin-page="staff"] button:disabled { opacity: .5; cursor: not-allowed; }
+
+/* Dashboard panels wrap independently of the shared admin sidebar. */
+.dash-actions, .dash-staff { display: flex; flex-wrap: wrap; gap: .65rem; }
+.dash-metrics { grid-template-columns: repeat(auto-fit,minmax(min(100%,9rem),1fr)); }
+.dash-metrics small, .dash-staff dt { color: var(--color-muted); }
+.dash-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,19rem),1fr)); gap: 1rem; margin-block: 1rem; }
+.dash-panel { min-width: 0; }
+.dash-panel h2 { margin: 0 0 .75rem; font-size: 1.18rem; color: var(--color-navy); }
+.dash-panel h3 { font-size: 1rem; }
+.dash-series { padding: 0; list-style: none; display: grid; gap: .7rem; }
+.dash-series li { display: grid; grid-template-columns: 6rem 1fr auto; gap: .65rem; align-items: center; }
+.dash-series meter { width: 100%; height: 1rem; accent-color: #155eef; }
+.dash-series meter::-webkit-meter-optimum-value { background: #155eef; }
+.dash-empty { padding-block: .6rem; color: var(--color-muted); }
+.dash-panel .dash-staff { display: flex; justify-content: space-between; }
+.dash-staff dd { margin: .2rem 0; font-size: 1.5rem; font-weight: 700; }
+[data-admin-page="dashboard"] #admin-view { min-width: 0; }
+@media (max-width: 900px) {
+  [data-admin-page="dashboard"] .admin-layout { grid-template-columns: minmax(0,1fr); }
+}
+
+/* Enquiry worklist and detail screens share the existing admin panels. */
+[data-admin-page^="enquir"] .admin-content, [data-admin-page^="enquir"] .admin-card { min-width: 0; }
+[data-admin-page^="enquir"] .admin-table select { min-width: 9rem; }
+#enquiry-results nav { align-items: center; margin-block: 1rem; }
+.admin-history li small { display: block; margin-top: .2rem; }
+[data-admin-page^="enquir"] .admin-card dd, [data-admin-page^="enquir"] .admin-history { overflow-wrap: anywhere; }
+@media (max-width: 900px) {
+  [data-admin-page^="enquir"] .admin-layout { grid-template-columns: minmax(0,1fr); }
+}

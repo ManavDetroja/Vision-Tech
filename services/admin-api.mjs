@@ -1,5 +1,8 @@
+import { processDelivery, startNotificationWorker } from './api/notification-mail.mjs';
 import { config, missingConfig } from './api/config.mjs';
-import { roles, statuses, enquiryTypes } from './api/constants.mjs';
+import { listEnquiries, positivePage } from './api/enquiry-query.mjs';
+import { uuid } from './api/staff-service.mjs';
+import { roles, statuses } from './api/constants.mjs';
 import { reply, readJson, sameOrigin, handleError } from './api/http.mjs';
 import { sb, supabaseHeaders } from './api/supabase.mjs';
 import { actorFor } from './api/auth.mjs';
@@ -22,47 +25,11 @@ function applyCors(req, res) {
     res.setHeader('Vary', 'Origin');
   }
 }
-function html(value) { return String(value ?? '').replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]); }
-async function setEmailStatus(id, status, providerId = null, error = null) {
-  return sb('/rest/v1/rpc/admin_set_email_delivery', { method: 'POST', service: true, body: { p_outbox_id: id, p_status: status, p_provider_id: providerId, p_error: error } });
-}
-async function sendOutbox(id) {
-  const rows = await sb(`/rest/v1/email_outbox?id=eq.${encodeURIComponent(id)}&select=id,enquiry_id,recipient_ids,status`, { service: true });
-  const outbox = rows?.[0]; if (!outbox) throw new Error('Notification record not found.');
-  if (outbox.status === 'SENT') return { accepted: true, alreadySent: true };
-  if (!config.resendKey || !config.emailFrom || !config.enquiryNotificationEmail || !config.adminUrl) {
-    await setEmailStatus(id, 'FAILED', null, 'Email provider or notification settings are not configured.');
-    return { accepted: false };
-  }
-  const ids = outbox.recipient_ids || [];
-  const profiles = ids.length ? await sb(`/rest/v1/profiles?id=in.(${ids.join(',')})&select=notification_email`, { service: true }) : [];
-  const recipients = [...new Set(profiles.map((row) => String(row.notification_email || '').trim().toLowerCase()).filter((email) => email && email !== config.enquiryNotificationEmail))];
-  const rowsForEnquiry = await sb(`/rest/v1/enquiries?id=eq.${encodeURIComponent(outbox.enquiry_id)}&select=enquiry_code,customer_name,enquiry_type,product_model,customer_message,created_at`, { service: true });
-  const enquiry = rowsForEnquiry?.[0];
-  if (!enquiry) { await setEmailStatus(id, 'FAILED', null, 'Enquiry record is unavailable.'); return { accepted: false }; }
-  let emailResponse;
-  try {
-    emailResponse = await fetch('https://api.resend.com/emails', {
-    method: 'POST', headers: { Authorization: `Bearer ${config.resendKey}`, 'Content-Type': 'application/json', 'Idempotency-Key': `visiontech-enquiry-${outbox.id}` },
-    body: JSON.stringify({
-      from: config.emailFrom, to: [config.enquiryNotificationEmail], ...(recipients.length ? { bcc: recipients } : {}), subject: `New enquiry ${enquiry.enquiry_code}`,
-      html: `<h1>New customer enquiry</h1><p><strong>ID:</strong> ${html(enquiry.enquiry_code)}</p><p><strong>Name:</strong> ${html(enquiry.customer_name)}</p><p><strong>Category:</strong> ${html(enquiry.enquiry_type)}</p><p><strong>Product:</strong> ${html(enquiry.product_model || 'Not supplied')}</p><p><strong>Message preview:</strong> ${html(enquiry.customer_message.slice(0, 240))}</p><p><strong>Submitted:</strong> ${html(enquiry.created_at)}</p><p><a href="${html(config.adminUrl)}">Open private dashboard</a></p>`
-    }), redirect: 'error', signal: AbortSignal.timeout(8000)
-    });
-  } catch {
-    await setEmailStatus(id, 'FAILED', null, 'Email provider could not be reached.');
-    return { accepted: false };
-  }
-  const provider = await emailResponse.json().catch(() => ({}));
-  if (!emailResponse.ok || !provider.id) { await setEmailStatus(id, 'FAILED', null, `Email provider returned ${emailResponse.status}.`); return { accepted: false }; }
-  await setEmailStatus(id, 'SENT', provider.id, null);
-  return { accepted: true };
-}
 async function handle(req, res) {
   applyCors(req, res);
   if (req.method === 'OPTIONS') { res.writeHead(204); return res.end(); }
   const url = new URL(req.url, 'http://api.local'); const path = url.pathname;
-  if (await publicRoutes(req, res, path, { sendOutbox, setEmailStatus })) return;
+  if (await publicRoutes(req, res, path)) return;
   if (missingConfig().length) return reply(res, 503, { error: 'Admin API is not configured.' });
 
   if (await invitationRoutes(req, res, path)) return;
@@ -98,46 +65,52 @@ async function handle(req, res) {
   const adminRequest = (route, options = {}) => sb(route, { service: true, ...options });
 
   if (path === '/api/admin/overview' && req.method === 'GET') {
-    const [stats, recent, dueFollowUps, notifications, activity] = await Promise.all([
+    const asOf = new Date().toISOString();
+    const events = '/rest/v1/admin_activity?select=action,entity_type,created_at&order=created_at.desc,id.desc&limit=8';
+    const managesStaff = actor.profile.role === 'ADMIN' || actor.profile.role === 'SUPER_ADMIN';
+    const countStaff = state => userRequest(`/rest/v1/profiles?role=eq.STAFF&account_state=eq.${state}&select=id&limit=1`, { exactCount: true });
+    const staffEvents = '/rest/v1/admin_activity?select=action,entity_type,created_at,actor:profiles!admin_activity_actor_id_fkey!inner(full_name)&actor.role=eq.STAFF&order=created_at.desc,id.desc&limit=8';
+    const [stats, recent, dueFollowUps, notifications, activity, enquiryActivity, staff] = await Promise.all([
       userRequest('/rest/v1/rpc/admin_dashboard_stats', { method: 'POST', body: {} }),
       userRequest('/rest/v1/enquiries?select=id,enquiry_code,customer_name,enquiry_type,status,created_at,assigned_to,follow_up_at&order=created_at.desc&limit=8'),
       userRequest(`/rest/v1/enquiries?select=id,enquiry_code,customer_name,enquiry_type,status,follow_up_at&follow_up_at=lte.${encodeURIComponent(new Date().toISOString())}&status=not.in.(CONVERTED,CLOSED)&order=follow_up_at.asc&limit=8`),
       userRequest('/rest/v1/admin_notifications?select=id,title,kind,enquiry_id,created_at,read_at&read_at=is.null&order=created_at.desc&limit=8'),
-      userRequest('/rest/v1/admin_activity?select=id,action,entity_type,entity_id,created_at,actor_id&order=created_at.desc&limit=8')
+      userRequest(events),
+      userRequest(events + '&entity_type=eq.ENQUIRY'),
+      managesStaff ? Promise.all([countStaff('ACTIVE'), countStaff('DISABLED'), userRequest(staffEvents)]) : null
     ]);
-    return reply(res, 200, { stats, recent, dueFollowUps, notifications, activity });
+    const staffOverview = staff && { active: staff[0], disabled: staff[1], total: staff[0] + staff[1], activity: staff[2] };
+    return reply(res, 200, { stats, recent, dueFollowUps, notifications, activity, enquiryActivity, staffOverview, asOf });
   }
   if (path === '/api/admin/enquiries' && req.method === 'GET') {
-    const params = new URLSearchParams({ select: 'id,enquiry_code,customer_name,customer_email,customer_phone,enquiry_type,status,product_model,service_requirement,created_at,assigned_to,follow_up_at,converted_at,closed_at', order: 'created_at.desc', limit: '250' });
-    if (statuses.includes(url.searchParams.get('status'))) params.set('status', `eq.${url.searchParams.get('status')}`);
-    const type = url.searchParams.get('type'); if (type && enquiryTypes.has(type)) params.set('enquiry_type', `eq.${enquiryTypes.get(type)}`);
-    const from = url.searchParams.get('from'); const to = url.searchParams.get('to');
-    const range = [];
-    if (from && !Number.isNaN(Date.parse(from))) range.push(`created_at.gte.${new Date(from).toISOString()}`);
-    if (to && !Number.isNaN(Date.parse(to))) range.push(`created_at.lte.${new Date(to).toISOString()}`);
-    if (range.length) params.set('and', `(${range.join(',')})`);
-    const assignee = url.searchParams.get('assignedTo');
-    if (assignee === 'unassigned') params.set('assigned_to', 'is.null');
-    else if (assignee && /^[0-9a-f-]{36}$/i.test(assignee)) params.set('assigned_to', `eq.${assignee}`);
-    const rows = await userRequest(`/rest/v1/enquiries?${params}`);
-    const term = (url.searchParams.get('q') || '').trim().toLowerCase().slice(0, 120);
-    return reply(res, 200, { enquiries: term ? rows.filter((row) => [row.customer_name, row.customer_email, row.customer_phone, row.enquiry_code].some((value) => String(value || '').toLowerCase().includes(term))) : rows });
+    return reply(res, 200, await listEnquiries(url.searchParams, userRequest));
   }
   if (path === '/api/admin/assignees' && req.method === 'GET') {
-    const staff = await userRequest('/rest/v1/profiles?select=id,full_name,notification_email,role&account_state=eq.ACTIVE&order=full_name.asc');
+    const staff = [];
+    const filter = url.searchParams.get('includeDisabled') === 'true' ? '' : '&account_state=eq.ACTIVE';
+    for (let offset = 0; ; offset += 250) {
+      const batch = await userRequest(`/rest/v1/profiles?select=id,full_name,notification_email,role,account_state&order=full_name.asc,id.asc&limit=250&offset=${offset}${filter}`);
+      staff.push(...batch);
+      if (batch.length < 250) break;
+    }
     return reply(res, 200, { assignees: staff });
   }
+  const enquiryId = path.match(/^\/api\/admin\/enquiries\/([^/]+)/)?.[1];
+  if (enquiryId && !uuid(enquiryId)) return reply(res, 422, { error: 'Invalid enquiry ID.' });
   const detail = path.match(/^\/api\/admin\/enquiries\/([0-9a-f-]{36})$/i);
   if (detail && req.method === 'GET') {
     const id = detail[1];
-    const [rows, notes, activity, outbox] = await Promise.all([
-      userRequest(`/rest/v1/enquiries?id=eq.${id}&select=*`),
-      userRequest(`/rest/v1/enquiry_notes?enquiry_id=eq.${id}&select=id,author_id,note,created_at&order=created_at.desc`),
-      userRequest(`/rest/v1/admin_activity?entity_type=eq.ENQUIRY&entity_id=eq.${id}&select=id,actor_id,action,details,created_at&order=created_at.desc&limit=100`),
+    const historyPage = positivePage(url.searchParams.get('historyPage'));
+    const notesPage = positivePage(url.searchParams.get('notesPage'));
+    const rows = await userRequest(`/rest/v1/enquiries?id=eq.${id}&select=*,assignee:profiles!enquiries_assigned_to_fkey(full_name)`);
+    if (!rows.length) return reply(res, 404, { error: 'Enquiry not found or access denied.' });
+    const [notes, activity, outbox] = await Promise.all([
+      userRequest(`/rest/v1/enquiry_notes?enquiry_id=eq.${id}&select=id,author_id,author:profiles!enquiry_notes_author_id_fkey(full_name),note,created_at&order=created_at.desc,id.desc&limit=26&offset=${(notesPage-1)*25}`),
+      userRequest(`/rest/v1/admin_activity?entity_type=eq.ENQUIRY&entity_id=eq.${id}&select=id,actor_id,actor:profiles!admin_activity_actor_id_fkey(full_name),action,details,created_at&order=created_at.desc,id.desc&limit=26&offset=${(historyPage-1)*25}`),
       ['SUPER_ADMIN', 'ADMIN'].includes(actor.profile.role) ? userRequest(`/rest/v1/email_outbox?enquiry_id=eq.${id}&select=id,status,attempts,last_error,updated_at,sent_at`) : Promise.resolve([])
     ]);
-    if (!rows.length) return reply(res, 404, { error: 'Enquiry not found or access denied.' });
-    return reply(res, 200, { enquiry: rows[0], notes, activity, email: outbox[0] || null });
+    return reply(res, 200, { enquiry: rows[0], notes: notes.slice(0,25), activity: activity.slice(0,25),
+      moreNotes: notes.length > 25, moreHistory: activity.length > 25, email: outbox[0] || null });
   }
   const statusRoute = path.match(/^\/api\/admin\/enquiries\/([0-9a-f-]{36})\/status$/i);
   if (statusRoute && req.method === 'PATCH') {
@@ -162,14 +135,14 @@ async function handle(req, res) {
   const assignRoute = path.match(/^\/api\/admin\/enquiries\/([0-9a-f-]{36})\/assign$/i);
   if (assignRoute && req.method === 'PATCH') {
     if (!sameOrigin(req)) return reply(res, 403, { error: 'Request origin is not allowed.' });
-    const body = await readJson(req, 4096); const assignee = body.assignee || null;
-    if (assignee && !/^[0-9a-f-]{36}$/i.test(assignee)) return reply(res, 422, { error: 'Choose a valid staff account.' });
+    const body = await readJson(req, 4096); const assignee = body.assignee;
+    if (assignee !== null && !uuid(assignee)) return reply(res, 422, { error: 'Choose a valid staff account or explicitly unassign.' });
     return reply(res, 200, { enquiry: await userRequest('/rest/v1/rpc/admin_assign_enquiry', { method: 'POST', body: { p_enquiry_id: assignRoute[1], p_assignee: assignee } }) });
   }
   const noteRoute = path.match(/^\/api\/admin\/enquiries\/([0-9a-f-]{36})\/notes$/i);
   if (noteRoute && req.method === 'POST') {
     if (!sameOrigin(req)) return reply(res, 403, { error: 'Request origin is not allowed.' });
-    const body = await readJson(req, 8192); const note = String(body.note || '').trim();
+    const body = await readJson(req, 32768); const note = typeof body.note === 'string' ? body.note.trim() : '';
     if (!note || note.length > 4000) return reply(res, 422, { error: 'Enter an internal note under 4000 characters.' });
     return reply(res, 201, { note: await userRequest('/rest/v1/rpc/admin_add_enquiry_note', { method: 'POST', body: { p_enquiry_id: noteRoute[1], p_note: note } }) });
   }
@@ -181,20 +154,40 @@ async function handle(req, res) {
     return reply(res, 200, { deleted: true });
   }
   if (path === '/api/admin/notifications' && req.method === 'GET') {
-    const notifications = await userRequest('/rest/v1/admin_notifications?select=id,title,kind,enquiry_id,created_at,read_at&order=created_at.desc&limit=100');
-    return reply(res, 200, { notifications, unread: notifications.filter((item) => !item.read_at).length });
+    const countOnly = url.searchParams.get('view') === 'count';
+    const page = positivePage(url.searchParams.get('page'));
+    const size = url.searchParams.has('page') ? 25 : 100;
+    const count = userRequest('/rest/v1/admin_notifications?select=id&read_at=is.null&limit=1', { exactCount: true });
+    if (countOnly) return reply(res, 200, { unread: await count });
+    const [notifications, unread] = await Promise.all([
+      userRequest(`/rest/v1/admin_notifications?select=id,title,kind,created_at,read_at,enquiry:enquiries(id),staff:profiles!admin_notifications_staff_id_fkey(id,role)&order=created_at.desc,id.desc&limit=${size+1}&offset=${(page-1)*size}`),
+      count
+    ]);
+    const items=notifications.slice(0,size).map(({enquiry,staff,...item})=>({
+      ...item, enquiry_id:enquiry?.id || null,
+      staff_id:staff && (actor.profile.role==='SUPER_ADMIN' || (actor.profile.role==='ADMIN' && staff.role==='STAFF')) ? staff.id : null
+    }));
+    return reply(res, 200, { notifications:items, unread, page, hasMore:notifications.length>size });
+  }
+  if (path === '/api/admin/notifications/read-all' && req.method === 'POST') {
+    await userRequest(`/rest/v1/admin_notifications?recipient_id=eq.${actor.user.id}&read_at=is.null`,{
+      method:'PATCH',body:{read_at:new Date().toISOString()}
+    });
+    return reply(res,200,{read:true});
   }
   const readRoute = path.match(/^\/api\/admin\/notifications\/([0-9a-f-]{36})\/read$/i);
   if (readRoute && req.method === 'POST') {
+    if (!uuid(readRoute[1])) return reply(res,422,{error:'Invalid notification ID.'});
     if (!sameOrigin(req)) return reply(res, 403, { error: 'Request origin is not allowed.' });
     await userRequest('/rest/v1/rpc/admin_mark_notification_read', { method: 'POST', body: { p_notification_id: readRoute[1] } });
     return reply(res, 200, { read: true });
   }
   const retryRoute = path.match(/^\/api\/admin\/email-outbox\/([0-9a-f-]{36})\/retry$/i);
   if (retryRoute && req.method === 'POST') {
+    if (!uuid(retryRoute[1])) return reply(res,422,{error:'Invalid delivery ID.'});
     if (!sameOrigin(req)) return reply(res, 403, { error: 'Request origin is not allowed.' });
     if (!['SUPER_ADMIN', 'ADMIN'].includes(actor.profile.role)) return reply(res, 403, { error: 'Only admins may retry notifications.' });
-    return reply(res, 200, { notification: await sendOutbox(retryRoute[1]) });
+    return reply(res, 200, { notification: await processDelivery(retryRoute[1]) });
   }
   if (path === '/api/admin/activity' && req.method === 'GET') {
     const params = new URLSearchParams({ select: 'id,actor_id,action,entity_type,entity_id,details,created_at', order: 'created_at.desc', limit: '100' });
@@ -265,6 +258,7 @@ export function createApiServer() {
 const server = createApiServer();
 
 if (process.argv[1] && new URL(import.meta.url).pathname.toLowerCase() === new URL(`file://${process.argv[1].replaceAll('\\', '/')}`).pathname.toLowerCase()) {
+  if (!missingConfig().length) server.once('listening', () => server.once('close', startNotificationWorker()));
   server.listen(config.port, '127.0.0.1', () => console.log(`VisionTech API listening on 127.0.0.1:${config.port}${missingConfig().length ? ` (not configured: ${missingConfig().join(', ')})` : ''}`));
 }
 export { handle, supabaseHeaders, validateEnquiry };

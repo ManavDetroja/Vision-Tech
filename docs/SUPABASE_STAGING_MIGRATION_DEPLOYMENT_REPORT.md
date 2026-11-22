@@ -1,5 +1,7 @@
 # P0-05 — Supabase staging migration deployment
 
+The original P0-05 deployment is recorded below. For the subsequent approved migration pair, see the [Prompt 10/10A staging deployment](NOTIFICATION_STAGING_DEPLOYMENT_REPORT.md).
+
 Deployment: 2026-11-15. Final verification: 2026-11-16 (Asia/Calcutta).
 Project: `C:\Vision Tech`. Target: **VisionTech-Staging**, reference **fszrsispjxunckknphaw**.
 

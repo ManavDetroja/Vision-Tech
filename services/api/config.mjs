@@ -5,6 +5,7 @@ export const config = {
   appOrigin: process.env.APP_ORIGIN || '',
   rateSecret: process.env.RATE_LIMIT_HASH_SECRET || '',
   resendKey: process.env.RESEND_API_KEY || '',
+  notificationRecipients: process.env.NOTIFICATION_APPROVED_RECIPIENTS || '{}',
   emailFrom: process.env.ENQUIRY_FROM_EMAIL || '',
   enquiryNotificationEmail: (process.env.ENQUIRY_NOTIFICATION_EMAIL || '').trim().toLowerCase(),
   adminUrl: process.env.ADMIN_DASHBOARD_URL || '',
