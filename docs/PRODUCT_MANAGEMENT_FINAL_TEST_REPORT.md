@@ -1,0 +1,28 @@
+# Final product-management verification
+
+**Target:** VisionTech-Staging, `fszrsispjxunckknphaw`. The application listener ran on loopback on the verification workstation. Auth, database and Storage requests crossed HTTPS to the real staging project. The external Render ingress and independent S3 account still require verification.
+
+| Check | Observed result |
+| --- | --- |
+| Existing tests | 48 Node tests passed; zero failed, cancelled or skipped on the permitted loopback run. An initial sandbox run could not open a local connection. |
+| Packaging and startup | Linux Docker build succeeded. Offline container smoke test booted the service as the image's non-root user, served the homepage and admin JS, returned 503 for the disabled product editor and its private API, and returned 404 for an environment-file path and archive path. No source catalogue JSON or archival images in the public package. |
+| Real staging authentication and roles | Three disposable accounts logged in through the actual Auth flow. Session roles matched STAFF, ADMIN and SUPER_ADMIN. Anonymous product management returned 401, STAFF returned 403 and ADMIN listed the 19 records. Baseline services appeared as drafts. |
+| Product lifecycle | ADMIN created a separate unpublished test product, edited it with version checks, published, archived and restored it. Its synthetic images stayed separate from all business products. |
+| Upload validation and integrity | Tested two synthetic colour variants to distinguish replacement results. Anonymous and STAFF uploads returned 401/403. PNG content labeled JPEG returned 422. Valid uploads returned 201; repeated uploads reused the same ID. Stored original bytes and private preview JPEGs matched the test inputs/decoder output. The earlier disposable suite also covered oversize input. |
+| Private Storage permissions | Anonymous direct reads, overwrite and delete requests were rejected. Immutable duplicate writes and byte preservation were also verified in the preceding staging transport test. |
+| Review and public delivery | Attached unapproved image returned 404. ADMIN approval returned 403. A distinct SUPER_ADMIN approved the synthetic image; public GET returned 200 with exact JPEG bytes and a no-store cache policy. Archiving returned 404 and restoration returned 200. Replacing the image removed access to its predecessor. The replacement stayed inaccessible until independent approval. Withdrawal returned it to 404. Both reviews and both withdrawals had audit events; registry rows recorded reviewer and timestamp. The earlier rollback test separately verified SUPER_ADMIN self-approval denial. |
+| Encrypted backup | Exported two media rows, four checked byte files and the fixture attachment ordering. A disposable encrypted restic repository passed a complete data check and file-by-file restore to a fresh directory. The recovery verifier also accepted valid inputs and rejected corrupt bytes and cross-model attachment metadata. |
+| Editor in browser | Edge opened the authenticated editor, filtered to the test model, opened the edit dialog and checked viewport overflow at 375, 768 and 1440 px. All three widths passed. |
+| Public browser routes | A separate clean run after cleanup loaded the current packaged host and verified the full public JSON against the 19 source products. Edge followed all 19 product detail pages to their correct enquiry prefills and checked placeholders. Seven models were tested at 375 px, six at 768 px and six at 1440 px. No browser page exceptions or submitted enquiries. |
+| Archive integrity | All 42 documented source files matched their recorded SHA-256. |
+| External coverage | No public staging host or provider backup account was provisioned. Provider request limits, multi-hour availability, independent custodian restore and real hosted browser sessions remain untested. No stress or penetration test is claimed. |
+
+## Interruption and independent cleanup
+
+The first verification session ended before its final browser summary and cleanup could be confirmed. A separate inventory found **20** products, including the exact disposable model `VT-QA-8AE64686-8000-4E94-9D25-35757C57EF61`. Cleanup checked its model, actor and reviewer against this run's temporary identities. REST deletion of the protected registry returned 403 (`42501`), as expected. After removal of the fixture storage keys and product, a narrowly scoped operator SQL command deleted exactly two withdrawn synthetic registry rows. The remaining disposable Auth users were removed. No policy was altered.
+
+Final read-only SQL returned **19 visible products**, ten ledger entries, a private bucket and zero users, profiles, media rows, published media, Storage objects, enquiries, admin activity, dashboard notifications and delivery rows. Service rows returned to their zero-row baseline. The full product-row fingerprint before and after matched: `cae29a8c50e7c23753faf636f9c6a989` (MD5 over ordered row JSON for comparison only). Each surviving product also matched the reviewed public payload. The disposable snapshot directory and downloaded cleanup utility directory were independently checked absent. Ephemeral passwords were generated in memory; the disposable restic repository and its local test key were not retained.
+
+Docker build/cache layers and the local verification image were not independently inventoried after the runner interruption. No fixture key, snapshot or staging credential was included in the application image.
+
+[Earlier role and storage evidence](PRODUCT_MANAGEMENT_STAGING_VERIFICATION_REPORT.md) · [Earlier decoder and regression tests](PRODUCT_MANAGEMENT_FINAL_STAGING_PREFLIGHT.md)

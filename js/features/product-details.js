@@ -1,5 +1,5 @@
 import { categories } from '../data/categories.js';
-import { products } from '../data/products.js';
+import { products, catalogueUnavailable } from '../data/products.js';
 import { bindProductImageFallbacks, productImageMarkup, publicProductGalleryPaths, publicProductImagePath } from '../components/product-image.js';
 import { officialSourceUrl, productEnquiryUrl } from '../components/product-content.js';
 import { ENQUIRY_API_URL, PUBLIC_API_BASE_URL } from '../data/contact-config.js';
@@ -38,14 +38,14 @@ function specificationRows(item) {
 }
 
 function setProductMetadata(item, name, description) {
-  document.title = `${item.model} — ${name} | VisionTech Solutions™`;
+  document.title = item.seoTitle || `${item.model} — ${name} | VisionTech Solutions™`;
   let meta = document.querySelector('meta[name="description"]');
   if (!meta) {
     meta = document.createElement('meta');
     meta.name = 'description';
     document.head.append(meta);
   }
-  meta.content = `${item.model}: ${description}`;
+  meta.content = item.seoDescription || `${item.model}: ${description}`;
   // Domain comes from the existing CNAME; never canonicalize localhost previews.
   const canonicalUrl = new URL('product-details.html', 'https://visiontechsolutionmorbi.in/');
   canonicalUrl.searchParams.set('model', item.model);
@@ -60,7 +60,7 @@ function setProductMetadata(item, name, description) {
   if (item.verification?.status !== 'verified') return;
   const data = {
     '@context': 'https://schema.org', '@type': 'Product', name,
-    model: item.model, brand: { '@type': 'Brand', name: 'CP PLUS' },
+    model: item.model, brand: { '@type': 'Brand', name: item.brand || 'CP PLUS' },
     description, url: canonicalUrl.href
   };
   const image = publicProductImagePath(item);
@@ -241,7 +241,7 @@ function renderProduct(item) {
   const relatedProducts = products.filter((entry) => entry.categoryId === item.categoryId && entry.id !== item.id);
   const rows = specificationRows(item);
   const isVerified = item.verification?.status === 'verified';
-  const features = isVerified && Array.isArray(item.features) ? item.features.filter(Boolean) : [];
+  const features = (isVerified || item.featureSource) && Array.isArray(item.features) ? item.features.filter(Boolean) : [];
   const name = item.officialName || item.name || `Model ${item.model}`;
   const description = item.description?.trim() || 'A model-specific description is not yet verified for this product.';
   const canDisplayImage = productGalleryMarkup(item);
@@ -350,5 +350,6 @@ function renderProduct(item) {
 
 }
 
-if (!product) renderNotFound();
+if (catalogueUnavailable) target.textContent = 'The published catalogue could not be loaded. Refresh to retry.';
+else if (!product) renderNotFound();
 else renderProduct(product);

@@ -16,7 +16,7 @@ update public.profiles set role = 'ADMIN', account_state = 'ACTIVE' where id = '
 update public.profiles set role = 'STAFF', account_state = 'ACTIVE' where id in ('10000000-0000-4000-8000-000000000003', '10000000-0000-4000-8000-000000000004');
 
 insert into public.products(id, model, category_id, record, is_visible) values
-  ('pgtap-visible', 'P-GTP-001', 'test', '{"id":"pgtap-visible","model":"P-GTP-001","categoryId":"test"}', true),
+  ('pgtap-visible', 'P-GTP-001', 'nvr', '{"id":"pgtap-visible","model":"P-GTP-001","categoryId":"nvr"}', true),
   ('pgtap-hidden', 'P-GTP-002', 'test', '{"id":"pgtap-hidden","model":"P-GTP-002","categoryId":"test"}', false);
 
 insert into public.enquiries(id, enquiry_code, idempotency_key, customer_name, customer_email,
@@ -57,7 +57,7 @@ set local role authenticated;
 select set_config('request.jwt.claim.sub', '10000000-0000-4000-8000-000000000002', true);
 select extensions.is((select count(*)::integer from public.enquiries), 2, 'admin can read all enquiries');
 select extensions.is((select count(*)::integer from public.products), 2, 'admin can read hidden and published products');
-select public.admin_update_product('pgtap-visible', '{"summary":"Synthetic admin edit"}'::jsonb, true);
+select public.admin_update_product('pgtap-visible', jsonb_build_object('summary','Synthetic admin edit','expected',(select updated_at from public.products where id='pgtap-visible')), true);
 select extensions.is((select record->>'summary' from public.products where id = 'pgtap-visible'), 'Synthetic admin edit', 'admin can update product data through the authorized RPC');
 
 select extensions.ok(not has_function_privilege('anon', 'public.admin_set_staff(uuid,uuid,text,text,text,text)', 'EXECUTE'), 'anonymous role cannot execute staff administration RPC');

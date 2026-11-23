@@ -1,0 +1,28 @@
+# Prompt 11B — private product image storage
+
+## Write, review and delivery
+
+The migration creates private bucket `visiontech-product-media`. Active managers submit an exact model plus a JPEG, PNG or WebP to the Node API. The server limits input to 4 MiB, rejects malformed/mislabelled or multi-frame images, and uses the existing bounded Pillow decoder. It retains the exact original bytes privately and creates a metadata-stripped JPEG, at most 1800 pixels on each axis. Credentials are read only by the server. The original and derivative use separate model-scoped, SHA-256-addressed keys. The registry contains both digests, file lengths, original MIME type, derivative dimensions, uploader and review state.
+
+Writes disable upsert. A retry that encounters an existing object must download it and match the digest before reusing it. Model plus original digest identifies a single registry row; retrying does not reassign authorship or reset a review. An interrupted request can leave private, unattached objects. Retries can reuse them. Inventory unregistered keys before any separately approved retention cleanup. The application provides no hard-delete or overwrite endpoint.
+
+Managers can attach, detach and reorder assets and see private previews. In the product editor an independent SUPER_ADMIN can record a rights document reference or withdraw approval. Public catalogue responses derive image IDs from the published-media database view. Each GET rechecks eligibility, verifies the JPEG digest and returns private/no-store caching headers. Existing image files stay in the source archive. Their previous owner-directed display flag has no effect on this renderer.
+
+## Hosting boundary
+
+Use `node services/package-static-site.mjs <new-output-directory>` and serve only that output, with /api proxied to the Node service on the same origin. The packager excludes the archival product image tree, catalogue snapshot, backend and environment files. A local packaging test produced 71 static files, retained the admin and detail entry points, and confirmed both the archive and bundled JSON were absent. Source-checkout Live Server remains a developer preview and must not serve as the public host. The Vercel ignore file also excludes the source image folder.
+
+Keep the existing Node/Python service on a host with Pillow, HTTPS, the configured session/origin controls, outbound Supabase access and a request limit supporting the 5.7 MB JSON envelope. Static hosting and the byte store can scale independently. A default Vercel Function request limit can reject the largest base64 uploads. Choose a compatible backend/proxy or implement a separately reviewed binary/direct-upload transport before using such a host. Configure the Node service and its proxy timeout for storage operations. Select a hosting setup that supports the existing server-side session design.
+
+## Backup and verified recovery
+
+1. Quiesce product edits/uploads/reviews for a consistent snapshot. Take a database backup covering products, product_media, admin_activity and their dependencies including Auth/profile identities, schema, policies and roles. Protect the backup as private business data. Save it outside the deployment, record the snapshot time and retain the two migration files and hashes. Supabase database backups alone do not include Storage object bytes.
+2. Mount encrypted external storage, restrict directory access, then run the following with the staging **server** environment only after owner approval. The directory must be new. The final manifest contains restricted metadata and marks a completed export. Store its authenticated checksum separately. The tool backs up registered originals and derivatives; unregistered orphan objects require a separate storage inventory.
+
+   ```powershell
+   node --env-file=.env services/product-media-backup.mjs backup "C:\Vision Tech Backups\product-media-NEW-SNAPSHOT" fszrsispjxunckknphaw.supabase.co
+   ```
+3. For a recovery rehearsal, provision an isolated local Supabase database, restore matching schema, identities, catalogue, approvals and registry from the corresponding backup using a trusted restore role. Create or restore the private bucket and its restrictive policy. Point the backend environment at this disposable stack. Restore the byte snapshot using `node services/product-media-backup.mjs restore-local <snapshot-directory> 127.0.0.1`. The tool permits this restore operation on loopback only, rejects unsafe manifest key components, uses create-only writes, and reads each object back to verify SHA-256. Test anonymous denial for draft/withdrawn media and confirm approved public images against the recorded digest. Resume edits only after validating the restored data and access boundaries.
+4. Keep the production/staging restoration decision separate. The local test removed both test objects, confirmed absence, restored from the backup, and compared the preview bytes to the original normalized response. The backup's original bytes matched the synthetic PNG. A second rehearsal exported product/asset data with pg_dump, cleared and restored those rows within a local transaction, compared full-row fingerprints, rolled back, and compared them again. This exercised restoration with existing local identities and schema. A full disaster recovery of hosted Auth or the entire hosted instance was outside this test.
+
+[Media API](../services/api/product-media.mjs) · [Backup utility](../services/product-media-backup.mjs) · [Static packager](../services/package-static-site.mjs) · [Security rules](PRODUCT_MANAGEMENT_SECURITY_CORRECTION_REPORT.md)

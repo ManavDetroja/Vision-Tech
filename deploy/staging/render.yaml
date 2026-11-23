@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: visiontech-staging-catalogue
+    runtime: docker
+    plan: starter
+    numInstances: 1
+    autoDeployTrigger: "off"
+    dockerfilePath: ./deploy/staging/Dockerfile
+    dockerContext: .
+    healthCheckPath: /api/health
+    envVars:
+      - key: SUPABASE_URL
+        value: https://fszrsispjxunckknphaw.supabase.co
+      - key: SUPABASE_SECRET_KEY
+        sync: false
+      - key: SUPABASE_PUBLISHABLE_KEY
+        sync: false
+      - key: APP_ORIGIN
+        sync: false
+      - key: RATE_LIMIT_HASH_SECRET
+        generateValue: true
+      - key: TRUST_PROXY
+        value: "false"
+      - key: STAGING_PRODUCT_EDITOR_ENABLED
+        value: "false"

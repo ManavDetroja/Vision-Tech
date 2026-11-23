@@ -1,0 +1,7 @@
+assets/images/products/
+.env
+.env.*
+.venv*/
+logs/
+reports/
+supabase/.temp/

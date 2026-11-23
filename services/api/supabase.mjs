@@ -22,6 +22,9 @@ export async function sb(path, { method = 'GET', body, token, service = false, h
   } catch { throw new HttpError(503, 'DATABASE_UNAVAILABLE', 'The service is temporarily unavailable. Please retry later.'); }
   const data = await response.json().catch(() => null);
   if (!response.ok) {
+    if (path === '/rest/v1/rpc/admin_save_catalogue_product' && (data?.code === '23505' || data?.message === 'Product changed')) {
+      throw new HttpError(409, 'CONFLICT', 'Product already exists or changed. Reload the catalogue.');
+    }
     if (data?.code === 'P0001' && data.message === 'Notification not found') {
       throw new HttpError(404, 'NOT_FOUND', 'Notification not found.');
     }

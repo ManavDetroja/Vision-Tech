@@ -1,5 +1,5 @@
 import { categories } from '../data/categories.js';
-import { products } from '../data/products.js';
+import { products, catalogueUnavailable } from '../data/products.js';
 import { bindProductImageFallbacks, productImageMarkup } from '../components/product-image.js';
 import { productEnquiryUrl, verifiedProductFacts } from '../components/product-content.js';
 
@@ -45,7 +45,7 @@ function renderControls() {
         <select id="subcategory-filter"><option value="">All subcategories</option></select>
       </label>
       <label>Resolution
-        <select id="resolution-filter"><option value="">All resolutions</option>${[2, 3, 4, 6].map((value) => `<option value="${value}" ${state.resolution === String(value) ? 'selected' : ''}>${value} MP</option>`).join('')}</select>
+        <select id="resolution-filter"><option value="">All resolutions</option>${[...new Set(products.map(p=>p.resolutionMp).filter(Number.isFinite))].sort((a,b)=>a-b).map((value) => `<option value="${value}" ${state.resolution === String(value) ? 'selected' : ''}>${value} MP</option>`).join('')}</select>
       </label>
       <label>Sort by
         <select id="sort-filter">
@@ -112,6 +112,7 @@ function filterProducts() {
       (!state.resolution || product.resolutionMp === Number(state.resolution));
   });
 
+  if (state.sort === 'default') filtered.sort((a,b)=>Number(!!b.featured)-Number(!!a.featured));
   if (state.sort === 'az') filtered.sort((a, b) => a.model.localeCompare(b.model));
   if (state.sort === 'za') filtered.sort((a, b) => b.model.localeCompare(a.model));
   if (state.sort === 'resolution') filtered.sort((a, b) => (a.resolutionMp || 0) - (b.resolutionMp || 0) || a.model.localeCompare(b.model));
@@ -122,7 +123,7 @@ function productCard(product) {
   const category = categoryFor(product);
   const detailUrl = `product-details.html?model=${encodeURIComponent(product.model)}`;
   const facts = verifiedProductFacts(product);
-  const features = product.verification?.status === 'verified' ? (product.features || []).slice(0, 3) : [];
+  const features = (product.featureSource || product.verification?.status === 'verified') ? (product.features || []).slice(0, 3) : [];
   const suppliedInfo = facts.length ? facts.map((fact) => `<span>${escapeHtml(fact)}</span>`).join(' · ')
     : '<span class="unverified-info">Specifications awaiting verification</span>';
 
@@ -146,6 +147,11 @@ function productCard(product) {
 }
 
 function renderProducts() {
+  if (catalogueUnavailable) {
+    count.textContent = 'Catalogue unavailable';
+    grid.textContent = 'The published catalogue could not be loaded. Refresh to retry.';
+    return;
+  }
   const results = filterProducts();
   count.textContent = `${results.length} of ${products.length} models`;
   grid.innerHTML = results.length

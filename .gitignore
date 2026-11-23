@@ -18,3 +18,27 @@ npm-debug.log*
 # Local test and packaging artifacts; retain locally but keep out of Git.
 assets/images/codex-internet-test.png
 VisionTech-Product-Images.zip
+
+# Runtime files created by the downloader, local hosts and backup worker
+/logs/
+*.log
+/.vercel/
+/backups/
+/tmp/
+/uploads/
+/docker-volumes/
+.cache/
+.venv/
+venv/
+.pytest_cache/
+
+# Private credentials and local database snapshots
+*.key
+*.pem
+*.p12
+*.pfx
+.pgpass
+backup.env
+*.pgdump
+*.sqlite
+*.sqlite3

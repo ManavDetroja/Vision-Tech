@@ -1,0 +1,14 @@
+[Unit]
+Description=VisionTech staging private media %i
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=visiontech-backup
+UMask=0077
+EnvironmentFile=/etc/visiontech/backup.env
+WorkingDirectory=/opt/visiontech
+ExecStart=/bin/sh /opt/visiontech/deploy/staging/backup.sh %i
+NoNewPrivileges=true
+PrivateTmp=true

@@ -1,3 +1,6 @@
+import { attachPublishedMedia, servePhoto } from './api/product-media.mjs';
+import { productManagement } from './api/product-management.mjs';
+import { services as serviceDefinitions } from '../js/data/services.js';
 import { processDelivery, startNotificationWorker } from './api/notification-mail.mjs';
 import { config, missingConfig } from './api/config.mjs';
 import { listEnquiries, positivePage } from './api/enquiry-query.mjs';
@@ -32,11 +35,17 @@ async function handle(req, res) {
   if (await publicRoutes(req, res, path)) return;
   if (missingConfig().length) return reply(res, 503, { error: 'Admin API is not configured.' });
 
+  if(path.startsWith('/api/public/product-images/') && req.method==='GET') return servePhoto(res,path.slice('/api/public/product-images/'.length));
   if (await invitationRoutes(req, res, path)) return;
   if (await authRoutes(req, res, path)) return;
   if (path === '/api/public/products' && req.method === 'GET') {
-    const records = await sb('/rest/v1/products?select=record&is_visible=eq.true&order=model.asc');
-    return reply(res, 200, { products: records.map((row) => row.record) });
+    const records=[];
+    for(let offset=0;;offset+=100){
+      const batch=await sb('/rest/v1/products?select=record&is_visible=eq.true&order=model.asc&limit=100&offset='+offset);
+      records.push(...batch);
+      if(batch.length<100)break;
+    }
+    return reply(res, 200, { products: await attachPublishedMedia(records) });
   }
   if (path === '/api/public/services' && req.method === 'GET') {
     const records = await sb('/rest/v1/service_content?select=record&is_visible=eq.true&order=id.asc');
@@ -196,35 +205,29 @@ async function handle(req, res) {
     const activity = await userRequest(`/rest/v1/admin_activity?${params}`);
     return reply(res, 200, { activity });
   }
-  if (path === '/api/admin/products' && req.method === 'GET') {
-    if (!['SUPER_ADMIN', 'ADMIN'].includes(actor.profile.role)) return reply(res, 403, { error: 'Product management requires an admin role.' });
-    const products = await userRequest('/rest/v1/products?select=id,model,category_id,record,is_visible,updated_at&order=model.asc&limit=500');
-    return reply(res, 200, { products });
-  }
-  if (path === '/api/admin/products' && req.method === 'POST') {
-    if (!sameOrigin(req)) return reply(res, 403, { error: 'Request origin is not allowed.' });
-    if (!['SUPER_ADMIN', 'ADMIN'].includes(actor.profile.role)) return reply(res, 403, { error: 'Product management requires an admin role.' });
-    const body = await readJson(req, 16384);
-    if (!body.record || typeof body.record !== 'object' || !body.record.id || !body.record.model || !body.record.categoryId) return reply(res, 422, { error: 'Product id, model and category are required.' });
-    return reply(res, 201, { product: await userRequest('/rest/v1/rpc/admin_create_product', { method: 'POST', body: { p_record: body.record } }) });
-  }
-  const productRoute = path.match(/^\/api\/admin\/products\/([a-z0-9-]+)$/i);
-  if (productRoute && req.method === 'PATCH') {
-    if (!sameOrigin(req)) return reply(res, 403, { error: 'Request origin is not allowed.' });
-    if (!['SUPER_ADMIN', 'ADMIN'].includes(actor.profile.role)) return reply(res, 403, { error: 'Product management requires an admin role.' });
-    const body = await readJson(req, 16384);
-    return reply(res, 200, { product: await userRequest('/rest/v1/rpc/admin_update_product', { method: 'POST', body: { p_id: productRoute[1], p_patch: body.record, p_is_visible: body.isVisible === true } }) });
-  }
+  if (await productManagement(req,res,path,userRequest,actor)) return;
   if (path === '/api/admin/services' && req.method === 'GET') {
     if (!['SUPER_ADMIN', 'ADMIN'].includes(actor.profile.role)) return reply(res, 403, { error: 'Service management requires an admin role.' });
     const services = await userRequest('/rest/v1/service_content?select=id,record,is_visible,updated_at&order=id.asc&limit=100');
-    return reply(res, 200, { services });
+    // Missing baseline services can be edited as drafts before their first publication.
+    const storedIds = new Set(services.map(service => service.id));
+    const drafts = serviceDefinitions.filter(service => !storedIds.has(service.id))
+      .map(record => ({ id: record.id, record, is_visible: false, updated_at: null }));
+    return reply(res, 200, { services: [...services, ...drafts] });
   }
   const serviceRoute = path.match(/^\/api\/admin\/services\/([a-z0-9-]+)$/i);
   if (serviceRoute && req.method === 'PATCH') {
     if (!sameOrigin(req)) return reply(res, 403, { error: 'Request origin is not allowed.' });
     if (!['SUPER_ADMIN', 'ADMIN'].includes(actor.profile.role)) return reply(res, 403, { error: 'Service management requires an admin role.' });
     const body = await readJson(req, 16384);
+    const record=body.record;
+    const original=serviceDefinitions.find(s=>s.id===serviceRoute[1]);
+    if (!original || !record || record.id!==original.id || typeof body.isVisible!=='boolean' ||
+        !['title','summary','description'].every(k=>typeof record[k]==='string' && record[k].trim() && record[k].length<=4000) ||
+        !Array.isArray(record.capabilities) || record.capabilities.length>50 ||
+        !record.capabilities.every(v=>typeof v==='string' && v.length<=500)) return reply(res,422,{error:'Invalid service content.'});
+    const stored=(await userRequest('/rest/v1/service_content?id=eq.'+original.id+'&select=record'))[0]?.record || original;
+    body.record={...stored,title:record.title,summary:record.summary,description:record.description,capabilities:record.capabilities};
     return reply(res, 200, { service: await userRequest('/rest/v1/rpc/admin_update_service', { method: 'POST', body: { p_id: serviceRoute[1], p_record: body.record, p_is_visible: body.isVisible === true } }) });
   }
   if (path === '/api/admin/settings' && req.method === 'GET') {
@@ -243,9 +246,12 @@ async function handle(req, res) {
   return reply(res, 404, { error: 'Not found.' });
 }
 
-export function createApiServer() {
+export function createApiServer(beforeApi) {
   const server = createServer(async (req, res) => {
-    try { await handle(req, res); }
+    try {
+      if (beforeApi && await beforeApi(req, res)) return;
+      await handle(req, res);
+    }
     catch (error) {
       if (error.status === 403 && req.auditActor) await recordDenied(req.auditActor, req.auditPermission || 'PRIVATE_OPERATION');
       handleError(error, req, res);
